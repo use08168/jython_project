@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,8 +63,8 @@ public class NewsController {
         model.addAttribute("totalPages", newsPage.getTotalPages());
         model.addAttribute("totalNews", newsPage.getTotalElements());
 
-        // 주요 종목 리스트 (필터용)
-        String[] symbols = { "AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "NVDA", "META", "NFLX" };
+        // DB에서 실제 존재하는 symbol 목록 조회
+        List<String> symbols = newsService.getDistinctSymbols();
         model.addAttribute("symbols", symbols);
 
         return "news";
@@ -90,6 +91,12 @@ public class NewsController {
 
             // 모델에 데이터 추가
             model.addAttribute("news", newsDetail);
+
+            // 주가 변동률 계산
+            String symbol = (String) newsDetail.get("symbol");
+            java.time.LocalDateTime publishedAt = (java.time.LocalDateTime) newsDetail.get("publishedAt");
+            Map<String, Object> priceChange = newsService.calculatePriceChange(symbol, publishedAt);
+            model.addAttribute("priceChange", priceChange);
 
             log.info("✅ 뉴스 상세 조회 성공 - 제목: {}", newsDetail.get("title"));
 

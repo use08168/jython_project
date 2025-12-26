@@ -1,0 +1,8927 @@
+{
+  "success": true,
+  "symbol": "AAPL",
+  "candles": [
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:30:00",
+      "open": 272.86,
+      "high": 273.88,
+      "low": 272.72,
+      "close": 273.4,
+      "volume": 1334538
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:31:00",
+      "open": 273.44,
+      "high": 273.73,
+      "low": 272.92,
+      "close": 273.73,
+      "volume": 131983
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:32:00",
+      "open": 273.63,
+      "high": 273.83,
+      "low": 273.331,
+      "close": 273.5,
+      "volume": 84211
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:33:00",
+      "open": 273.51,
+      "high": 273.51,
+      "low": 272.76,
+      "close": 272.92,
+      "volume": 99155
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:34:00",
+      "open": 272.9635,
+      "high": 273.51,
+      "low": 272.81,
+      "close": 273.39,
+      "volume": 96501
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:35:00",
+      "open": 273.42,
+      "high": 273.59,
+      "low": 272.985,
+      "close": 273.22,
+      "volume": 185462
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:36:00",
+      "open": 273.19,
+      "high": 273.5,
+      "low": 273.1,
+      "close": 273.45,
+      "volume": 117813
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:37:00",
+      "open": 273.45,
+      "high": 273.45,
+      "low": 272.77,
+      "close": 272.91,
+      "volume": 104532
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:38:00",
+      "open": 272.94,
+      "high": 272.94,
+      "low": 272.57,
+      "close": 272.665,
+      "volume": 66763
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:39:00",
+      "open": 272.71,
+      "high": 272.95,
+      "low": 272.32,
+      "close": 272.93,
+      "volume": 119395
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:40:00",
+      "open": 272.9293,
+      "high": 273.21,
+      "low": 272.82,
+      "close": 273.18,
+      "volume": 105579
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:41:00",
+      "open": 273.2,
+      "high": 273.23,
+      "low": 272.97,
+      "close": 273.009,
+      "volume": 104339
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:42:00",
+      "open": 273.01,
+      "high": 273.0308,
+      "low": 272.73,
+      "close": 272.765,
+      "volume": 113386
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:43:00",
+      "open": 272.75,
+      "high": 272.96,
+      "low": 272.52,
+      "close": 272.6056,
+      "volume": 118471
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:44:00",
+      "open": 272.61,
+      "high": 272.9299,
+      "low": 272.6,
+      "close": 272.7831,
+      "volume": 88329
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:45:00",
+      "open": 272.78,
+      "high": 272.86,
+      "low": 272.44,
+      "close": 272.47,
+      "volume": 82944
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:46:00",
+      "open": 272.465,
+      "high": 272.63,
+      "low": 272.45,
+      "close": 272.625,
+      "volume": 87253
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:47:00",
+      "open": 272.625,
+      "high": 272.7411,
+      "low": 272.54,
+      "close": 272.595,
+      "volume": 51335
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:48:00",
+      "open": 272.62,
+      "high": 272.63,
+      "low": 272.34,
+      "close": 272.395,
+      "volume": 68470
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:49:00",
+      "open": 272.42,
+      "high": 272.5,
+      "low": 272.07,
+      "close": 272.195,
+      "volume": 76305
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:50:00",
+      "open": 272.195,
+      "high": 272.58,
+      "low": 272.195,
+      "close": 272.56,
+      "volume": 61113
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:51:00",
+      "open": 272.545,
+      "high": 272.88,
+      "low": 272.475,
+      "close": 272.88,
+      "volume": 122051
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:52:00",
+      "open": 272.885,
+      "high": 273.0225,
+      "low": 272.75,
+      "close": 272.83,
+      "volume": 65325
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:53:00",
+      "open": 272.825,
+      "high": 272.875,
+      "low": 272.675,
+      "close": 272.68,
+      "volume": 73258
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:54:00",
+      "open": 272.72,
+      "high": 272.8699,
+      "low": 272.64,
+      "close": 272.7824,
+      "volume": 112197
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:55:00",
+      "open": 272.775,
+      "high": 272.81,
+      "low": 272.54,
+      "close": 272.67,
+      "volume": 67209
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:56:00",
+      "open": 272.65,
+      "high": 272.71,
+      "low": 272.58,
+      "close": 272.71,
+      "volume": 63616
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:57:00",
+      "open": 272.73,
+      "high": 272.94,
+      "low": 272.6651,
+      "close": 272.94,
+      "volume": 49017
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:58:00",
+      "open": 272.93,
+      "high": 272.97,
+      "low": 272.685,
+      "close": 272.7,
+      "volume": 55633
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T09:59:00",
+      "open": 272.69,
+      "high": 272.7151,
+      "low": 272.47,
+      "close": 272.48,
+      "volume": 58643
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:00:00",
+      "open": 272.47,
+      "high": 272.63,
+      "low": 272.2,
+      "close": 272.26,
+      "volume": 56472
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:01:00",
+      "open": 272.2756,
+      "high": 272.31,
+      "low": 272.0446,
+      "close": 272.1,
+      "volume": 77201
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:02:00",
+      "open": 272.0999,
+      "high": 272.48,
+      "low": 272.09,
+      "close": 272.48,
+      "volume": 76275
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:03:00",
+      "open": 272.485,
+      "high": 272.53,
+      "low": 272.3423,
+      "close": 272.465,
+      "volume": 59790
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:04:00",
+      "open": 272.4725,
+      "high": 272.6,
+      "low": 272.32,
+      "close": 272.51,
+      "volume": 434392
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:05:00",
+      "open": 272.49,
+      "high": 272.73,
+      "low": 272.38,
+      "close": 272.66,
+      "volume": 63670
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:06:00",
+      "open": 272.67,
+      "high": 272.75,
+      "low": 272.43,
+      "close": 272.7,
+      "volume": 56863
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:07:00",
+      "open": 272.69,
+      "high": 272.73,
+      "low": 272.47,
+      "close": 272.49,
+      "volume": 55595
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:08:00",
+      "open": 272.49,
+      "high": 272.52,
+      "low": 272.02,
+      "close": 272.175,
+      "volume": 84041
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:09:00",
+      "open": 272.19,
+      "high": 272.21,
+      "low": 272.02,
+      "close": 272.145,
+      "volume": 48796
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:10:00",
+      "open": 272.12,
+      "high": 272.2177,
+      "low": 272.04,
+      "close": 272.07,
+      "volume": 49123
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:11:00",
+      "open": 272.11,
+      "high": 272.32,
+      "low": 272.09,
+      "close": 272.22,
+      "volume": 41163
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:12:00",
+      "open": 272.25,
+      "high": 272.27,
+      "low": 272.17,
+      "close": 272.2,
+      "volume": 28904
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:13:00",
+      "open": 272.16,
+      "high": 272.3,
+      "low": 272.03,
+      "close": 272.11,
+      "volume": 68354
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:14:00",
+      "open": 272.1,
+      "high": 272.12,
+      "low": 271.94,
+      "close": 272.03,
+      "volume": 87879
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:15:00",
+      "open": 272.01,
+      "high": 272.195,
+      "low": 271.98,
+      "close": 272.02,
+      "volume": 83862
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:16:00",
+      "open": 272.01,
+      "high": 272.1,
+      "low": 271.93,
+      "close": 272.1,
+      "volume": 75239
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:17:00",
+      "open": 272.15,
+      "high": 272.1999,
+      "low": 271.96,
+      "close": 272.06,
+      "volume": 55321
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:18:00",
+      "open": 272.09,
+      "high": 272.15,
+      "low": 272.01,
+      "close": 272.07,
+      "volume": 58435
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:19:00",
+      "open": 272.08,
+      "high": 272.14,
+      "low": 271.93,
+      "close": 272.09,
+      "volume": 40804
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:20:00",
+      "open": 272.1058,
+      "high": 272.47,
+      "low": 272.1058,
+      "close": 272.42,
+      "volume": 48977
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:21:00",
+      "open": 272.42,
+      "high": 272.4899,
+      "low": 272.18,
+      "close": 272.2061,
+      "volume": 44493
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:22:00",
+      "open": 272.18,
+      "high": 272.2,
+      "low": 272.035,
+      "close": 272.09,
+      "volume": 55850
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:23:00",
+      "open": 272.1199,
+      "high": 272.1199,
+      "low": 271.82,
+      "close": 271.84,
+      "volume": 53888
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:24:00",
+      "open": 271.85,
+      "high": 271.8673,
+      "low": 271.71,
+      "close": 271.74,
+      "volume": 46413
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:25:00",
+      "open": 271.72,
+      "high": 271.95,
+      "low": 271.72,
+      "close": 271.865,
+      "volume": 54704
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:26:00",
+      "open": 271.865,
+      "high": 271.8958,
+      "low": 271.635,
+      "close": 271.65,
+      "volume": 50352
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:27:00",
+      "open": 271.645,
+      "high": 271.73,
+      "low": 271.57,
+      "close": 271.6632,
+      "volume": 67941
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:28:00",
+      "open": 271.67,
+      "high": 271.86,
+      "low": 271.65,
+      "close": 271.84,
+      "volume": 41529
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:29:00",
+      "open": 271.83,
+      "high": 272.0799,
+      "low": 271.8,
+      "close": 272.015,
+      "volume": 53503
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:30:00",
+      "open": 272.03,
+      "high": 272.17,
+      "low": 272.02,
+      "close": 272.13,
+      "volume": 49689
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:31:00",
+      "open": 272.13,
+      "high": 272.135,
+      "low": 271.87,
+      "close": 272.005,
+      "volume": 41628
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:32:00",
+      "open": 272.005,
+      "high": 272.07,
+      "low": 271.89,
+      "close": 271.92,
+      "volume": 34632
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:33:00",
+      "open": 271.93,
+      "high": 271.9599,
+      "low": 271.74,
+      "close": 271.805,
+      "volume": 64686
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:34:00",
+      "open": 271.79,
+      "high": 271.87,
+      "low": 271.77,
+      "close": 271.783,
+      "volume": 80324
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:35:00",
+      "open": 271.79,
+      "high": 271.85,
+      "low": 271.68,
+      "close": 271.765,
+      "volume": 46048
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:36:00",
+      "open": 271.78,
+      "high": 271.79,
+      "low": 271.51,
+      "close": 271.635,
+      "volume": 60657
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:37:00",
+      "open": 271.66,
+      "high": 271.77,
+      "low": 271.57,
+      "close": 271.63,
+      "volume": 42861
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:38:00",
+      "open": 271.6214,
+      "high": 271.72,
+      "low": 271.51,
+      "close": 271.64,
+      "volume": 48125
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:39:00",
+      "open": 271.6412,
+      "high": 271.78,
+      "low": 271.63,
+      "close": 271.69,
+      "volume": 35085
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:40:00",
+      "open": 271.7,
+      "high": 271.735,
+      "low": 271.5401,
+      "close": 271.555,
+      "volume": 56430
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:41:00",
+      "open": 271.555,
+      "high": 271.7199,
+      "low": 271.52,
+      "close": 271.71,
+      "volume": 48146
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:42:00",
+      "open": 271.71,
+      "high": 271.88,
+      "low": 271.71,
+      "close": 271.865,
+      "volume": 55704
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:43:00",
+      "open": 271.87,
+      "high": 271.9713,
+      "low": 271.85,
+      "close": 271.97,
+      "volume": 38287
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:44:00",
+      "open": 271.96,
+      "high": 272.0599,
+      "low": 271.75,
+      "close": 272.015,
+      "volume": 108468
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:45:00",
+      "open": 272.0301,
+      "high": 272.05,
+      "low": 271.98,
+      "close": 272.04,
+      "volume": 51162
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:46:00",
+      "open": 272.0475,
+      "high": 272.2293,
+      "low": 272.01,
+      "close": 272.22,
+      "volume": 40672
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:47:00",
+      "open": 272.22,
+      "high": 272.33,
+      "low": 272.21,
+      "close": 272.28,
+      "volume": 59112
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:48:00",
+      "open": 272.275,
+      "high": 272.2968,
+      "low": 272.15,
+      "close": 272.24,
+      "volume": 50545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:49:00",
+      "open": 272.22,
+      "high": 272.28,
+      "low": 272.19,
+      "close": 272.22,
+      "volume": 35224
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:50:00",
+      "open": 272.2,
+      "high": 272.29,
+      "low": 272.19,
+      "close": 272.23,
+      "volume": 32140
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:51:00",
+      "open": 272.24,
+      "high": 272.32,
+      "low": 272.22,
+      "close": 272.27,
+      "volume": 28368
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:52:00",
+      "open": 272.3,
+      "high": 272.42,
+      "low": 272.235,
+      "close": 272.28,
+      "volume": 44352
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:53:00",
+      "open": 272.28,
+      "high": 272.41,
+      "low": 272.28,
+      "close": 272.37,
+      "volume": 33928
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:54:00",
+      "open": 272.36,
+      "high": 272.3698,
+      "low": 272.13,
+      "close": 272.21,
+      "volume": 74821
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:55:00",
+      "open": 272.215,
+      "high": 272.29,
+      "low": 272.11,
+      "close": 272.13,
+      "volume": 32144
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:56:00",
+      "open": 272.15,
+      "high": 272.2,
+      "low": 272.1,
+      "close": 272.195,
+      "volume": 30100
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:57:00",
+      "open": 272.2015,
+      "high": 272.26,
+      "low": 272.16,
+      "close": 272.2532,
+      "volume": 52143
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:58:00",
+      "open": 272.255,
+      "high": 272.38,
+      "low": 272.255,
+      "close": 272.36,
+      "volume": 34244
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T10:59:00",
+      "open": 272.37,
+      "high": 272.41,
+      "low": 272.3,
+      "close": 272.33,
+      "volume": 27466
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:00:00",
+      "open": 272.3399,
+      "high": 272.42,
+      "low": 272.295,
+      "close": 272.3013,
+      "volume": 35210
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:01:00",
+      "open": 272.305,
+      "high": 272.4,
+      "low": 272.288,
+      "close": 272.3,
+      "volume": 25598
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:02:00",
+      "open": 272.28,
+      "high": 272.33,
+      "low": 272.26,
+      "close": 272.28,
+      "volume": 20321
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:03:00",
+      "open": 272.27,
+      "high": 272.35,
+      "low": 272.25,
+      "close": 272.32,
+      "volume": 34588
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:04:00",
+      "open": 272.305,
+      "high": 272.39,
+      "low": 272.305,
+      "close": 272.3492,
+      "volume": 28658
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:05:00",
+      "open": 272.34,
+      "high": 272.53,
+      "low": 272.34,
+      "close": 272.51,
+      "volume": 32029
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:06:00",
+      "open": 272.54,
+      "high": 272.64,
+      "low": 272.51,
+      "close": 272.61,
+      "volume": 52121
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:07:00",
+      "open": 272.62,
+      "high": 272.6399,
+      "low": 272.59,
+      "close": 272.59,
+      "volume": 22216
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:08:00",
+      "open": 272.68,
+      "high": 272.7601,
+      "low": 272.65,
+      "close": 272.75,
+      "volume": 63046
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:09:00",
+      "open": 272.76,
+      "high": 272.77,
+      "low": 272.63,
+      "close": 272.755,
+      "volume": 37039
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:10:00",
+      "open": 272.75,
+      "high": 272.8,
+      "low": 272.62,
+      "close": 272.67,
+      "volume": 56700
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:11:00",
+      "open": 272.655,
+      "high": 272.66,
+      "low": 272.4069,
+      "close": 272.45,
+      "volume": 47832
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:12:00",
+      "open": 272.44,
+      "high": 272.57,
+      "low": 272.44,
+      "close": 272.46,
+      "volume": 47027
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:13:00",
+      "open": 272.46,
+      "high": 272.48,
+      "low": 272.38,
+      "close": 272.435,
+      "volume": 36244
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:14:00",
+      "open": 272.4493,
+      "high": 272.46,
+      "low": 272.34,
+      "close": 272.35,
+      "volume": 29433
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:15:00",
+      "open": 272.36,
+      "high": 272.47,
+      "low": 272.31,
+      "close": 272.4375,
+      "volume": 34384
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:16:00",
+      "open": 272.46,
+      "high": 272.65,
+      "low": 272.46,
+      "close": 272.64,
+      "volume": 42934
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:17:00",
+      "open": 272.62,
+      "high": 272.66,
+      "low": 272.555,
+      "close": 272.6492,
+      "volume": 28001
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:18:00",
+      "open": 272.6402,
+      "high": 272.6812,
+      "low": 272.59,
+      "close": 272.61,
+      "volume": 18528
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:19:00",
+      "open": 272.61,
+      "high": 272.6266,
+      "low": 272.5126,
+      "close": 272.58,
+      "volume": 26593
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:20:00",
+      "open": 272.56,
+      "high": 272.61,
+      "low": 272.53,
+      "close": 272.61,
+      "volume": 27410
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:21:00",
+      "open": 272.6,
+      "high": 272.6,
+      "low": 272.42,
+      "close": 272.4401,
+      "volume": 27839
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:22:00",
+      "open": 272.445,
+      "high": 272.5199,
+      "low": 272.4101,
+      "close": 272.48,
+      "volume": 41576
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:23:00",
+      "open": 272.49,
+      "high": 272.59,
+      "low": 272.4601,
+      "close": 272.58,
+      "volume": 36483
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:24:00",
+      "open": 272.57,
+      "high": 272.57,
+      "low": 272.39,
+      "close": 272.39,
+      "volume": 24326
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:25:00",
+      "open": 272.4,
+      "high": 272.4,
+      "low": 272.3001,
+      "close": 272.32,
+      "volume": 30153
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:26:00",
+      "open": 272.315,
+      "high": 272.315,
+      "low": 272.21,
+      "close": 272.23,
+      "volume": 29576
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:27:00",
+      "open": 272.23,
+      "high": 272.37,
+      "low": 272.2,
+      "close": 272.31,
+      "volume": 34541
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:28:00",
+      "open": 272.3,
+      "high": 272.39,
+      "low": 272.29,
+      "close": 272.39,
+      "volume": 32863
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:29:00",
+      "open": 272.39,
+      "high": 272.4876,
+      "low": 272.39,
+      "close": 272.44,
+      "volume": 27450
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:30:00",
+      "open": 272.42,
+      "high": 272.51,
+      "low": 272.38,
+      "close": 272.47,
+      "volume": 29566
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:31:00",
+      "open": 272.46,
+      "high": 272.47,
+      "low": 272.32,
+      "close": 272.3207,
+      "volume": 21964
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:32:00",
+      "open": 272.33,
+      "high": 272.355,
+      "low": 272.23,
+      "close": 272.315,
+      "volume": 30880
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:33:00",
+      "open": 272.325,
+      "high": 272.355,
+      "low": 272.29,
+      "close": 272.34,
+      "volume": 16831
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:34:00",
+      "open": 272.35,
+      "high": 272.3556,
+      "low": 272.25,
+      "close": 272.31,
+      "volume": 34252
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:35:00",
+      "open": 272.3,
+      "high": 272.365,
+      "low": 272.22,
+      "close": 272.23,
+      "volume": 34666
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:36:00",
+      "open": 272.23,
+      "high": 272.25,
+      "low": 272.14,
+      "close": 272.2012,
+      "volume": 42349
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:37:00",
+      "open": 272.2,
+      "high": 272.33,
+      "low": 272.2,
+      "close": 272.2849,
+      "volume": 37560
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:38:00",
+      "open": 272.29,
+      "high": 272.2917,
+      "low": 272.21,
+      "close": 272.22,
+      "volume": 25630
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:39:00",
+      "open": 272.22,
+      "high": 272.25,
+      "low": 272.1799,
+      "close": 272.22,
+      "volume": 40648
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:40:00",
+      "open": 272.21,
+      "high": 272.255,
+      "low": 272.15,
+      "close": 272.23,
+      "volume": 23147
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:41:00",
+      "open": 272.23,
+      "high": 272.25,
+      "low": 272.13,
+      "close": 272.16,
+      "volume": 29739
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:42:00",
+      "open": 272.165,
+      "high": 272.205,
+      "low": 272.12,
+      "close": 272.17,
+      "volume": 41402
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:43:00",
+      "open": 272.17,
+      "high": 272.1801,
+      "low": 272.13,
+      "close": 272.17,
+      "volume": 28246
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:44:00",
+      "open": 272.1674,
+      "high": 272.2,
+      "low": 272.105,
+      "close": 272.14,
+      "volume": 26438
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:45:00",
+      "open": 272.13,
+      "high": 272.13,
+      "low": 272.03,
+      "close": 272.0501,
+      "volume": 35928
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:46:00",
+      "open": 272.05,
+      "high": 272.115,
+      "low": 271.97,
+      "close": 271.995,
+      "volume": 42309
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:47:00",
+      "open": 272.01,
+      "high": 272.035,
+      "low": 271.95,
+      "close": 271.9772,
+      "volume": 31234
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:48:00",
+      "open": 271.98,
+      "high": 272.07,
+      "low": 271.9701,
+      "close": 272.07,
+      "volume": 30339
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:49:00",
+      "open": 272.07,
+      "high": 272.13,
+      "low": 272.035,
+      "close": 272.1165,
+      "volume": 35452
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:50:00",
+      "open": 272.1,
+      "high": 272.19,
+      "low": 272.1,
+      "close": 272.1401,
+      "volume": 44706
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:51:00",
+      "open": 272.1401,
+      "high": 272.231,
+      "low": 272.12,
+      "close": 272.17,
+      "volume": 26834
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:52:00",
+      "open": 272.17,
+      "high": 272.19,
+      "low": 272.09,
+      "close": 272.13,
+      "volume": 20820
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:53:00",
+      "open": 272.14,
+      "high": 272.15,
+      "low": 272.0,
+      "close": 272.03,
+      "volume": 35707
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:54:00",
+      "open": 272.03,
+      "high": 272.06,
+      "low": 271.98,
+      "close": 272.05,
+      "volume": 28451
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:55:00",
+      "open": 272.065,
+      "high": 272.11,
+      "low": 272.04,
+      "close": 272.11,
+      "volume": 29632
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:56:00",
+      "open": 272.12,
+      "high": 272.15,
+      "low": 271.96,
+      "close": 271.99,
+      "volume": 31473
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:57:00",
+      "open": 271.98,
+      "high": 272.06,
+      "low": 271.93,
+      "close": 272.01,
+      "volume": 32039
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:58:00",
+      "open": 272.02,
+      "high": 272.17,
+      "low": 271.96,
+      "close": 272.17,
+      "volume": 36550
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T11:59:00",
+      "open": 272.19,
+      "high": 272.2483,
+      "low": 272.16,
+      "close": 272.1906,
+      "volume": 48573
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:00:00",
+      "open": 272.21,
+      "high": 272.3,
+      "low": 272.155,
+      "close": 272.1738,
+      "volume": 40583
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:01:00",
+      "open": 272.165,
+      "high": 272.17,
+      "low": 272.06,
+      "close": 272.11,
+      "volume": 31161
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:02:00",
+      "open": 272.11,
+      "high": 272.11,
+      "low": 272.0401,
+      "close": 272.05,
+      "volume": 23667
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:03:00",
+      "open": 272.0401,
+      "high": 272.1045,
+      "low": 271.97,
+      "close": 272.0,
+      "volume": 63286
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:04:00",
+      "open": 271.99,
+      "high": 271.99,
+      "low": 271.82,
+      "close": 271.88,
+      "volume": 49802
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:05:00",
+      "open": 271.8839,
+      "high": 271.9552,
+      "low": 271.87,
+      "close": 271.91,
+      "volume": 35209
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:06:00",
+      "open": 271.905,
+      "high": 271.92,
+      "low": 271.8001,
+      "close": 271.87,
+      "volume": 31535
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:07:00",
+      "open": 271.89,
+      "high": 271.9,
+      "low": 271.77,
+      "close": 271.79,
+      "volume": 46416
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:08:00",
+      "open": 271.794,
+      "high": 271.86,
+      "low": 271.77,
+      "close": 271.79,
+      "volume": 35036
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:09:00",
+      "open": 271.81,
+      "high": 271.84,
+      "low": 271.76,
+      "close": 271.7845,
+      "volume": 42680
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:10:00",
+      "open": 271.78,
+      "high": 271.82,
+      "low": 271.77,
+      "close": 271.775,
+      "volume": 30413
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:11:00",
+      "open": 271.77,
+      "high": 271.85,
+      "low": 271.74,
+      "close": 271.79,
+      "volume": 30059
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:12:00",
+      "open": 271.8,
+      "high": 271.92,
+      "low": 271.8,
+      "close": 271.88,
+      "volume": 35109
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:13:00",
+      "open": 271.8692,
+      "high": 271.89,
+      "low": 271.77,
+      "close": 271.79,
+      "volume": 31908
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:14:00",
+      "open": 271.79,
+      "high": 271.79,
+      "low": 271.63,
+      "close": 271.75,
+      "volume": 51738
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:15:00",
+      "open": 271.75,
+      "high": 271.795,
+      "low": 271.52,
+      "close": 271.665,
+      "volume": 56051
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:16:00",
+      "open": 271.65,
+      "high": 271.75,
+      "low": 271.65,
+      "close": 271.74,
+      "volume": 33936
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:17:00",
+      "open": 271.73,
+      "high": 271.89,
+      "low": 271.67,
+      "close": 271.86,
+      "volume": 82198
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:18:00",
+      "open": 271.86,
+      "high": 271.86,
+      "low": 271.7701,
+      "close": 271.82,
+      "volume": 20002
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:19:00",
+      "open": 271.81,
+      "high": 271.88,
+      "low": 271.805,
+      "close": 271.87,
+      "volume": 25919
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:20:00",
+      "open": 271.86,
+      "high": 271.91,
+      "low": 271.85,
+      "close": 271.855,
+      "volume": 37448
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:21:00",
+      "open": 271.855,
+      "high": 271.93,
+      "low": 271.85,
+      "close": 271.92,
+      "volume": 54818
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:22:00",
+      "open": 271.933,
+      "high": 271.945,
+      "low": 271.885,
+      "close": 271.94,
+      "volume": 27465
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:23:00",
+      "open": 271.95,
+      "high": 271.99,
+      "low": 271.915,
+      "close": 271.93,
+      "volume": 23794
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:24:00",
+      "open": 271.93,
+      "high": 271.94,
+      "low": 271.87,
+      "close": 271.89,
+      "volume": 34309
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:25:00",
+      "open": 271.88,
+      "high": 271.95,
+      "low": 271.88,
+      "close": 271.91,
+      "volume": 32489
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:26:00",
+      "open": 271.91,
+      "high": 271.9299,
+      "low": 271.85,
+      "close": 271.92,
+      "volume": 43847
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:27:00",
+      "open": 271.94,
+      "high": 271.955,
+      "low": 271.89,
+      "close": 271.9001,
+      "volume": 26463
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:28:00",
+      "open": 271.9007,
+      "high": 271.97,
+      "low": 271.8901,
+      "close": 271.97,
+      "volume": 46183
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:29:00",
+      "open": 271.985,
+      "high": 271.9875,
+      "low": 271.94,
+      "close": 271.94,
+      "volume": 18044
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:30:00",
+      "open": 271.92,
+      "high": 272.1,
+      "low": 271.9,
+      "close": 272.1,
+      "volume": 44620
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:31:00",
+      "open": 272.1188,
+      "high": 272.14,
+      "low": 271.98,
+      "close": 272.02,
+      "volume": 59293
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:32:00",
+      "open": 272.01,
+      "high": 272.06,
+      "low": 271.99,
+      "close": 272.015,
+      "volume": 29106
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:33:00",
+      "open": 272.0142,
+      "high": 272.0142,
+      "low": 271.91,
+      "close": 271.94,
+      "volume": 37477
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:34:00",
+      "open": 271.93,
+      "high": 271.9599,
+      "low": 271.89,
+      "close": 271.925,
+      "volume": 22930
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:35:00",
+      "open": 271.9156,
+      "high": 271.931,
+      "low": 271.87,
+      "close": 271.905,
+      "volume": 19568
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:36:00",
+      "open": 271.9,
+      "high": 271.925,
+      "low": 271.88,
+      "close": 271.905,
+      "volume": 22889
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:37:00",
+      "open": 271.89,
+      "high": 271.98,
+      "low": 271.89,
+      "close": 271.9573,
+      "volume": 45658
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:38:00",
+      "open": 271.95,
+      "high": 272.01,
+      "low": 271.95,
+      "close": 271.99,
+      "volume": 24878
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:39:00",
+      "open": 272.0,
+      "high": 272.05,
+      "low": 271.98,
+      "close": 271.99,
+      "volume": 40545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:40:00",
+      "open": 271.98,
+      "high": 272.0,
+      "low": 271.9017,
+      "close": 271.93,
+      "volume": 22063
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:41:00",
+      "open": 271.94,
+      "high": 271.97,
+      "low": 271.89,
+      "close": 271.94,
+      "volume": 86627
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:42:00",
+      "open": 271.94,
+      "high": 271.95,
+      "low": 271.85,
+      "close": 271.865,
+      "volume": 34359
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:43:00",
+      "open": 271.86,
+      "high": 271.9491,
+      "low": 271.8001,
+      "close": 271.92,
+      "volume": 40752
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:44:00",
+      "open": 271.91,
+      "high": 272.0,
+      "low": 271.875,
+      "close": 271.99,
+      "volume": 21021
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:45:00",
+      "open": 271.9806,
+      "high": 272.115,
+      "low": 271.9806,
+      "close": 272.09,
+      "volume": 37419
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:46:00",
+      "open": 272.095,
+      "high": 272.14,
+      "low": 272.083,
+      "close": 272.13,
+      "volume": 29480
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:47:00",
+      "open": 272.12,
+      "high": 272.1228,
+      "low": 272.0601,
+      "close": 272.075,
+      "volume": 27667
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:48:00",
+      "open": 272.08,
+      "high": 272.12,
+      "low": 272.06,
+      "close": 272.07,
+      "volume": 26286
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:49:00",
+      "open": 272.07,
+      "high": 272.0801,
+      "low": 271.94,
+      "close": 271.9499,
+      "volume": 33170
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:50:00",
+      "open": 271.94,
+      "high": 271.983,
+      "low": 271.926,
+      "close": 271.97,
+      "volume": 24891
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:51:00",
+      "open": 271.97,
+      "high": 271.99,
+      "low": 271.94,
+      "close": 271.97,
+      "volume": 20633
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:52:00",
+      "open": 271.975,
+      "high": 272.0193,
+      "low": 271.93,
+      "close": 271.9374,
+      "volume": 24743
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:53:00",
+      "open": 271.95,
+      "high": 271.95,
+      "low": 271.78,
+      "close": 271.78,
+      "volume": 27829
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:54:00",
+      "open": 271.775,
+      "high": 271.775,
+      "low": 271.6401,
+      "close": 271.6401,
+      "volume": 97484
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:55:00",
+      "open": 271.65,
+      "high": 271.71,
+      "low": 271.61,
+      "close": 271.61,
+      "volume": 42033
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:56:00",
+      "open": 271.61,
+      "high": 271.65,
+      "low": 271.595,
+      "close": 271.64,
+      "volume": 27477
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:57:00",
+      "open": 271.64,
+      "high": 271.7,
+      "low": 271.595,
+      "close": 271.68,
+      "volume": 45510
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:58:00",
+      "open": 271.69,
+      "high": 271.72,
+      "low": 271.53,
+      "close": 271.53,
+      "volume": 37031
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T12:59:00",
+      "open": 271.53,
+      "high": 271.569,
+      "low": 271.4,
+      "close": 271.4701,
+      "volume": 63291
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:00:00",
+      "open": 271.4918,
+      "high": 271.5068,
+      "low": 271.32,
+      "close": 271.4,
+      "volume": 48062
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:01:00",
+      "open": 271.4,
+      "high": 271.4601,
+      "low": 271.4,
+      "close": 271.4601,
+      "volume": 26669
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:02:00",
+      "open": 271.46,
+      "high": 271.47,
+      "low": 271.35,
+      "close": 271.42,
+      "volume": 43412
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:03:00",
+      "open": 271.4101,
+      "high": 271.45,
+      "low": 271.26,
+      "close": 271.3,
+      "volume": 50978
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:04:00",
+      "open": 271.295,
+      "high": 271.304,
+      "low": 271.195,
+      "close": 271.28,
+      "volume": 44369
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:05:00",
+      "open": 271.27,
+      "high": 271.3299,
+      "low": 271.25,
+      "close": 271.26,
+      "volume": 34200
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:06:00",
+      "open": 271.26,
+      "high": 271.29,
+      "low": 271.21,
+      "close": 271.245,
+      "volume": 24397
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:07:00",
+      "open": 271.245,
+      "high": 271.305,
+      "low": 271.22,
+      "close": 271.23,
+      "volume": 24756
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:08:00",
+      "open": 271.23,
+      "high": 271.23,
+      "low": 271.08,
+      "close": 271.09,
+      "volume": 37484
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:09:00",
+      "open": 271.075,
+      "high": 271.17,
+      "low": 271.0613,
+      "close": 271.1658,
+      "volume": 29942
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:10:00",
+      "open": 271.16,
+      "high": 271.18,
+      "low": 271.02,
+      "close": 271.04,
+      "volume": 37269
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:11:00",
+      "open": 271.04,
+      "high": 271.09,
+      "low": 270.95,
+      "close": 271.02,
+      "volume": 62861
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:12:00",
+      "open": 271.0343,
+      "high": 271.0899,
+      "low": 270.97,
+      "close": 271.01,
+      "volume": 34022
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:13:00",
+      "open": 271.01,
+      "high": 271.0799,
+      "low": 270.98,
+      "close": 271.04,
+      "volume": 36469
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:14:00",
+      "open": 271.0358,
+      "high": 271.0358,
+      "low": 270.91,
+      "close": 270.94,
+      "volume": 45936
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:15:00",
+      "open": 270.9353,
+      "high": 270.97,
+      "low": 270.9,
+      "close": 270.95,
+      "volume": 23582
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:16:00",
+      "open": 270.95,
+      "high": 271.009,
+      "low": 270.85,
+      "close": 270.9701,
+      "volume": 57807
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:17:00",
+      "open": 270.98,
+      "high": 270.98,
+      "low": 270.75,
+      "close": 270.7656,
+      "volume": 42237
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:18:00",
+      "open": 270.76,
+      "high": 270.93,
+      "low": 270.75,
+      "close": 270.89,
+      "volume": 44711
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:19:00",
+      "open": 270.8998,
+      "high": 270.9,
+      "low": 270.8208,
+      "close": 270.84,
+      "volume": 34521
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:20:00",
+      "open": 270.83,
+      "high": 270.91,
+      "low": 270.7901,
+      "close": 270.91,
+      "volume": 33034
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:21:00",
+      "open": 270.905,
+      "high": 270.941,
+      "low": 270.8001,
+      "close": 270.82,
+      "volume": 42784
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:22:00",
+      "open": 270.83,
+      "high": 270.895,
+      "low": 270.82,
+      "close": 270.84,
+      "volume": 22196
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:23:00",
+      "open": 270.85,
+      "high": 270.885,
+      "low": 270.78,
+      "close": 270.82,
+      "volume": 30457
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:24:00",
+      "open": 270.83,
+      "high": 270.86,
+      "low": 270.79,
+      "close": 270.795,
+      "volume": 22193
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:25:00",
+      "open": 270.8,
+      "high": 270.83,
+      "low": 270.74,
+      "close": 270.8,
+      "volume": 25646
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:26:00",
+      "open": 270.82,
+      "high": 270.9099,
+      "low": 270.81,
+      "close": 270.86,
+      "volume": 30439
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:27:00",
+      "open": 270.85,
+      "high": 270.89,
+      "low": 270.7601,
+      "close": 270.82,
+      "volume": 34194
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:28:00",
+      "open": 270.83,
+      "high": 270.87,
+      "low": 270.81,
+      "close": 270.835,
+      "volume": 28347
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:29:00",
+      "open": 270.83,
+      "high": 270.94,
+      "low": 270.78,
+      "close": 270.9399,
+      "volume": 56943
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:30:00",
+      "open": 270.935,
+      "high": 270.935,
+      "low": 270.84,
+      "close": 270.86,
+      "volume": 34045
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:31:00",
+      "open": 270.865,
+      "high": 270.8718,
+      "low": 270.82,
+      "close": 270.835,
+      "volume": 20703
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:32:00",
+      "open": 270.84,
+      "high": 270.94,
+      "low": 270.81,
+      "close": 270.91,
+      "volume": 31630
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:33:00",
+      "open": 270.92,
+      "high": 270.9577,
+      "low": 270.91,
+      "close": 270.9497,
+      "volume": 39005
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:34:00",
+      "open": 270.95,
+      "high": 270.95,
+      "low": 270.9,
+      "close": 270.91,
+      "volume": 35529
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:35:00",
+      "open": 270.9,
+      "high": 270.93,
+      "low": 270.87,
+      "close": 270.87,
+      "volume": 27712
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:36:00",
+      "open": 270.87,
+      "high": 270.88,
+      "low": 270.75,
+      "close": 270.78,
+      "volume": 30600
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:37:00",
+      "open": 270.781,
+      "high": 270.92,
+      "low": 270.781,
+      "close": 270.91,
+      "volume": 30639
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:38:00",
+      "open": 270.93,
+      "high": 271.09,
+      "low": 270.92,
+      "close": 271.0873,
+      "volume": 39037
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:39:00",
+      "open": 271.085,
+      "high": 271.1,
+      "low": 271.015,
+      "close": 271.06,
+      "volume": 32427
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:40:00",
+      "open": 271.07,
+      "high": 271.1,
+      "low": 270.81,
+      "close": 270.905,
+      "volume": 58671
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:41:00",
+      "open": 270.905,
+      "high": 271.125,
+      "low": 270.9,
+      "close": 271.12,
+      "volume": 37942
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:42:00",
+      "open": 271.12,
+      "high": 271.14,
+      "low": 271.0205,
+      "close": 271.0205,
+      "volume": 25910
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:43:00",
+      "open": 271.03,
+      "high": 271.13,
+      "low": 271.02,
+      "close": 271.07,
+      "volume": 28276
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:44:00",
+      "open": 271.075,
+      "high": 271.075,
+      "low": 270.93,
+      "close": 270.935,
+      "volume": 26783
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:45:00",
+      "open": 270.93,
+      "high": 270.95,
+      "low": 270.87,
+      "close": 270.87,
+      "volume": 43250
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:46:00",
+      "open": 270.8886,
+      "high": 270.9,
+      "low": 270.82,
+      "close": 270.86,
+      "volume": 36154
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:47:00",
+      "open": 270.86,
+      "high": 270.92,
+      "low": 270.78,
+      "close": 270.89,
+      "volume": 38855
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:48:00",
+      "open": 270.887,
+      "high": 270.9,
+      "low": 270.78,
+      "close": 270.82,
+      "volume": 36167
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:49:00",
+      "open": 270.83,
+      "high": 270.8336,
+      "low": 270.77,
+      "close": 270.79,
+      "volume": 19297
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:50:00",
+      "open": 270.8003,
+      "high": 270.805,
+      "low": 270.73,
+      "close": 270.74,
+      "volume": 33039
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:51:00",
+      "open": 270.755,
+      "high": 270.77,
+      "low": 270.67,
+      "close": 270.735,
+      "volume": 41382
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:52:00",
+      "open": 270.735,
+      "high": 270.79,
+      "low": 270.72,
+      "close": 270.79,
+      "volume": 49009
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:53:00",
+      "open": 270.785,
+      "high": 270.7899,
+      "low": 270.72,
+      "close": 270.78,
+      "volume": 26080
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:54:00",
+      "open": 270.78,
+      "high": 270.78,
+      "low": 270.6295,
+      "close": 270.64,
+      "volume": 42518
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:55:00",
+      "open": 270.62,
+      "high": 270.655,
+      "low": 270.6,
+      "close": 270.6112,
+      "volume": 43913
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:56:00",
+      "open": 270.6001,
+      "high": 270.65,
+      "low": 270.59,
+      "close": 270.6199,
+      "volume": 42423
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:57:00",
+      "open": 270.61,
+      "high": 270.685,
+      "low": 270.53,
+      "close": 270.53,
+      "volume": 63340
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:58:00",
+      "open": 270.55,
+      "high": 270.68,
+      "low": 270.51,
+      "close": 270.67,
+      "volume": 56264
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T13:59:00",
+      "open": 270.66,
+      "high": 270.82,
+      "low": 270.6,
+      "close": 270.765,
+      "volume": 77832
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:00:00",
+      "open": 270.76,
+      "high": 270.8,
+      "low": 270.71,
+      "close": 270.7999,
+      "volume": 24772
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:01:00",
+      "open": 270.7999,
+      "high": 270.9,
+      "low": 270.7999,
+      "close": 270.89,
+      "volume": 22435
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:02:00",
+      "open": 270.9,
+      "high": 270.92,
+      "low": 270.8,
+      "close": 270.815,
+      "volume": 35277
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:03:00",
+      "open": 270.81,
+      "high": 270.88,
+      "low": 270.8,
+      "close": 270.88,
+      "volume": 22968
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:04:00",
+      "open": 270.8707,
+      "high": 270.885,
+      "low": 270.76,
+      "close": 270.7999,
+      "volume": 35284
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:05:00",
+      "open": 270.8,
+      "high": 270.8113,
+      "low": 270.72,
+      "close": 270.75,
+      "volume": 27742
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:06:00",
+      "open": 270.74,
+      "high": 270.79,
+      "low": 270.7,
+      "close": 270.78,
+      "volume": 29593
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:07:00",
+      "open": 270.78,
+      "high": 270.81,
+      "low": 270.695,
+      "close": 270.695,
+      "volume": 25814
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:08:00",
+      "open": 270.69,
+      "high": 270.8195,
+      "low": 270.69,
+      "close": 270.775,
+      "volume": 31558
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:09:00",
+      "open": 270.775,
+      "high": 270.84,
+      "low": 270.76,
+      "close": 270.815,
+      "volume": 23125
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:10:00",
+      "open": 270.81,
+      "high": 270.81,
+      "low": 270.75,
+      "close": 270.7773,
+      "volume": 25904
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:11:00",
+      "open": 270.775,
+      "high": 270.805,
+      "low": 270.74,
+      "close": 270.7601,
+      "volume": 19954
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:12:00",
+      "open": 270.76,
+      "high": 270.8081,
+      "low": 270.75,
+      "close": 270.78,
+      "volume": 20357
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:13:00",
+      "open": 270.7701,
+      "high": 270.79,
+      "low": 270.725,
+      "close": 270.74,
+      "volume": 21653
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:14:00",
+      "open": 270.74,
+      "high": 270.84,
+      "low": 270.73,
+      "close": 270.8301,
+      "volume": 34405
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:15:00",
+      "open": 270.86,
+      "high": 270.92,
+      "low": 270.8401,
+      "close": 270.88,
+      "volume": 20173
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:16:00",
+      "open": 270.885,
+      "high": 270.91,
+      "low": 270.7,
+      "close": 270.7,
+      "volume": 27567
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:17:00",
+      "open": 270.68,
+      "high": 270.72,
+      "low": 270.65,
+      "close": 270.695,
+      "volume": 32105
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:18:00",
+      "open": 270.69,
+      "high": 270.74,
+      "low": 270.69,
+      "close": 270.725,
+      "volume": 23389
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:19:00",
+      "open": 270.73,
+      "high": 270.8399,
+      "low": 270.73,
+      "close": 270.8201,
+      "volume": 14297
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:20:00",
+      "open": 270.83,
+      "high": 270.87,
+      "low": 270.75,
+      "close": 270.78,
+      "volume": 63558
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:21:00",
+      "open": 270.8,
+      "high": 270.86,
+      "low": 270.785,
+      "close": 270.86,
+      "volume": 17578
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:22:00",
+      "open": 270.87,
+      "high": 270.91,
+      "low": 270.829,
+      "close": 270.86,
+      "volume": 36122
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:23:00",
+      "open": 270.85,
+      "high": 270.9,
+      "low": 270.85,
+      "close": 270.89,
+      "volume": 25440
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:24:00",
+      "open": 270.8701,
+      "high": 270.92,
+      "low": 270.86,
+      "close": 270.92,
+      "volume": 16946
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:25:00",
+      "open": 270.9288,
+      "high": 270.97,
+      "low": 270.92,
+      "close": 270.957,
+      "volume": 32695
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:26:00",
+      "open": 270.9503,
+      "high": 270.955,
+      "low": 270.91,
+      "close": 270.92,
+      "volume": 20435
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:27:00",
+      "open": 270.92,
+      "high": 270.98,
+      "low": 270.92,
+      "close": 270.98,
+      "volume": 19342
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:28:00",
+      "open": 270.985,
+      "high": 271.02,
+      "low": 270.95,
+      "close": 270.9807,
+      "volume": 21430
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:29:00",
+      "open": 270.98,
+      "high": 270.985,
+      "low": 270.84,
+      "close": 270.865,
+      "volume": 39729
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:30:00",
+      "open": 270.87,
+      "high": 270.95,
+      "low": 270.8602,
+      "close": 270.915,
+      "volume": 33325
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:31:00",
+      "open": 270.905,
+      "high": 270.93,
+      "low": 270.88,
+      "close": 270.915,
+      "volume": 26561
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:32:00",
+      "open": 270.915,
+      "high": 270.9264,
+      "low": 270.87,
+      "close": 270.92,
+      "volume": 37269
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:33:00",
+      "open": 270.92,
+      "high": 270.965,
+      "low": 270.9156,
+      "close": 270.94,
+      "volume": 24228
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:34:00",
+      "open": 270.94,
+      "high": 271.05,
+      "low": 270.94,
+      "close": 270.9788,
+      "volume": 44540
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:35:00",
+      "open": 270.98,
+      "high": 270.98,
+      "low": 270.9,
+      "close": 270.93,
+      "volume": 29989
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:36:00",
+      "open": 270.93,
+      "high": 270.93,
+      "low": 270.78,
+      "close": 270.85,
+      "volume": 47019
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:37:00",
+      "open": 270.88,
+      "high": 270.88,
+      "low": 270.79,
+      "close": 270.86,
+      "volume": 41013
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:38:00",
+      "open": 270.86,
+      "high": 270.89,
+      "low": 270.76,
+      "close": 270.83,
+      "volume": 36657
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:39:00",
+      "open": 270.83,
+      "high": 270.885,
+      "low": 270.81,
+      "close": 270.885,
+      "volume": 32375
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:40:00",
+      "open": 270.89,
+      "high": 270.945,
+      "low": 270.85,
+      "close": 270.88,
+      "volume": 32907
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:41:00",
+      "open": 270.88,
+      "high": 270.925,
+      "low": 270.855,
+      "close": 270.92,
+      "volume": 23891
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:42:00",
+      "open": 270.915,
+      "high": 270.925,
+      "low": 270.87,
+      "close": 270.92,
+      "volume": 21414
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:43:00",
+      "open": 270.92,
+      "high": 270.96,
+      "low": 270.85,
+      "close": 270.87,
+      "volume": 29909
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:44:00",
+      "open": 270.89,
+      "high": 270.93,
+      "low": 270.86,
+      "close": 270.92,
+      "volume": 18746
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:45:00",
+      "open": 270.92,
+      "high": 270.97,
+      "low": 270.88,
+      "close": 270.9662,
+      "volume": 36159
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:46:00",
+      "open": 270.965,
+      "high": 271.01,
+      "low": 270.955,
+      "close": 270.98,
+      "volume": 36962
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:47:00",
+      "open": 270.98,
+      "high": 271.04,
+      "low": 270.91,
+      "close": 270.91,
+      "volume": 27762
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:48:00",
+      "open": 270.92,
+      "high": 271.01,
+      "low": 270.91,
+      "close": 271.005,
+      "volume": 21329
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:49:00",
+      "open": 271.0,
+      "high": 271.004,
+      "low": 270.92,
+      "close": 270.96,
+      "volume": 26092
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:50:00",
+      "open": 270.96,
+      "high": 270.97,
+      "low": 270.86,
+      "close": 270.9,
+      "volume": 26650
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:51:00",
+      "open": 270.9,
+      "high": 270.97,
+      "low": 270.9,
+      "close": 270.965,
+      "volume": 19876
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:52:00",
+      "open": 270.965,
+      "high": 271.05,
+      "low": 270.9399,
+      "close": 271.04,
+      "volume": 23141
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:53:00",
+      "open": 271.03,
+      "high": 271.06,
+      "low": 270.95,
+      "close": 271.04,
+      "volume": 35778
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:54:00",
+      "open": 271.05,
+      "high": 271.08,
+      "low": 270.99,
+      "close": 271.0009,
+      "volume": 29094
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:55:00",
+      "open": 271.005,
+      "high": 271.065,
+      "low": 270.94,
+      "close": 270.96,
+      "volume": 27467
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:56:00",
+      "open": 270.97,
+      "high": 270.985,
+      "low": 270.915,
+      "close": 270.915,
+      "volume": 22100
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:57:00",
+      "open": 270.91,
+      "high": 270.92,
+      "low": 270.89,
+      "close": 270.9,
+      "volume": 24707
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:58:00",
+      "open": 270.902,
+      "high": 270.94,
+      "low": 270.89,
+      "close": 270.91,
+      "volume": 30446
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T14:59:00",
+      "open": 270.8999,
+      "high": 270.9402,
+      "low": 270.8901,
+      "close": 270.925,
+      "volume": 18194
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:00:00",
+      "open": 270.925,
+      "high": 270.96,
+      "low": 270.9,
+      "close": 270.95,
+      "volume": 38309
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:01:00",
+      "open": 270.9599,
+      "high": 270.9599,
+      "low": 270.8887,
+      "close": 270.89,
+      "volume": 21605
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:02:00",
+      "open": 270.89,
+      "high": 270.89,
+      "low": 270.83,
+      "close": 270.8606,
+      "volume": 43921
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:03:00",
+      "open": 270.88,
+      "high": 270.97,
+      "low": 270.8601,
+      "close": 270.97,
+      "volume": 28841
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:04:00",
+      "open": 270.97,
+      "high": 270.98,
+      "low": 270.88,
+      "close": 270.955,
+      "volume": 50549
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:05:00",
+      "open": 270.95,
+      "high": 270.97,
+      "low": 270.91,
+      "close": 270.97,
+      "volume": 25099
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:06:00",
+      "open": 270.97,
+      "high": 271.0,
+      "low": 270.89,
+      "close": 270.95,
+      "volume": 25830
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:07:00",
+      "open": 270.955,
+      "high": 270.97,
+      "low": 270.88,
+      "close": 270.915,
+      "volume": 37555
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:08:00",
+      "open": 270.93,
+      "high": 270.975,
+      "low": 270.8999,
+      "close": 270.8999,
+      "volume": 26281
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:09:00",
+      "open": 270.9,
+      "high": 270.9497,
+      "low": 270.895,
+      "close": 270.9497,
+      "volume": 22294
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:10:00",
+      "open": 270.94,
+      "high": 271.03,
+      "low": 270.92,
+      "close": 271.03,
+      "volume": 38709
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:11:00",
+      "open": 271.03,
+      "high": 271.055,
+      "low": 270.95,
+      "close": 270.97,
+      "volume": 52680
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:12:00",
+      "open": 270.98,
+      "high": 271.01,
+      "low": 270.93,
+      "close": 270.94,
+      "volume": 22209
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:13:00",
+      "open": 270.945,
+      "high": 271.035,
+      "low": 270.945,
+      "close": 271.025,
+      "volume": 24664
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:14:00",
+      "open": 271.0231,
+      "high": 271.03,
+      "low": 270.97,
+      "close": 270.995,
+      "volume": 29361
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:15:00",
+      "open": 270.995,
+      "high": 271.025,
+      "low": 270.91,
+      "close": 270.941,
+      "volume": 45303
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:16:00",
+      "open": 270.935,
+      "high": 270.9515,
+      "low": 270.88,
+      "close": 270.9515,
+      "volume": 43499
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:17:00",
+      "open": 270.9537,
+      "high": 270.98,
+      "low": 270.94,
+      "close": 270.975,
+      "volume": 25282
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:18:00",
+      "open": 270.98,
+      "high": 270.99,
+      "low": 270.95,
+      "close": 270.9599,
+      "volume": 35367
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:19:00",
+      "open": 270.955,
+      "high": 271.05,
+      "low": 270.94,
+      "close": 271.0456,
+      "volume": 42153
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:20:00",
+      "open": 271.04,
+      "high": 271.06,
+      "low": 270.97,
+      "close": 271.01,
+      "volume": 29898
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:21:00",
+      "open": 271.0196,
+      "high": 271.035,
+      "low": 270.93,
+      "close": 270.9654,
+      "volume": 28821
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:22:00",
+      "open": 270.985,
+      "high": 271.05,
+      "low": 270.965,
+      "close": 271.04,
+      "volume": 32807
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:23:00",
+      "open": 271.035,
+      "high": 271.09,
+      "low": 270.98,
+      "close": 271.05,
+      "volume": 52449
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:24:00",
+      "open": 271.05,
+      "high": 271.11,
+      "low": 271.01,
+      "close": 271.02,
+      "volume": 100623
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:25:00",
+      "open": 271.04,
+      "high": 271.0599,
+      "low": 270.9,
+      "close": 270.95,
+      "volume": 44148
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:26:00",
+      "open": 270.95,
+      "high": 270.9799,
+      "low": 270.9,
+      "close": 270.93,
+      "volume": 27932
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:27:00",
+      "open": 270.93,
+      "high": 270.94,
+      "low": 270.895,
+      "close": 270.94,
+      "volume": 38684
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:28:00",
+      "open": 270.935,
+      "high": 270.935,
+      "low": 270.815,
+      "close": 270.815,
+      "volume": 36362
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:29:00",
+      "open": 270.82,
+      "high": 270.84,
+      "low": 270.715,
+      "close": 270.72,
+      "volume": 42958
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:30:00",
+      "open": 270.715,
+      "high": 270.735,
+      "low": 270.59,
+      "close": 270.605,
+      "volume": 58910
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:31:00",
+      "open": 270.6,
+      "high": 270.68,
+      "low": 270.575,
+      "close": 270.595,
+      "volume": 59680
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:32:00",
+      "open": 270.595,
+      "high": 270.625,
+      "low": 270.525,
+      "close": 270.5436,
+      "volume": 40904
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:33:00",
+      "open": 270.54,
+      "high": 270.55,
+      "low": 270.505,
+      "close": 270.5336,
+      "volume": 52156
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:34:00",
+      "open": 270.54,
+      "high": 270.59,
+      "low": 270.51,
+      "close": 270.554,
+      "volume": 63142
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:35:00",
+      "open": 270.56,
+      "high": 270.62,
+      "low": 270.555,
+      "close": 270.5905,
+      "volume": 38963
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:36:00",
+      "open": 270.59,
+      "high": 270.65,
+      "low": 270.55,
+      "close": 270.595,
+      "volume": 46395
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:37:00",
+      "open": 270.5977,
+      "high": 270.6393,
+      "low": 270.585,
+      "close": 270.63,
+      "volume": 38209
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:38:00",
+      "open": 270.6201,
+      "high": 270.625,
+      "low": 270.52,
+      "close": 270.545,
+      "volume": 62643
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:39:00",
+      "open": 270.5441,
+      "high": 270.6091,
+      "low": 270.5441,
+      "close": 270.585,
+      "volume": 54634
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:40:00",
+      "open": 270.59,
+      "high": 270.67,
+      "low": 270.53,
+      "close": 270.645,
+      "volume": 85753
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:41:00",
+      "open": 270.65,
+      "high": 270.69,
+      "low": 270.615,
+      "close": 270.67,
+      "volume": 41602
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:42:00",
+      "open": 270.67,
+      "high": 270.67,
+      "low": 270.58,
+      "close": 270.5901,
+      "volume": 48620
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:43:00",
+      "open": 270.59,
+      "high": 270.69,
+      "low": 270.58,
+      "close": 270.64,
+      "volume": 46921
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:44:00",
+      "open": 270.635,
+      "high": 270.64,
+      "low": 270.585,
+      "close": 270.62,
+      "volume": 43610
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:45:00",
+      "open": 270.62,
+      "high": 270.72,
+      "low": 270.62,
+      "close": 270.7,
+      "volume": 45228
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:46:00",
+      "open": 270.7,
+      "high": 270.79,
+      "low": 270.68,
+      "close": 270.705,
+      "volume": 50462
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:47:00",
+      "open": 270.695,
+      "high": 270.72,
+      "low": 270.62,
+      "close": 270.665,
+      "volume": 42126
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:48:00",
+      "open": 270.67,
+      "high": 270.69,
+      "low": 270.59,
+      "close": 270.63,
+      "volume": 42733
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:49:00",
+      "open": 270.62,
+      "high": 270.66,
+      "low": 270.58,
+      "close": 270.61,
+      "volume": 62580
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:50:00",
+      "open": 270.59,
+      "high": 270.88,
+      "low": 270.58,
+      "close": 270.625,
+      "volume": 126359
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:51:00",
+      "open": 270.63,
+      "high": 270.74,
+      "low": 270.62,
+      "close": 270.715,
+      "volume": 91229
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:52:00",
+      "open": 270.71,
+      "high": 270.76,
+      "low": 270.64,
+      "close": 270.705,
+      "volume": 81045
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:53:00",
+      "open": 270.705,
+      "high": 270.8,
+      "low": 270.7,
+      "close": 270.795,
+      "volume": 82369
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:54:00",
+      "open": 270.795,
+      "high": 271.1999,
+      "low": 270.79,
+      "close": 271.07,
+      "volume": 170680
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:55:00",
+      "open": 271.05,
+      "high": 271.05,
+      "low": 270.58,
+      "close": 270.77,
+      "volume": 135492
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:56:00",
+      "open": 270.773,
+      "high": 270.93,
+      "low": 270.773,
+      "close": 270.87,
+      "volume": 86113
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:57:00",
+      "open": 270.88,
+      "high": 270.95,
+      "low": 270.84,
+      "close": 270.93,
+      "volume": 120917
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:58:00",
+      "open": 270.94,
+      "high": 270.955,
+      "low": 270.88,
+      "close": 270.91,
+      "volume": 134222
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-22T15:59:00",
+      "open": 270.92,
+      "high": 270.94,
+      "low": 270.79,
+      "close": 270.82,
+      "volume": 546274
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:30:00",
+      "open": 270.0,
+      "high": 270.46,
+      "low": 270.0,
+      "close": 270.37,
+      "volume": 827529
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:31:00",
+      "open": 270.37,
+      "high": 270.96,
+      "low": 270.2101,
+      "close": 270.445,
+      "volume": 89706
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:32:00",
+      "open": 270.445,
+      "high": 270.47,
+      "low": 269.68,
+      "close": 269.7886,
+      "volume": 111004
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:33:00",
+      "open": 269.79,
+      "high": 270.19,
+      "low": 269.56,
+      "close": 270.14,
+      "volume": 114861
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:34:00",
+      "open": 270.14,
+      "high": 270.28,
+      "low": 270.012,
+      "close": 270.17,
+      "volume": 95157
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:35:00",
+      "open": 270.1101,
+      "high": 270.455,
+      "low": 270.0801,
+      "close": 270.335,
+      "volume": 102307
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:36:00",
+      "open": 270.35,
+      "high": 270.6,
+      "low": 270.34,
+      "close": 270.41,
+      "volume": 75349
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:37:00",
+      "open": 270.43,
+      "high": 270.65,
+      "low": 270.33,
+      "close": 270.43,
+      "volume": 72543
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:38:00",
+      "open": 270.4689,
+      "high": 270.77,
+      "low": 270.45,
+      "close": 270.7,
+      "volume": 73796
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:39:00",
+      "open": 270.67,
+      "high": 270.7926,
+      "low": 270.56,
+      "close": 270.76,
+      "volume": 74083
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:40:00",
+      "open": 270.76,
+      "high": 270.77,
+      "low": 270.39,
+      "close": 270.52,
+      "volume": 86316
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:41:00",
+      "open": 270.53,
+      "high": 270.97,
+      "low": 270.37,
+      "close": 270.97,
+      "volume": 86056
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:42:00",
+      "open": 270.9846,
+      "high": 271.18,
+      "low": 270.76,
+      "close": 271.0888,
+      "volume": 72888
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:43:00",
+      "open": 271.1,
+      "high": 271.27,
+      "low": 271.05,
+      "close": 271.21,
+      "volume": 65668
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:44:00",
+      "open": 271.16,
+      "high": 271.2,
+      "low": 271.0118,
+      "close": 271.19,
+      "volume": 82732
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:45:00",
+      "open": 271.2,
+      "high": 271.4399,
+      "low": 271.12,
+      "close": 271.25,
+      "volume": 78841
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:46:00",
+      "open": 271.23,
+      "high": 271.48,
+      "low": 271.17,
+      "close": 271.38,
+      "volume": 66592
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:47:00",
+      "open": 271.3772,
+      "high": 271.475,
+      "low": 271.18,
+      "close": 271.2801,
+      "volume": 120295
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:48:00",
+      "open": 271.28,
+      "high": 271.34,
+      "low": 271.15,
+      "close": 271.21,
+      "volume": 40099
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:49:00",
+      "open": 271.17,
+      "high": 271.415,
+      "low": 271.07,
+      "close": 271.4,
+      "volume": 56075
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:50:00",
+      "open": 271.39,
+      "high": 271.6199,
+      "low": 271.34,
+      "close": 271.44,
+      "volume": 83654
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:51:00",
+      "open": 271.448,
+      "high": 271.5499,
+      "low": 271.4,
+      "close": 271.46,
+      "volume": 130377
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:52:00",
+      "open": 271.4551,
+      "high": 271.56,
+      "low": 271.41,
+      "close": 271.515,
+      "volume": 35465
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:53:00",
+      "open": 271.505,
+      "high": 271.8333,
+      "low": 271.46,
+      "close": 271.7974,
+      "volume": 88834
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:54:00",
+      "open": 271.795,
+      "high": 271.93,
+      "low": 271.65,
+      "close": 271.9166,
+      "volume": 90076
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:55:00",
+      "open": 271.91,
+      "high": 271.91,
+      "low": 271.615,
+      "close": 271.64,
+      "volume": 97541
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:56:00",
+      "open": 271.64,
+      "high": 271.7424,
+      "low": 271.51,
+      "close": 271.59,
+      "volume": 61649
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:57:00",
+      "open": 271.55,
+      "high": 271.55,
+      "low": 271.15,
+      "close": 271.42,
+      "volume": 118688
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:58:00",
+      "open": 271.415,
+      "high": 271.49,
+      "low": 271.2701,
+      "close": 271.46,
+      "volume": 84270
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T09:59:00",
+      "open": 271.48,
+      "high": 271.48,
+      "low": 271.14,
+      "close": 271.23,
+      "volume": 83670
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:00:00",
+      "open": 271.225,
+      "high": 271.25,
+      "low": 270.94,
+      "close": 270.955,
+      "volume": 78842
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:01:00",
+      "open": 270.955,
+      "high": 271.085,
+      "low": 270.8715,
+      "close": 270.89,
+      "volume": 64410
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:02:00",
+      "open": 270.9456,
+      "high": 271.06,
+      "low": 270.92,
+      "close": 270.9601,
+      "volume": 42243
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:03:00",
+      "open": 270.98,
+      "high": 270.98,
+      "low": 270.73,
+      "close": 270.925,
+      "volume": 73394
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:04:00",
+      "open": 270.91,
+      "high": 270.98,
+      "low": 270.74,
+      "close": 270.83,
+      "volume": 52005
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:05:00",
+      "open": 270.8,
+      "high": 270.9,
+      "low": 270.7,
+      "close": 270.845,
+      "volume": 66954
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:06:00",
+      "open": 270.86,
+      "high": 270.97,
+      "low": 270.82,
+      "close": 270.934,
+      "volume": 51773
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:07:00",
+      "open": 270.92,
+      "high": 271.414,
+      "low": 270.89,
+      "close": 271.4001,
+      "volume": 327598
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:08:00",
+      "open": 271.38,
+      "high": 271.53,
+      "low": 271.1881,
+      "close": 271.25,
+      "volume": 78618
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:09:00",
+      "open": 271.2968,
+      "high": 271.3624,
+      "low": 271.03,
+      "close": 271.335,
+      "volume": 54934
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:10:00",
+      "open": 271.35,
+      "high": 271.375,
+      "low": 271.0,
+      "close": 271.07,
+      "volume": 47545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:11:00",
+      "open": 271.11,
+      "high": 271.13,
+      "low": 270.92,
+      "close": 270.9975,
+      "volume": 32647
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:12:00",
+      "open": 270.995,
+      "high": 271.1,
+      "low": 270.95,
+      "close": 271.0401,
+      "volume": 30225
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:13:00",
+      "open": 271.055,
+      "high": 271.2,
+      "low": 271.0304,
+      "close": 271.15,
+      "volume": 29397
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:14:00",
+      "open": 271.13,
+      "high": 271.3299,
+      "low": 271.11,
+      "close": 271.28,
+      "volume": 31356
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:15:00",
+      "open": 271.27,
+      "high": 271.29,
+      "low": 271.04,
+      "close": 271.0801,
+      "volume": 30599
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:16:00",
+      "open": 271.12,
+      "high": 271.39,
+      "low": 271.08,
+      "close": 271.37,
+      "volume": 35598
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:17:00",
+      "open": 271.39,
+      "high": 271.4799,
+      "low": 271.27,
+      "close": 271.47,
+      "volume": 45452
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:18:00",
+      "open": 271.47,
+      "high": 271.475,
+      "low": 271.36,
+      "close": 271.43,
+      "volume": 23942
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:19:00",
+      "open": 271.47,
+      "high": 271.61,
+      "low": 271.45,
+      "close": 271.502,
+      "volume": 25135
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:20:00",
+      "open": 271.51,
+      "high": 271.55,
+      "low": 271.3801,
+      "close": 271.49,
+      "volume": 36198
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:21:00",
+      "open": 271.49,
+      "high": 271.55,
+      "low": 271.3361,
+      "close": 271.3361,
+      "volume": 29979
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:22:00",
+      "open": 271.35,
+      "high": 271.365,
+      "low": 271.13,
+      "close": 271.1708,
+      "volume": 50820
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:23:00",
+      "open": 271.17,
+      "high": 271.3,
+      "low": 271.15,
+      "close": 271.198,
+      "volume": 92863
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:24:00",
+      "open": 271.205,
+      "high": 271.22,
+      "low": 271.0,
+      "close": 271.02,
+      "volume": 46414
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:25:00",
+      "open": 271.05,
+      "high": 271.06,
+      "low": 270.56,
+      "close": 270.76,
+      "volume": 162105
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:26:00",
+      "open": 270.79,
+      "high": 270.8912,
+      "low": 270.765,
+      "close": 270.845,
+      "volume": 38877
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:27:00",
+      "open": 270.845,
+      "high": 270.845,
+      "low": 270.715,
+      "close": 270.795,
+      "volume": 64819
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:28:00",
+      "open": 270.795,
+      "high": 270.89,
+      "low": 270.6901,
+      "close": 270.7801,
+      "volume": 52358
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:29:00",
+      "open": 270.78,
+      "high": 270.86,
+      "low": 270.75,
+      "close": 270.84,
+      "volume": 41541
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:30:00",
+      "open": 270.84,
+      "high": 270.955,
+      "low": 270.84,
+      "close": 270.93,
+      "volume": 36856
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:31:00",
+      "open": 270.8701,
+      "high": 270.89,
+      "low": 270.8075,
+      "close": 270.8075,
+      "volume": 24923
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:32:00",
+      "open": 270.8148,
+      "high": 270.887,
+      "low": 270.81,
+      "close": 270.87,
+      "volume": 23431
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:33:00",
+      "open": 270.88,
+      "high": 270.92,
+      "low": 270.7,
+      "close": 270.755,
+      "volume": 33471
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:34:00",
+      "open": 270.75,
+      "high": 270.85,
+      "low": 270.75,
+      "close": 270.78,
+      "volume": 26108
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:35:00",
+      "open": 270.79,
+      "high": 270.87,
+      "low": 270.77,
+      "close": 270.81,
+      "volume": 46840
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:36:00",
+      "open": 270.85,
+      "high": 270.98,
+      "low": 270.8,
+      "close": 270.9701,
+      "volume": 51070
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:37:00",
+      "open": 270.99,
+      "high": 271.1788,
+      "low": 270.9,
+      "close": 271.17,
+      "volume": 51601
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:38:00",
+      "open": 271.1607,
+      "high": 271.2,
+      "low": 271.02,
+      "close": 271.035,
+      "volume": 59364
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:39:00",
+      "open": 271.01,
+      "high": 271.12,
+      "low": 270.9887,
+      "close": 271.12,
+      "volume": 26701
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:40:00",
+      "open": 271.12,
+      "high": 271.13,
+      "low": 270.98,
+      "close": 270.98,
+      "volume": 35246
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:41:00",
+      "open": 271.0,
+      "high": 271.14,
+      "low": 270.97,
+      "close": 271.0,
+      "volume": 41912
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:42:00",
+      "open": 271.0,
+      "high": 271.01,
+      "low": 270.91,
+      "close": 270.9636,
+      "volume": 46582
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:43:00",
+      "open": 270.98,
+      "high": 271.11,
+      "low": 270.95,
+      "close": 271.0901,
+      "volume": 26190
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:44:00",
+      "open": 271.1,
+      "high": 271.17,
+      "low": 271.09,
+      "close": 271.17,
+      "volume": 23850
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:45:00",
+      "open": 271.18,
+      "high": 271.28,
+      "low": 271.11,
+      "close": 271.275,
+      "volume": 34811
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:46:00",
+      "open": 271.2799,
+      "high": 271.42,
+      "low": 271.26,
+      "close": 271.4,
+      "volume": 31978
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:47:00",
+      "open": 271.41,
+      "high": 271.4498,
+      "low": 271.33,
+      "close": 271.405,
+      "volume": 27643
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:48:00",
+      "open": 271.43,
+      "high": 271.46,
+      "low": 271.33,
+      "close": 271.33,
+      "volume": 34603
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:49:00",
+      "open": 271.32,
+      "high": 271.405,
+      "low": 271.3,
+      "close": 271.405,
+      "volume": 33609
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:50:00",
+      "open": 271.4,
+      "high": 271.43,
+      "low": 271.38,
+      "close": 271.4101,
+      "volume": 19474
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:51:00",
+      "open": 271.41,
+      "high": 271.53,
+      "low": 271.39,
+      "close": 271.505,
+      "volume": 39102
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:52:00",
+      "open": 271.505,
+      "high": 271.505,
+      "low": 271.3105,
+      "close": 271.3451,
+      "volume": 47832
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:53:00",
+      "open": 271.33,
+      "high": 271.435,
+      "low": 271.33,
+      "close": 271.38,
+      "volume": 42306
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:54:00",
+      "open": 271.39,
+      "high": 271.4699,
+      "low": 271.36,
+      "close": 271.46,
+      "volume": 21811
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:55:00",
+      "open": 271.44,
+      "high": 271.4601,
+      "low": 271.27,
+      "close": 271.3,
+      "volume": 21648
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:56:00",
+      "open": 271.29,
+      "high": 271.35,
+      "low": 271.28,
+      "close": 271.32,
+      "volume": 23574
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:57:00",
+      "open": 271.325,
+      "high": 271.36,
+      "low": 271.29,
+      "close": 271.315,
+      "volume": 22941
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:58:00",
+      "open": 271.33,
+      "high": 271.57,
+      "low": 271.2937,
+      "close": 271.55,
+      "volume": 29507
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T10:59:00",
+      "open": 271.5401,
+      "high": 271.56,
+      "low": 271.445,
+      "close": 271.46,
+      "volume": 28198
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:00:00",
+      "open": 271.44,
+      "high": 271.53,
+      "low": 271.4301,
+      "close": 271.49,
+      "volume": 34332
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:01:00",
+      "open": 271.49,
+      "high": 271.56,
+      "low": 271.48,
+      "close": 271.525,
+      "volume": 19371
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:02:00",
+      "open": 271.545,
+      "high": 271.87,
+      "low": 271.54,
+      "close": 271.7965,
+      "volume": 150071
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:03:00",
+      "open": 271.795,
+      "high": 271.9,
+      "low": 271.77,
+      "close": 271.8,
+      "volume": 135276
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:04:00",
+      "open": 271.77,
+      "high": 271.81,
+      "low": 271.69,
+      "close": 271.81,
+      "volume": 37425
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:05:00",
+      "open": 271.83,
+      "high": 271.9,
+      "low": 271.79,
+      "close": 271.825,
+      "volume": 40792
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:06:00",
+      "open": 271.83,
+      "high": 271.86,
+      "low": 271.72,
+      "close": 271.745,
+      "volume": 64836
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:07:00",
+      "open": 271.759,
+      "high": 271.795,
+      "low": 271.69,
+      "close": 271.7799,
+      "volume": 48018
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:08:00",
+      "open": 271.79,
+      "high": 271.7997,
+      "low": 271.6201,
+      "close": 271.6712,
+      "volume": 32468
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:09:00",
+      "open": 271.68,
+      "high": 271.68,
+      "low": 271.5,
+      "close": 271.62,
+      "volume": 40681
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:10:00",
+      "open": 271.62,
+      "high": 271.81,
+      "low": 271.62,
+      "close": 271.795,
+      "volume": 26464
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:11:00",
+      "open": 271.81,
+      "high": 271.81,
+      "low": 271.62,
+      "close": 271.72,
+      "volume": 53633
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:12:00",
+      "open": 271.73,
+      "high": 271.765,
+      "low": 271.68,
+      "close": 271.73,
+      "volume": 28304
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:13:00",
+      "open": 271.7234,
+      "high": 271.76,
+      "low": 271.65,
+      "close": 271.71,
+      "volume": 25425
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:14:00",
+      "open": 271.7087,
+      "high": 271.759,
+      "low": 271.7,
+      "close": 271.75,
+      "volume": 15931
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:15:00",
+      "open": 271.7701,
+      "high": 271.85,
+      "low": 271.745,
+      "close": 271.84,
+      "volume": 23470
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:16:00",
+      "open": 271.8301,
+      "high": 271.845,
+      "low": 271.77,
+      "close": 271.78,
+      "volume": 41818
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:17:00",
+      "open": 271.79,
+      "high": 271.88,
+      "low": 271.7,
+      "close": 271.7101,
+      "volume": 38716
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:18:00",
+      "open": 271.725,
+      "high": 271.8252,
+      "low": 271.7236,
+      "close": 271.8,
+      "volume": 24321
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:19:00",
+      "open": 271.8183,
+      "high": 271.95,
+      "low": 271.81,
+      "close": 271.9,
+      "volume": 37330
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:20:00",
+      "open": 271.9001,
+      "high": 271.91,
+      "low": 271.74,
+      "close": 271.765,
+      "volume": 34654
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:21:00",
+      "open": 271.75,
+      "high": 271.7699,
+      "low": 271.7,
+      "close": 271.73,
+      "volume": 34427
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:22:00",
+      "open": 271.7341,
+      "high": 271.8,
+      "low": 271.72,
+      "close": 271.7387,
+      "volume": 33586
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:23:00",
+      "open": 271.7412,
+      "high": 271.76,
+      "low": 271.69,
+      "close": 271.7,
+      "volume": 19975
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:24:00",
+      "open": 271.69,
+      "high": 271.77,
+      "low": 271.675,
+      "close": 271.72,
+      "volume": 18920
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:25:00",
+      "open": 271.71,
+      "high": 271.715,
+      "low": 271.63,
+      "close": 271.635,
+      "volume": 25729
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:26:00",
+      "open": 271.62,
+      "high": 271.66,
+      "low": 271.56,
+      "close": 271.56,
+      "volume": 27462
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:27:00",
+      "open": 271.57,
+      "high": 271.64,
+      "low": 271.52,
+      "close": 271.64,
+      "volume": 40843
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:28:00",
+      "open": 271.625,
+      "high": 271.69,
+      "low": 271.5836,
+      "close": 271.69,
+      "volume": 28706
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:29:00",
+      "open": 271.7,
+      "high": 271.79,
+      "low": 271.67,
+      "close": 271.7814,
+      "volume": 45043
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:30:00",
+      "open": 271.815,
+      "high": 271.87,
+      "low": 271.76,
+      "close": 271.82,
+      "volume": 33247
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:31:00",
+      "open": 271.8195,
+      "high": 271.89,
+      "low": 271.76,
+      "close": 271.77,
+      "volume": 31468
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:32:00",
+      "open": 271.77,
+      "high": 271.8,
+      "low": 271.76,
+      "close": 271.8,
+      "volume": 25175
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:33:00",
+      "open": 271.7981,
+      "high": 271.92,
+      "low": 271.7903,
+      "close": 271.92,
+      "volume": 33667
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:34:00",
+      "open": 271.91,
+      "high": 271.93,
+      "low": 271.85,
+      "close": 271.88,
+      "volume": 22018
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:35:00",
+      "open": 271.88,
+      "high": 271.9,
+      "low": 271.83,
+      "close": 271.86,
+      "volume": 31706
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:36:00",
+      "open": 271.85,
+      "high": 271.88,
+      "low": 271.82,
+      "close": 271.8588,
+      "volume": 15817
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:37:00",
+      "open": 271.85,
+      "high": 271.875,
+      "low": 271.75,
+      "close": 271.76,
+      "volume": 26166
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:38:00",
+      "open": 271.77,
+      "high": 271.7999,
+      "low": 271.72,
+      "close": 271.79,
+      "volume": 26629
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:39:00",
+      "open": 271.785,
+      "high": 271.94,
+      "low": 271.7543,
+      "close": 271.94,
+      "volume": 34529
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:40:00",
+      "open": 271.93,
+      "high": 271.94,
+      "low": 271.86,
+      "close": 271.917,
+      "volume": 29373
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:41:00",
+      "open": 271.92,
+      "high": 272.07,
+      "low": 271.91,
+      "close": 272.06,
+      "volume": 115226
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:42:00",
+      "open": 272.06,
+      "high": 272.06,
+      "low": 271.995,
+      "close": 272.03,
+      "volume": 36820
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:43:00",
+      "open": 272.05,
+      "high": 272.17,
+      "low": 272.05,
+      "close": 272.07,
+      "volume": 56578
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:44:00",
+      "open": 272.05,
+      "high": 272.0531,
+      "low": 271.95,
+      "close": 271.985,
+      "volume": 26820
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:45:00",
+      "open": 271.99,
+      "high": 272.06,
+      "low": 271.97,
+      "close": 272.05,
+      "volume": 27582
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:46:00",
+      "open": 272.0587,
+      "high": 272.0799,
+      "low": 272.01,
+      "close": 272.045,
+      "volume": 24085
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:47:00",
+      "open": 272.04,
+      "high": 272.07,
+      "low": 272.01,
+      "close": 272.039,
+      "volume": 20524
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:48:00",
+      "open": 272.035,
+      "high": 272.05,
+      "low": 272.0044,
+      "close": 272.03,
+      "volume": 22237
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:49:00",
+      "open": 272.03,
+      "high": 272.09,
+      "low": 272.02,
+      "close": 272.09,
+      "volume": 24006
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:50:00",
+      "open": 272.1025,
+      "high": 272.13,
+      "low": 272.025,
+      "close": 272.03,
+      "volume": 25518
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:51:00",
+      "open": 272.03,
+      "high": 272.15,
+      "low": 272.03,
+      "close": 272.14,
+      "volume": 35778
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:52:00",
+      "open": 272.15,
+      "high": 272.15,
+      "low": 272.05,
+      "close": 272.09,
+      "volume": 16669
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:53:00",
+      "open": 272.0887,
+      "high": 272.3112,
+      "low": 272.045,
+      "close": 272.3112,
+      "volume": 102976
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:54:00",
+      "open": 272.31,
+      "high": 272.31,
+      "low": 272.21,
+      "close": 272.2399,
+      "volume": 34979
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:55:00",
+      "open": 272.23,
+      "high": 272.2636,
+      "low": 272.15,
+      "close": 272.26,
+      "volume": 26909
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:56:00",
+      "open": 272.265,
+      "high": 272.27,
+      "low": 272.18,
+      "close": 272.185,
+      "volume": 21633
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:57:00",
+      "open": 272.175,
+      "high": 272.22,
+      "low": 272.1301,
+      "close": 272.14,
+      "volume": 17012
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:58:00",
+      "open": 272.155,
+      "high": 272.1799,
+      "low": 272.11,
+      "close": 272.16,
+      "volume": 21929
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T11:59:00",
+      "open": 272.18,
+      "high": 272.1897,
+      "low": 272.1,
+      "close": 272.159,
+      "volume": 26372
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:00:00",
+      "open": 272.145,
+      "high": 272.23,
+      "low": 272.0888,
+      "close": 272.23,
+      "volume": 32750
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:01:00",
+      "open": 272.2209,
+      "high": 272.2315,
+      "low": 272.0,
+      "close": 272.02,
+      "volume": 54717
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:02:00",
+      "open": 272.05,
+      "high": 272.0854,
+      "low": 271.995,
+      "close": 272.07,
+      "volume": 58329
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:03:00",
+      "open": 272.05,
+      "high": 272.05,
+      "low": 271.99,
+      "close": 272.01,
+      "volume": 31872
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:04:00",
+      "open": 272.01,
+      "high": 272.02,
+      "low": 271.842,
+      "close": 271.87,
+      "volume": 96964
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:05:00",
+      "open": 271.88,
+      "high": 271.8828,
+      "low": 271.765,
+      "close": 271.78,
+      "volume": 21768
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:06:00",
+      "open": 271.79,
+      "high": 271.97,
+      "low": 271.75,
+      "close": 271.92,
+      "volume": 30695
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:07:00",
+      "open": 271.93,
+      "high": 271.94,
+      "low": 271.74,
+      "close": 271.77,
+      "volume": 28291
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:08:00",
+      "open": 271.7812,
+      "high": 271.8,
+      "low": 271.76,
+      "close": 271.77,
+      "volume": 31906
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:09:00",
+      "open": 271.775,
+      "high": 271.89,
+      "low": 271.74,
+      "close": 271.815,
+      "volume": 80472
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:10:00",
+      "open": 271.83,
+      "high": 271.85,
+      "low": 271.74,
+      "close": 271.8,
+      "volume": 32306
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:11:00",
+      "open": 271.78,
+      "high": 271.85,
+      "low": 271.76,
+      "close": 271.82,
+      "volume": 26913
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:12:00",
+      "open": 271.815,
+      "high": 271.8928,
+      "low": 271.81,
+      "close": 271.81,
+      "volume": 36071
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:13:00",
+      "open": 271.81,
+      "high": 271.81,
+      "low": 271.73,
+      "close": 271.7508,
+      "volume": 56017
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:14:00",
+      "open": 271.75,
+      "high": 271.8,
+      "low": 271.685,
+      "close": 271.78,
+      "volume": 57404
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:15:00",
+      "open": 271.77,
+      "high": 271.85,
+      "low": 271.765,
+      "close": 271.77,
+      "volume": 18078
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:16:00",
+      "open": 271.775,
+      "high": 271.8001,
+      "low": 271.65,
+      "close": 271.6685,
+      "volume": 25129
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:17:00",
+      "open": 271.67,
+      "high": 271.74,
+      "low": 271.66,
+      "close": 271.7,
+      "volume": 54404
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:18:00",
+      "open": 271.7,
+      "high": 271.71,
+      "low": 271.62,
+      "close": 271.63,
+      "volume": 31097
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:19:00",
+      "open": 271.625,
+      "high": 271.68,
+      "low": 271.6,
+      "close": 271.61,
+      "volume": 42612
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:20:00",
+      "open": 271.61,
+      "high": 271.7358,
+      "low": 271.5987,
+      "close": 271.71,
+      "volume": 25771
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:21:00",
+      "open": 271.7113,
+      "high": 271.72,
+      "low": 271.64,
+      "close": 271.64,
+      "volume": 22279
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:22:00",
+      "open": 271.63,
+      "high": 271.64,
+      "low": 271.58,
+      "close": 271.64,
+      "volume": 22444
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:23:00",
+      "open": 271.63,
+      "high": 271.674,
+      "low": 271.61,
+      "close": 271.674,
+      "volume": 24444
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:24:00",
+      "open": 271.67,
+      "high": 271.7,
+      "low": 271.66,
+      "close": 271.69,
+      "volume": 30473
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:25:00",
+      "open": 271.7,
+      "high": 271.71,
+      "low": 271.6326,
+      "close": 271.65,
+      "volume": 25873
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:26:00",
+      "open": 271.645,
+      "high": 271.645,
+      "low": 271.5,
+      "close": 271.52,
+      "volume": 31313
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:27:00",
+      "open": 271.52,
+      "high": 271.56,
+      "low": 271.505,
+      "close": 271.5436,
+      "volume": 24042
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:28:00",
+      "open": 271.53,
+      "high": 271.5499,
+      "low": 271.48,
+      "close": 271.5157,
+      "volume": 21683
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:29:00",
+      "open": 271.52,
+      "high": 271.5399,
+      "low": 271.473,
+      "close": 271.53,
+      "volume": 16754
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:30:00",
+      "open": 271.54,
+      "high": 271.59,
+      "low": 271.515,
+      "close": 271.59,
+      "volume": 16517
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:31:00",
+      "open": 271.5819,
+      "high": 271.61,
+      "low": 271.48,
+      "close": 271.51,
+      "volume": 22131
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:32:00",
+      "open": 271.5,
+      "high": 271.51,
+      "low": 271.255,
+      "close": 271.275,
+      "volume": 55403
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:33:00",
+      "open": 271.29,
+      "high": 271.3,
+      "low": 271.11,
+      "close": 271.13,
+      "volume": 52002
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:34:00",
+      "open": 271.16,
+      "high": 271.28,
+      "low": 271.12,
+      "close": 271.23,
+      "volume": 36844
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:35:00",
+      "open": 271.235,
+      "high": 271.3,
+      "low": 271.2,
+      "close": 271.295,
+      "volume": 32654
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:36:00",
+      "open": 271.32,
+      "high": 271.39,
+      "low": 271.31,
+      "close": 271.345,
+      "volume": 13544
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:37:00",
+      "open": 271.35,
+      "high": 271.39,
+      "low": 271.31,
+      "close": 271.3229,
+      "volume": 14908
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:38:00",
+      "open": 271.33,
+      "high": 271.375,
+      "low": 271.31,
+      "close": 271.37,
+      "volume": 14617
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:39:00",
+      "open": 271.36,
+      "high": 271.39,
+      "low": 271.3588,
+      "close": 271.3738,
+      "volume": 17690
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:40:00",
+      "open": 271.3725,
+      "high": 271.385,
+      "low": 271.31,
+      "close": 271.31,
+      "volume": 19377
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:41:00",
+      "open": 271.31,
+      "high": 271.32,
+      "low": 271.275,
+      "close": 271.32,
+      "volume": 22862
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:42:00",
+      "open": 271.35,
+      "high": 271.35,
+      "low": 271.31,
+      "close": 271.34,
+      "volume": 14107
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:43:00",
+      "open": 271.335,
+      "high": 271.37,
+      "low": 271.31,
+      "close": 271.36,
+      "volume": 17611
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:44:00",
+      "open": 271.37,
+      "high": 271.44,
+      "low": 271.355,
+      "close": 271.435,
+      "volume": 29198
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:45:00",
+      "open": 271.4336,
+      "high": 271.46,
+      "low": 271.38,
+      "close": 271.39,
+      "volume": 23727
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:46:00",
+      "open": 271.4167,
+      "high": 271.43,
+      "low": 271.37,
+      "close": 271.4,
+      "volume": 12882
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:47:00",
+      "open": 271.4101,
+      "high": 271.414,
+      "low": 271.3463,
+      "close": 271.39,
+      "volume": 21196
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:48:00",
+      "open": 271.385,
+      "high": 271.4,
+      "low": 271.3201,
+      "close": 271.3325,
+      "volume": 16654
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:49:00",
+      "open": 271.33,
+      "high": 271.3499,
+      "low": 271.31,
+      "close": 271.34,
+      "volume": 16600
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:50:00",
+      "open": 271.33,
+      "high": 271.355,
+      "low": 271.2878,
+      "close": 271.31,
+      "volume": 12253
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:51:00",
+      "open": 271.31,
+      "high": 271.35,
+      "low": 271.27,
+      "close": 271.34,
+      "volume": 23820
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:52:00",
+      "open": 271.35,
+      "high": 271.37,
+      "low": 271.3,
+      "close": 271.365,
+      "volume": 18281
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:53:00",
+      "open": 271.36,
+      "high": 271.49,
+      "low": 271.35,
+      "close": 271.46,
+      "volume": 21931
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:54:00",
+      "open": 271.46,
+      "high": 271.53,
+      "low": 271.46,
+      "close": 271.4999,
+      "volume": 40134
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:55:00",
+      "open": 271.48,
+      "high": 271.56,
+      "low": 271.43,
+      "close": 271.545,
+      "volume": 23889
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:56:00",
+      "open": 271.56,
+      "high": 271.605,
+      "low": 271.52,
+      "close": 271.5886,
+      "volume": 20020
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:57:00",
+      "open": 271.59,
+      "high": 271.63,
+      "low": 271.57,
+      "close": 271.63,
+      "volume": 40209
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:58:00",
+      "open": 271.6199,
+      "high": 271.65,
+      "low": 271.61,
+      "close": 271.63,
+      "volume": 22019
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T12:59:00",
+      "open": 271.64,
+      "high": 271.65,
+      "low": 271.6001,
+      "close": 271.61,
+      "volume": 17291
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:00:00",
+      "open": 271.6,
+      "high": 271.66,
+      "low": 271.56,
+      "close": 271.64,
+      "volume": 31453
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:01:00",
+      "open": 271.635,
+      "high": 271.72,
+      "low": 271.6101,
+      "close": 271.635,
+      "volume": 25179
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:02:00",
+      "open": 271.65,
+      "high": 271.6954,
+      "low": 271.63,
+      "close": 271.6954,
+      "volume": 26307
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:03:00",
+      "open": 271.695,
+      "high": 271.695,
+      "low": 271.65,
+      "close": 271.67,
+      "volume": 12835
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:04:00",
+      "open": 271.68,
+      "high": 271.7,
+      "low": 271.61,
+      "close": 271.67,
+      "volume": 25299
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:05:00",
+      "open": 271.684,
+      "high": 271.71,
+      "low": 271.66,
+      "close": 271.67,
+      "volume": 20377
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:06:00",
+      "open": 271.69,
+      "high": 271.7,
+      "low": 271.61,
+      "close": 271.64,
+      "volume": 13070
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:07:00",
+      "open": 271.67,
+      "high": 271.6792,
+      "low": 271.615,
+      "close": 271.65,
+      "volume": 14331
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:08:00",
+      "open": 271.6624,
+      "high": 271.67,
+      "low": 271.64,
+      "close": 271.67,
+      "volume": 12632
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:09:00",
+      "open": 271.66,
+      "high": 271.67,
+      "low": 271.61,
+      "close": 271.65,
+      "volume": 13692
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:10:00",
+      "open": 271.65,
+      "high": 271.695,
+      "low": 271.64,
+      "close": 271.695,
+      "volume": 24696
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:11:00",
+      "open": 271.695,
+      "high": 271.735,
+      "low": 271.67,
+      "close": 271.7344,
+      "volume": 29490
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:12:00",
+      "open": 271.735,
+      "high": 271.755,
+      "low": 271.71,
+      "close": 271.72,
+      "volume": 19457
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:13:00",
+      "open": 271.71,
+      "high": 271.73,
+      "low": 271.65,
+      "close": 271.69,
+      "volume": 33498
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:14:00",
+      "open": 271.72,
+      "high": 271.74,
+      "low": 271.635,
+      "close": 271.655,
+      "volume": 18912
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:15:00",
+      "open": 271.66,
+      "high": 271.66,
+      "low": 271.55,
+      "close": 271.57,
+      "volume": 16545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:16:00",
+      "open": 271.58,
+      "high": 271.6,
+      "low": 271.556,
+      "close": 271.56,
+      "volume": 15668
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:17:00",
+      "open": 271.56,
+      "high": 271.6,
+      "low": 271.5,
+      "close": 271.57,
+      "volume": 25741
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:18:00",
+      "open": 271.57,
+      "high": 271.59,
+      "low": 271.5579,
+      "close": 271.56,
+      "volume": 14971
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:19:00",
+      "open": 271.5656,
+      "high": 271.605,
+      "low": 271.5563,
+      "close": 271.57,
+      "volume": 14072
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:20:00",
+      "open": 271.59,
+      "high": 271.6452,
+      "low": 271.57,
+      "close": 271.6452,
+      "volume": 18004
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:21:00",
+      "open": 271.635,
+      "high": 271.73,
+      "low": 271.635,
+      "close": 271.65,
+      "volume": 27282
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:22:00",
+      "open": 271.6798,
+      "high": 271.71,
+      "low": 271.64,
+      "close": 271.69,
+      "volume": 40287
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:23:00",
+      "open": 271.69,
+      "high": 271.7,
+      "low": 271.63,
+      "close": 271.67,
+      "volume": 17273
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:24:00",
+      "open": 271.67,
+      "high": 271.6999,
+      "low": 271.66,
+      "close": 271.68,
+      "volume": 11999
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:25:00",
+      "open": 271.68,
+      "high": 271.7699,
+      "low": 271.68,
+      "close": 271.755,
+      "volume": 18154
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:26:00",
+      "open": 271.78,
+      "high": 271.79,
+      "low": 271.71,
+      "close": 271.7101,
+      "volume": 18046
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:27:00",
+      "open": 271.7,
+      "high": 271.7999,
+      "low": 271.7,
+      "close": 271.7999,
+      "volume": 13297
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:28:00",
+      "open": 271.79,
+      "high": 271.81,
+      "low": 271.77,
+      "close": 271.795,
+      "volume": 13966
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:29:00",
+      "open": 271.795,
+      "high": 271.8,
+      "low": 271.67,
+      "close": 271.7,
+      "volume": 13829
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:30:00",
+      "open": 271.7,
+      "high": 271.78,
+      "low": 271.69,
+      "close": 271.78,
+      "volume": 10864
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:31:00",
+      "open": 271.79,
+      "high": 271.86,
+      "low": 271.7887,
+      "close": 271.8598,
+      "volume": 14101
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:32:00",
+      "open": 271.85,
+      "high": 271.87,
+      "low": 271.8,
+      "close": 271.82,
+      "volume": 27762
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:33:00",
+      "open": 271.8252,
+      "high": 271.8444,
+      "low": 271.82,
+      "close": 271.84,
+      "volume": 15381
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:34:00",
+      "open": 271.83,
+      "high": 271.86,
+      "low": 271.8,
+      "close": 271.84,
+      "volume": 14079
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:35:00",
+      "open": 271.848,
+      "high": 271.87,
+      "low": 271.83,
+      "close": 271.84,
+      "volume": 17739
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:36:00",
+      "open": 271.845,
+      "high": 271.91,
+      "low": 271.84,
+      "close": 271.89,
+      "volume": 17268
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:37:00",
+      "open": 271.88,
+      "high": 271.95,
+      "low": 271.88,
+      "close": 271.925,
+      "volume": 22576
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:38:00",
+      "open": 271.925,
+      "high": 271.97,
+      "low": 271.91,
+      "close": 271.93,
+      "volume": 16968
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:39:00",
+      "open": 271.92,
+      "high": 271.92,
+      "low": 271.88,
+      "close": 271.9,
+      "volume": 16249
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:40:00",
+      "open": 271.9099,
+      "high": 271.92,
+      "low": 271.84,
+      "close": 271.86,
+      "volume": 16786
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:41:00",
+      "open": 271.875,
+      "high": 271.89,
+      "low": 271.8,
+      "close": 271.84,
+      "volume": 10316
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:42:00",
+      "open": 271.84,
+      "high": 271.9056,
+      "low": 271.83,
+      "close": 271.89,
+      "volume": 18283
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:43:00",
+      "open": 271.9,
+      "high": 271.96,
+      "low": 271.9,
+      "close": 271.96,
+      "volume": 17320
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:44:00",
+      "open": 271.965,
+      "high": 272.12,
+      "low": 271.955,
+      "close": 272.08,
+      "volume": 42093
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:45:00",
+      "open": 272.09,
+      "high": 272.09,
+      "low": 271.89,
+      "close": 271.91,
+      "volume": 45937
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:46:00",
+      "open": 271.89,
+      "high": 271.9399,
+      "low": 271.8201,
+      "close": 271.8201,
+      "volume": 20443
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:47:00",
+      "open": 271.82,
+      "high": 271.84,
+      "low": 271.7871,
+      "close": 271.8,
+      "volume": 27525
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:48:00",
+      "open": 271.81,
+      "high": 271.8115,
+      "low": 271.7401,
+      "close": 271.785,
+      "volume": 42006
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:49:00",
+      "open": 271.78,
+      "high": 271.87,
+      "low": 271.78,
+      "close": 271.8501,
+      "volume": 21497
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:50:00",
+      "open": 271.85,
+      "high": 271.912,
+      "low": 271.85,
+      "close": 271.91,
+      "volume": 17675
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:51:00",
+      "open": 271.92,
+      "high": 272.0101,
+      "low": 271.92,
+      "close": 271.99,
+      "volume": 28422
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:52:00",
+      "open": 272.0,
+      "high": 272.0228,
+      "low": 272.0,
+      "close": 272.02,
+      "volume": 9975
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:53:00",
+      "open": 272.0212,
+      "high": 272.0213,
+      "low": 271.91,
+      "close": 271.98,
+      "volume": 17869
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:54:00",
+      "open": 271.98,
+      "high": 272.0,
+      "low": 271.88,
+      "close": 271.9,
+      "volume": 32026
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:55:00",
+      "open": 271.89,
+      "high": 271.89,
+      "low": 271.785,
+      "close": 271.785,
+      "volume": 34291
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:56:00",
+      "open": 271.805,
+      "high": 271.85,
+      "low": 271.78,
+      "close": 271.84,
+      "volume": 15766
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:57:00",
+      "open": 271.84,
+      "high": 271.87,
+      "low": 271.8,
+      "close": 271.81,
+      "volume": 17228
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:58:00",
+      "open": 271.8,
+      "high": 271.8,
+      "low": 271.66,
+      "close": 271.66,
+      "volume": 20099
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T13:59:00",
+      "open": 271.6588,
+      "high": 271.71,
+      "low": 271.64,
+      "close": 271.7,
+      "volume": 29263
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:00:00",
+      "open": 271.7,
+      "high": 271.72,
+      "low": 271.6551,
+      "close": 271.68,
+      "volume": 20081
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:01:00",
+      "open": 271.6899,
+      "high": 271.69,
+      "low": 271.6,
+      "close": 271.605,
+      "volume": 24699
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:02:00",
+      "open": 271.6,
+      "high": 271.65,
+      "low": 271.57,
+      "close": 271.6,
+      "volume": 29841
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:03:00",
+      "open": 271.6103,
+      "high": 271.62,
+      "low": 271.5373,
+      "close": 271.6028,
+      "volume": 19942
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:04:00",
+      "open": 271.6,
+      "high": 271.69,
+      "low": 271.6,
+      "close": 271.62,
+      "volume": 22958
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:05:00",
+      "open": 271.62,
+      "high": 271.62,
+      "low": 271.58,
+      "close": 271.58,
+      "volume": 16578
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:06:00",
+      "open": 271.58,
+      "high": 271.61,
+      "low": 271.57,
+      "close": 271.586,
+      "volume": 22176
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:07:00",
+      "open": 271.5801,
+      "high": 271.595,
+      "low": 271.5,
+      "close": 271.595,
+      "volume": 43265
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:08:00",
+      "open": 271.59,
+      "high": 271.6,
+      "low": 271.51,
+      "close": 271.55,
+      "volume": 19884
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:09:00",
+      "open": 271.56,
+      "high": 271.6,
+      "low": 271.56,
+      "close": 271.56,
+      "volume": 24521
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:10:00",
+      "open": 271.56,
+      "high": 271.5847,
+      "low": 271.5,
+      "close": 271.5,
+      "volume": 27285
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:11:00",
+      "open": 271.5,
+      "high": 271.54,
+      "low": 271.5,
+      "close": 271.54,
+      "volume": 20835
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:12:00",
+      "open": 271.55,
+      "high": 271.56,
+      "low": 271.53,
+      "close": 271.56,
+      "volume": 22247
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:13:00",
+      "open": 271.55,
+      "high": 271.61,
+      "low": 271.54,
+      "close": 271.59,
+      "volume": 22350
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:14:00",
+      "open": 271.6,
+      "high": 271.6128,
+      "low": 271.56,
+      "close": 271.57,
+      "volume": 30428
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:15:00",
+      "open": 271.57,
+      "high": 271.7175,
+      "low": 271.56,
+      "close": 271.7,
+      "volume": 55016
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:16:00",
+      "open": 271.6902,
+      "high": 271.7536,
+      "low": 271.68,
+      "close": 271.74,
+      "volume": 19362
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:17:00",
+      "open": 271.74,
+      "high": 271.746,
+      "low": 271.66,
+      "close": 271.66,
+      "volume": 29147
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:18:00",
+      "open": 271.65,
+      "high": 271.66,
+      "low": 271.57,
+      "close": 271.5888,
+      "volume": 23435
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:19:00",
+      "open": 271.59,
+      "high": 271.64,
+      "low": 271.57,
+      "close": 271.64,
+      "volume": 17367
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:20:00",
+      "open": 271.64,
+      "high": 271.68,
+      "low": 271.6201,
+      "close": 271.66,
+      "volume": 35081
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:21:00",
+      "open": 271.655,
+      "high": 271.705,
+      "low": 271.64,
+      "close": 271.682,
+      "volume": 20266
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:22:00",
+      "open": 271.68,
+      "high": 271.68,
+      "low": 271.59,
+      "close": 271.6201,
+      "volume": 19948
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:23:00",
+      "open": 271.63,
+      "high": 271.63,
+      "low": 271.55,
+      "close": 271.5701,
+      "volume": 32698
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:24:00",
+      "open": 271.59,
+      "high": 271.63,
+      "low": 271.58,
+      "close": 271.63,
+      "volume": 15497
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:25:00",
+      "open": 271.625,
+      "high": 271.625,
+      "low": 271.54,
+      "close": 271.6074,
+      "volume": 42139
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:26:00",
+      "open": 271.605,
+      "high": 271.65,
+      "low": 271.605,
+      "close": 271.625,
+      "volume": 31860
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:27:00",
+      "open": 271.63,
+      "high": 271.63,
+      "low": 271.571,
+      "close": 271.6,
+      "volume": 33722
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:28:00",
+      "open": 271.6,
+      "high": 271.75,
+      "low": 271.59,
+      "close": 271.7436,
+      "volume": 18946
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:29:00",
+      "open": 271.7436,
+      "high": 271.81,
+      "low": 271.7,
+      "close": 271.81,
+      "volume": 22747
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:30:00",
+      "open": 271.81,
+      "high": 271.88,
+      "low": 271.7809,
+      "close": 271.79,
+      "volume": 21747
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:31:00",
+      "open": 271.8,
+      "high": 272.0304,
+      "low": 271.7972,
+      "close": 272.0304,
+      "volume": 54230
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:32:00",
+      "open": 272.03,
+      "high": 272.0304,
+      "low": 271.9201,
+      "close": 272.03,
+      "volume": 26190
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:33:00",
+      "open": 272.0201,
+      "high": 272.0201,
+      "low": 271.91,
+      "close": 271.935,
+      "volume": 23993
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:34:00",
+      "open": 271.93,
+      "high": 271.99,
+      "low": 271.925,
+      "close": 271.9393,
+      "volume": 26734
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:35:00",
+      "open": 271.93,
+      "high": 271.94,
+      "low": 271.88,
+      "close": 271.92,
+      "volume": 22286
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:36:00",
+      "open": 271.925,
+      "high": 271.9677,
+      "low": 271.91,
+      "close": 271.91,
+      "volume": 15615
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:37:00",
+      "open": 271.91,
+      "high": 271.9399,
+      "low": 271.89,
+      "close": 271.9,
+      "volume": 18071
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:38:00",
+      "open": 271.91,
+      "high": 271.92,
+      "low": 271.865,
+      "close": 271.88,
+      "volume": 23049
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:39:00",
+      "open": 271.875,
+      "high": 271.885,
+      "low": 271.81,
+      "close": 271.83,
+      "volume": 25686
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:40:00",
+      "open": 271.82,
+      "high": 271.82,
+      "low": 271.76,
+      "close": 271.7967,
+      "volume": 41712
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:41:00",
+      "open": 271.8063,
+      "high": 271.87,
+      "low": 271.8,
+      "close": 271.85,
+      "volume": 26763
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:42:00",
+      "open": 271.8507,
+      "high": 271.895,
+      "low": 271.84,
+      "close": 271.885,
+      "volume": 26325
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:43:00",
+      "open": 271.885,
+      "high": 272.12,
+      "low": 271.88,
+      "close": 272.1036,
+      "volume": 92701
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:44:00",
+      "open": 272.105,
+      "high": 272.2158,
+      "low": 272.0972,
+      "close": 272.17,
+      "volume": 37423
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:45:00",
+      "open": 272.15,
+      "high": 272.26,
+      "low": 272.11,
+      "close": 272.19,
+      "volume": 55474
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:46:00",
+      "open": 272.18,
+      "high": 272.2499,
+      "low": 272.17,
+      "close": 272.235,
+      "volume": 23452
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:47:00",
+      "open": 272.23,
+      "high": 272.235,
+      "low": 272.2,
+      "close": 272.23,
+      "volume": 18992
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:48:00",
+      "open": 272.23,
+      "high": 272.29,
+      "low": 272.17,
+      "close": 272.28,
+      "volume": 63197
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:49:00",
+      "open": 272.28,
+      "high": 272.35,
+      "low": 272.27,
+      "close": 272.31,
+      "volume": 29694
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:50:00",
+      "open": 272.32,
+      "high": 272.335,
+      "low": 272.29,
+      "close": 272.3303,
+      "volume": 35934
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:51:00",
+      "open": 272.3301,
+      "high": 272.44,
+      "low": 272.32,
+      "close": 272.37,
+      "volume": 45474
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:52:00",
+      "open": 272.3779,
+      "high": 272.4,
+      "low": 272.18,
+      "close": 272.18,
+      "volume": 41803
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:53:00",
+      "open": 272.1855,
+      "high": 272.2101,
+      "low": 272.15,
+      "close": 272.15,
+      "volume": 27280
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:54:00",
+      "open": 272.15,
+      "high": 272.21,
+      "low": 272.14,
+      "close": 272.2,
+      "volume": 18368
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:55:00",
+      "open": 272.215,
+      "high": 272.215,
+      "low": 272.15,
+      "close": 272.15,
+      "volume": 18791
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:56:00",
+      "open": 272.1401,
+      "high": 272.16,
+      "low": 272.07,
+      "close": 272.07,
+      "volume": 29045
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:57:00",
+      "open": 272.0899,
+      "high": 272.115,
+      "low": 272.06,
+      "close": 272.0802,
+      "volume": 24670
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:58:00",
+      "open": 272.105,
+      "high": 272.15,
+      "low": 272.05,
+      "close": 272.0666,
+      "volume": 28038
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T14:59:00",
+      "open": 272.065,
+      "high": 272.11,
+      "low": 272.065,
+      "close": 272.085,
+      "volume": 17599
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:00:00",
+      "open": 272.09,
+      "high": 272.11,
+      "low": 272.05,
+      "close": 272.05,
+      "volume": 23734
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:01:00",
+      "open": 272.07,
+      "high": 272.0915,
+      "low": 272.05,
+      "close": 272.0683,
+      "volume": 19973
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:02:00",
+      "open": 272.07,
+      "high": 272.08,
+      "low": 272.035,
+      "close": 272.055,
+      "volume": 22677
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:03:00",
+      "open": 272.05,
+      "high": 272.1599,
+      "low": 272.045,
+      "close": 272.14,
+      "volume": 33698
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:04:00",
+      "open": 272.16,
+      "high": 272.16,
+      "low": 272.1,
+      "close": 272.1271,
+      "volume": 24068
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:05:00",
+      "open": 272.12,
+      "high": 272.15,
+      "low": 272.05,
+      "close": 272.05,
+      "volume": 22325
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:06:00",
+      "open": 272.055,
+      "high": 272.095,
+      "low": 272.05,
+      "close": 272.07,
+      "volume": 15137
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:07:00",
+      "open": 272.07,
+      "high": 272.105,
+      "low": 272.03,
+      "close": 272.05,
+      "volume": 15871
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:08:00",
+      "open": 272.05,
+      "high": 272.07,
+      "low": 271.98,
+      "close": 272.01,
+      "volume": 51966
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:09:00",
+      "open": 272.01,
+      "high": 272.085,
+      "low": 272.0,
+      "close": 272.01,
+      "volume": 28843
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:10:00",
+      "open": 272.005,
+      "high": 272.1,
+      "low": 272.005,
+      "close": 272.07,
+      "volume": 36426
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:11:00",
+      "open": 272.07,
+      "high": 272.17,
+      "low": 272.07,
+      "close": 272.17,
+      "volume": 39457
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:12:00",
+      "open": 272.1719,
+      "high": 272.1799,
+      "low": 272.12,
+      "close": 272.1399,
+      "volume": 29538
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:13:00",
+      "open": 272.135,
+      "high": 272.135,
+      "low": 272.005,
+      "close": 272.02,
+      "volume": 28199
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:14:00",
+      "open": 272.02,
+      "high": 272.06,
+      "low": 272.01,
+      "close": 272.025,
+      "volume": 28644
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:15:00",
+      "open": 272.02,
+      "high": 272.03,
+      "low": 271.96,
+      "close": 271.9773,
+      "volume": 29374
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:16:00",
+      "open": 271.97,
+      "high": 272.0157,
+      "low": 271.95,
+      "close": 271.9901,
+      "volume": 20057
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:17:00",
+      "open": 271.9943,
+      "high": 272.02,
+      "low": 271.93,
+      "close": 272.005,
+      "volume": 75085
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:18:00",
+      "open": 272.01,
+      "high": 272.03,
+      "low": 271.955,
+      "close": 271.985,
+      "volume": 29162
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:19:00",
+      "open": 271.985,
+      "high": 272.03,
+      "low": 271.985,
+      "close": 272.02,
+      "volume": 30030
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:20:00",
+      "open": 272.025,
+      "high": 272.045,
+      "low": 272.0,
+      "close": 272.005,
+      "volume": 28347
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:21:00",
+      "open": 272.0,
+      "high": 272.02,
+      "low": 271.96,
+      "close": 272.02,
+      "volume": 42356
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:22:00",
+      "open": 272.015,
+      "high": 272.045,
+      "low": 271.96,
+      "close": 271.9937,
+      "volume": 52283
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:23:00",
+      "open": 271.9954,
+      "high": 272.0,
+      "low": 271.93,
+      "close": 271.965,
+      "volume": 20976
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:24:00",
+      "open": 271.96,
+      "high": 272.04,
+      "low": 271.9544,
+      "close": 272.03,
+      "volume": 28168
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:25:00",
+      "open": 272.03,
+      "high": 272.07,
+      "low": 272.03,
+      "close": 272.055,
+      "volume": 21367
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:26:00",
+      "open": 272.05,
+      "high": 272.06,
+      "low": 272.005,
+      "close": 272.0455,
+      "volume": 24766
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:27:00",
+      "open": 272.0455,
+      "high": 272.1,
+      "low": 272.045,
+      "close": 272.0556,
+      "volume": 28273
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:28:00",
+      "open": 272.05,
+      "high": 272.1156,
+      "low": 272.05,
+      "close": 272.1156,
+      "volume": 17483
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:29:00",
+      "open": 272.11,
+      "high": 272.12,
+      "low": 272.08,
+      "close": 272.107,
+      "volume": 28402
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:30:00",
+      "open": 272.1,
+      "high": 272.105,
+      "low": 272.0575,
+      "close": 272.09,
+      "volume": 30922
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:31:00",
+      "open": 272.085,
+      "high": 272.11,
+      "low": 272.05,
+      "close": 272.05,
+      "volume": 21845
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:32:00",
+      "open": 272.05,
+      "high": 272.09,
+      "low": 272.035,
+      "close": 272.05,
+      "volume": 24550
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:33:00",
+      "open": 272.055,
+      "high": 272.115,
+      "low": 272.03,
+      "close": 272.106,
+      "volume": 27436
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:34:00",
+      "open": 272.1,
+      "high": 272.17,
+      "low": 272.07,
+      "close": 272.165,
+      "volume": 38186
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:35:00",
+      "open": 272.16,
+      "high": 272.175,
+      "low": 272.07,
+      "close": 272.07,
+      "volume": 27439
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:36:00",
+      "open": 272.07,
+      "high": 272.075,
+      "low": 272.05,
+      "close": 272.06,
+      "volume": 26991
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:37:00",
+      "open": 272.06,
+      "high": 272.105,
+      "low": 272.06,
+      "close": 272.075,
+      "volume": 18075
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:38:00",
+      "open": 272.07,
+      "high": 272.12,
+      "low": 272.0394,
+      "close": 272.115,
+      "volume": 31545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:39:00",
+      "open": 272.13,
+      "high": 272.13,
+      "low": 272.02,
+      "close": 272.05,
+      "volume": 27589
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:40:00",
+      "open": 272.06,
+      "high": 272.0936,
+      "low": 271.95,
+      "close": 271.9799,
+      "volume": 39288
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:41:00",
+      "open": 271.95,
+      "high": 271.97,
+      "low": 271.91,
+      "close": 271.945,
+      "volume": 37787
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:42:00",
+      "open": 271.945,
+      "high": 271.96,
+      "low": 271.88,
+      "close": 271.9,
+      "volume": 47159
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:43:00",
+      "open": 271.91,
+      "high": 271.915,
+      "low": 271.8401,
+      "close": 271.88,
+      "volume": 29120
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:44:00",
+      "open": 271.885,
+      "high": 271.95,
+      "low": 271.88,
+      "close": 271.945,
+      "volume": 26358
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:45:00",
+      "open": 271.965,
+      "high": 272.025,
+      "low": 271.945,
+      "close": 271.98,
+      "volume": 39057
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:46:00",
+      "open": 272.0,
+      "high": 272.03,
+      "low": 271.93,
+      "close": 271.935,
+      "volume": 33725
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:47:00",
+      "open": 271.94,
+      "high": 271.945,
+      "low": 271.86,
+      "close": 271.86,
+      "volume": 23769
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:48:00",
+      "open": 271.85,
+      "high": 271.96,
+      "low": 271.84,
+      "close": 271.92,
+      "volume": 49801
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:49:00",
+      "open": 271.925,
+      "high": 271.945,
+      "low": 271.885,
+      "close": 271.94,
+      "volume": 35328
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:50:00",
+      "open": 271.95,
+      "high": 272.07,
+      "low": 271.85,
+      "close": 272.0,
+      "volume": 59671
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:51:00",
+      "open": 271.985,
+      "high": 272.13,
+      "low": 271.98,
+      "close": 272.07,
+      "volume": 70842
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:52:00",
+      "open": 272.02,
+      "high": 272.22,
+      "low": 272.02,
+      "close": 272.21,
+      "volume": 63707
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:53:00",
+      "open": 272.21,
+      "high": 272.3,
+      "low": 272.14,
+      "close": 272.235,
+      "volume": 103288
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:54:00",
+      "open": 272.235,
+      "high": 272.43,
+      "low": 272.02,
+      "close": 272.35,
+      "volume": 285796
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:55:00",
+      "open": 272.36,
+      "high": 272.45,
+      "low": 272.24,
+      "close": 272.3501,
+      "volume": 101184
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:56:00",
+      "open": 272.36,
+      "high": 272.385,
+      "low": 272.29,
+      "close": 272.35,
+      "volume": 76647
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:57:00",
+      "open": 272.35,
+      "high": 272.43,
+      "low": 272.35,
+      "close": 272.39,
+      "volume": 84161
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:58:00",
+      "open": 272.39,
+      "high": 272.42,
+      "low": 272.3401,
+      "close": 272.38,
+      "volume": 159393
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-23T15:59:00",
+      "open": 272.37,
+      "high": 272.38,
+      "low": 272.21,
+      "close": 272.24,
+      "volume": 647050
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:30:00",
+      "open": 273.25,
+      "high": 273.38,
+      "low": 273.11,
+      "close": 273.2601,
+      "volume": 1052157
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:31:00",
+      "open": 273.27,
+      "high": 273.49,
+      "low": 273.09,
+      "close": 273.41,
+      "volume": 86545
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:32:00",
+      "open": 273.47,
+      "high": 273.91,
+      "low": 273.36,
+      "close": 273.88,
+      "volume": 125903
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:33:00",
+      "open": 273.895,
+      "high": 274.27,
+      "low": 273.75,
+      "close": 274.235,
+      "volume": 307453
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:34:00",
+      "open": 274.26,
+      "high": 274.305,
+      "low": 273.75,
+      "close": 273.87,
+      "volume": 84295
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:35:00",
+      "open": 273.91,
+      "high": 274.35,
+      "low": 273.88,
+      "close": 274.3,
+      "volume": 87828
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:36:00",
+      "open": 274.325,
+      "high": 274.5488,
+      "low": 274.21,
+      "close": 274.3525,
+      "volume": 97079
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:37:00",
+      "open": 274.3525,
+      "high": 274.3812,
+      "low": 274.05,
+      "close": 274.16,
+      "volume": 79316
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:38:00",
+      "open": 274.165,
+      "high": 274.74,
+      "low": 274.165,
+      "close": 274.585,
+      "volume": 173722
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:39:00",
+      "open": 274.585,
+      "high": 274.608,
+      "low": 274.3601,
+      "close": 274.395,
+      "volume": 84459
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:40:00",
+      "open": 274.39,
+      "high": 274.47,
+      "low": 274.13,
+      "close": 274.32,
+      "volume": 80405
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:41:00",
+      "open": 274.33,
+      "high": 274.33,
+      "low": 274.05,
+      "close": 274.108,
+      "volume": 84478
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:42:00",
+      "open": 274.1007,
+      "high": 274.415,
+      "low": 274.08,
+      "close": 274.415,
+      "volume": 65606
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:43:00",
+      "open": 274.4,
+      "high": 274.55,
+      "low": 274.3301,
+      "close": 274.35,
+      "volume": 70995
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:44:00",
+      "open": 274.36,
+      "high": 274.39,
+      "low": 274.045,
+      "close": 274.135,
+      "volume": 60455
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:45:00",
+      "open": 274.115,
+      "high": 274.426,
+      "low": 274.1,
+      "close": 274.325,
+      "volume": 66576
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:46:00",
+      "open": 274.325,
+      "high": 274.325,
+      "low": 274.08,
+      "close": 274.08,
+      "volume": 51954
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:47:00",
+      "open": 274.0305,
+      "high": 274.049,
+      "low": 273.63,
+      "close": 273.75,
+      "volume": 132862
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:48:00",
+      "open": 273.75,
+      "high": 273.9224,
+      "low": 273.7301,
+      "close": 273.85,
+      "volume": 45573
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:49:00",
+      "open": 273.84,
+      "high": 273.84,
+      "low": 273.5727,
+      "close": 273.6312,
+      "volume": 50340
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:50:00",
+      "open": 273.64,
+      "high": 273.92,
+      "low": 273.63,
+      "close": 273.7051,
+      "volume": 44218
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:51:00",
+      "open": 273.69,
+      "high": 274.0599,
+      "low": 273.6387,
+      "close": 273.96,
+      "volume": 39197
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:52:00",
+      "open": 273.96,
+      "high": 274.17,
+      "low": 273.93,
+      "close": 274.04,
+      "volume": 48287
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:53:00",
+      "open": 274.04,
+      "high": 274.13,
+      "low": 273.94,
+      "close": 273.9594,
+      "volume": 57650
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:54:00",
+      "open": 273.963,
+      "high": 274.12,
+      "low": 273.9487,
+      "close": 274.11,
+      "volume": 30411
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:55:00",
+      "open": 274.14,
+      "high": 274.17,
+      "low": 273.93,
+      "close": 273.93,
+      "volume": 51734
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:56:00",
+      "open": 273.94,
+      "high": 274.17,
+      "low": 273.94,
+      "close": 274.15,
+      "volume": 41127
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:57:00",
+      "open": 274.12,
+      "high": 274.15,
+      "low": 274.06,
+      "close": 274.07,
+      "volume": 27834
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:58:00",
+      "open": 274.08,
+      "high": 274.125,
+      "low": 273.95,
+      "close": 274.105,
+      "volume": 36953
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T09:59:00",
+      "open": 274.1,
+      "high": 274.23,
+      "low": 274.08,
+      "close": 274.195,
+      "volume": 114858
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:00:00",
+      "open": 274.1754,
+      "high": 274.3,
+      "low": 274.08,
+      "close": 274.1162,
+      "volume": 56764
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:01:00",
+      "open": 274.09,
+      "high": 274.125,
+      "low": 273.98,
+      "close": 274.06,
+      "volume": 50070
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:02:00",
+      "open": 274.0323,
+      "high": 274.0323,
+      "low": 273.76,
+      "close": 273.87,
+      "volume": 127040
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:03:00",
+      "open": 273.88,
+      "high": 273.905,
+      "low": 273.8002,
+      "close": 273.8924,
+      "volume": 29253
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:04:00",
+      "open": 273.909,
+      "high": 273.95,
+      "low": 273.8245,
+      "close": 273.88,
+      "volume": 39404
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:05:00",
+      "open": 273.92,
+      "high": 274.0751,
+      "low": 273.92,
+      "close": 274.055,
+      "volume": 38274
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:06:00",
+      "open": 274.05,
+      "high": 274.0904,
+      "low": 273.8527,
+      "close": 273.88,
+      "volume": 36969
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:07:00",
+      "open": 273.86,
+      "high": 273.9,
+      "low": 273.7,
+      "close": 273.78,
+      "volume": 41941
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:08:00",
+      "open": 273.77,
+      "high": 273.88,
+      "low": 273.765,
+      "close": 273.88,
+      "volume": 24259
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:09:00",
+      "open": 273.8845,
+      "high": 273.9062,
+      "low": 273.82,
+      "close": 273.885,
+      "volume": 29364
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:10:00",
+      "open": 273.9099,
+      "high": 274.01,
+      "low": 273.89,
+      "close": 274.0,
+      "volume": 30437
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:11:00",
+      "open": 273.98,
+      "high": 274.04,
+      "low": 273.92,
+      "close": 274.0201,
+      "volume": 26451
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:12:00",
+      "open": 274.06,
+      "high": 274.19,
+      "low": 274.06,
+      "close": 274.14,
+      "volume": 33300
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:13:00",
+      "open": 274.145,
+      "high": 274.17,
+      "low": 273.91,
+      "close": 273.96,
+      "volume": 32716
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:14:00",
+      "open": 273.96,
+      "high": 274.05,
+      "low": 273.94,
+      "close": 274.045,
+      "volume": 32664
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:15:00",
+      "open": 274.03,
+      "high": 274.03,
+      "low": 273.8,
+      "close": 273.895,
+      "volume": 27994
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:16:00",
+      "open": 273.8801,
+      "high": 274.04,
+      "low": 273.86,
+      "close": 274.015,
+      "volume": 30058
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:17:00",
+      "open": 274.02,
+      "high": 274.22,
+      "low": 273.99,
+      "close": 274.215,
+      "volume": 43712
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:18:00",
+      "open": 274.22,
+      "high": 274.39,
+      "low": 274.11,
+      "close": 274.36,
+      "volume": 81946
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:19:00",
+      "open": 274.3464,
+      "high": 274.45,
+      "low": 274.33,
+      "close": 274.37,
+      "volume": 47339
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:20:00",
+      "open": 274.36,
+      "high": 274.38,
+      "low": 274.13,
+      "close": 274.19,
+      "volume": 58432
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:21:00",
+      "open": 274.175,
+      "high": 274.22,
+      "low": 274.03,
+      "close": 274.03,
+      "volume": 36194
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:22:00",
+      "open": 274.04,
+      "high": 274.215,
+      "low": 274.01,
+      "close": 274.215,
+      "volume": 29789
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:23:00",
+      "open": 274.22,
+      "high": 274.27,
+      "low": 274.09,
+      "close": 274.1551,
+      "volume": 39563
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:24:00",
+      "open": 274.1452,
+      "high": 274.2199,
+      "low": 274.08,
+      "close": 274.1,
+      "volume": 37867
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:25:00",
+      "open": 274.1271,
+      "high": 274.1299,
+      "low": 273.97,
+      "close": 274.0,
+      "volume": 30378
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:26:00",
+      "open": 274.0,
+      "high": 274.115,
+      "low": 273.9938,
+      "close": 274.1018,
+      "volume": 34121
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:27:00",
+      "open": 274.1,
+      "high": 274.13,
+      "low": 274.04,
+      "close": 274.05,
+      "volume": 28074
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:28:00",
+      "open": 274.04,
+      "high": 274.05,
+      "low": 273.93,
+      "close": 274.005,
+      "volume": 34547
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:29:00",
+      "open": 274.005,
+      "high": 274.0834,
+      "low": 273.9201,
+      "close": 274.0351,
+      "volume": 20433
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:30:00",
+      "open": 274.04,
+      "high": 274.14,
+      "low": 274.01,
+      "close": 274.115,
+      "volume": 35861
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:31:00",
+      "open": 274.119,
+      "high": 274.2,
+      "low": 274.06,
+      "close": 274.13,
+      "volume": 37156
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:32:00",
+      "open": 274.125,
+      "high": 274.14,
+      "low": 273.94,
+      "close": 273.94,
+      "volume": 28571
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:33:00",
+      "open": 273.945,
+      "high": 274.2,
+      "low": 273.91,
+      "close": 274.16,
+      "volume": 43574
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:34:00",
+      "open": 274.17,
+      "high": 274.21,
+      "low": 274.1,
+      "close": 274.12,
+      "volume": 22896
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:35:00",
+      "open": 274.18,
+      "high": 274.26,
+      "low": 274.08,
+      "close": 274.08,
+      "volume": 25243
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:36:00",
+      "open": 274.1,
+      "high": 274.34,
+      "low": 274.1,
+      "close": 274.225,
+      "volume": 37660
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:37:00",
+      "open": 274.22,
+      "high": 274.22,
+      "low": 274.08,
+      "close": 274.11,
+      "volume": 36970
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:38:00",
+      "open": 274.1,
+      "high": 274.19,
+      "low": 274.08,
+      "close": 274.11,
+      "volume": 28113
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:39:00",
+      "open": 274.11,
+      "high": 274.13,
+      "low": 274.065,
+      "close": 274.1199,
+      "volume": 35140
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:40:00",
+      "open": 274.12,
+      "high": 274.18,
+      "low": 274.095,
+      "close": 274.17,
+      "volume": 33290
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:41:00",
+      "open": 274.15,
+      "high": 274.19,
+      "low": 274.13,
+      "close": 274.19,
+      "volume": 28027
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:42:00",
+      "open": 274.19,
+      "high": 274.24,
+      "low": 274.16,
+      "close": 274.1987,
+      "volume": 24618
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:43:00",
+      "open": 274.21,
+      "high": 274.33,
+      "low": 274.1682,
+      "close": 274.3,
+      "volume": 43253
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:44:00",
+      "open": 274.315,
+      "high": 274.34,
+      "low": 274.205,
+      "close": 274.249,
+      "volume": 26150
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:45:00",
+      "open": 274.25,
+      "high": 274.33,
+      "low": 274.2398,
+      "close": 274.32,
+      "volume": 30162
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:46:00",
+      "open": 274.3251,
+      "high": 274.35,
+      "low": 274.25,
+      "close": 274.3079,
+      "volume": 28853
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:47:00",
+      "open": 274.31,
+      "high": 274.34,
+      "low": 274.2607,
+      "close": 274.31,
+      "volume": 24355
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:48:00",
+      "open": 274.32,
+      "high": 274.32,
+      "low": 274.26,
+      "close": 274.2601,
+      "volume": 18907
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:49:00",
+      "open": 274.265,
+      "high": 274.32,
+      "low": 274.21,
+      "close": 274.2693,
+      "volume": 27647
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:50:00",
+      "open": 274.26,
+      "high": 274.26,
+      "low": 274.18,
+      "close": 274.215,
+      "volume": 22897
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:51:00",
+      "open": 274.2198,
+      "high": 274.3,
+      "low": 274.2058,
+      "close": 274.285,
+      "volume": 42191
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:52:00",
+      "open": 274.2801,
+      "high": 274.44,
+      "low": 274.2801,
+      "close": 274.3525,
+      "volume": 46753
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:53:00",
+      "open": 274.36,
+      "high": 274.4,
+      "low": 274.28,
+      "close": 274.3999,
+      "volume": 28401
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:54:00",
+      "open": 274.39,
+      "high": 274.44,
+      "low": 274.33,
+      "close": 274.35,
+      "volume": 36908
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:55:00",
+      "open": 274.35,
+      "high": 274.375,
+      "low": 274.27,
+      "close": 274.32,
+      "volume": 18706
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:56:00",
+      "open": 274.33,
+      "high": 274.355,
+      "low": 274.24,
+      "close": 274.24,
+      "volume": 21074
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:57:00",
+      "open": 274.26,
+      "high": 274.3,
+      "low": 274.185,
+      "close": 274.29,
+      "volume": 31911
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:58:00",
+      "open": 274.3,
+      "high": 274.4312,
+      "low": 274.3,
+      "close": 274.3801,
+      "volume": 27321
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T10:59:00",
+      "open": 274.39,
+      "high": 274.5691,
+      "low": 274.38,
+      "close": 274.5691,
+      "volume": 49634
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:00:00",
+      "open": 274.5625,
+      "high": 274.61,
+      "low": 274.49,
+      "close": 274.52,
+      "volume": 49738
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:01:00",
+      "open": 274.53,
+      "high": 274.6,
+      "low": 274.51,
+      "close": 274.56,
+      "volume": 32946
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:02:00",
+      "open": 274.55,
+      "high": 274.62,
+      "low": 274.52,
+      "close": 274.6013,
+      "volume": 18720
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:03:00",
+      "open": 274.5974,
+      "high": 274.63,
+      "low": 274.54,
+      "close": 274.62,
+      "volume": 21138
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:04:00",
+      "open": 274.62,
+      "high": 274.71,
+      "low": 274.61,
+      "close": 274.7,
+      "volume": 30213
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:05:00",
+      "open": 274.69,
+      "high": 274.8,
+      "low": 274.679,
+      "close": 274.78,
+      "volume": 46681
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:06:00",
+      "open": 274.78,
+      "high": 274.87,
+      "low": 274.75,
+      "close": 274.8275,
+      "volume": 48679
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:07:00",
+      "open": 274.83,
+      "high": 274.92,
+      "low": 274.81,
+      "close": 274.894,
+      "volume": 49167
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:08:00",
+      "open": 274.885,
+      "high": 274.9,
+      "low": 274.76,
+      "close": 274.79,
+      "volume": 47095
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:09:00",
+      "open": 274.795,
+      "high": 274.84,
+      "low": 274.78,
+      "close": 274.81,
+      "volume": 23490
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:10:00",
+      "open": 274.82,
+      "high": 274.82,
+      "low": 274.77,
+      "close": 274.78,
+      "volume": 34181
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:11:00",
+      "open": 274.79,
+      "high": 274.81,
+      "low": 274.77,
+      "close": 274.8034,
+      "volume": 32671
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:12:00",
+      "open": 274.81,
+      "high": 274.89,
+      "low": 274.81,
+      "close": 274.8512,
+      "volume": 34606
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:13:00",
+      "open": 274.86,
+      "high": 274.99,
+      "low": 274.85,
+      "close": 274.97,
+      "volume": 41162
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:14:00",
+      "open": 274.98,
+      "high": 275.05,
+      "low": 274.955,
+      "close": 274.9898,
+      "volume": 136586
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:15:00",
+      "open": 274.99,
+      "high": 275.04,
+      "low": 274.96,
+      "close": 274.9699,
+      "volume": 39699
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:16:00",
+      "open": 274.96,
+      "high": 275.01,
+      "low": 274.7975,
+      "close": 274.84,
+      "volume": 39832
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:17:00",
+      "open": 274.84,
+      "high": 274.9,
+      "low": 274.71,
+      "close": 274.7138,
+      "volume": 53217
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:18:00",
+      "open": 274.715,
+      "high": 274.81,
+      "low": 274.69,
+      "close": 274.8,
+      "volume": 34561
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:19:00",
+      "open": 274.8,
+      "high": 274.845,
+      "low": 274.73,
+      "close": 274.78,
+      "volume": 29527
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:20:00",
+      "open": 274.7801,
+      "high": 274.82,
+      "low": 274.71,
+      "close": 274.81,
+      "volume": 43672
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:21:00",
+      "open": 274.81,
+      "high": 274.82,
+      "low": 274.74,
+      "close": 274.75,
+      "volume": 23049
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:22:00",
+      "open": 274.75,
+      "high": 274.79,
+      "low": 274.73,
+      "close": 274.78,
+      "volume": 27088
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:23:00",
+      "open": 274.775,
+      "high": 274.82,
+      "low": 274.74,
+      "close": 274.815,
+      "volume": 20145
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:24:00",
+      "open": 274.81,
+      "high": 274.91,
+      "low": 274.8,
+      "close": 274.89,
+      "volume": 27952
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:25:00",
+      "open": 274.89,
+      "high": 274.975,
+      "low": 274.86,
+      "close": 274.94,
+      "volume": 28835
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:26:00",
+      "open": 274.945,
+      "high": 274.9597,
+      "low": 274.91,
+      "close": 274.935,
+      "volume": 20069
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:27:00",
+      "open": 274.94,
+      "high": 274.99,
+      "low": 274.85,
+      "close": 274.86,
+      "volume": 26608
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:28:00",
+      "open": 274.86,
+      "high": 274.86,
+      "low": 274.775,
+      "close": 274.79,
+      "volume": 48315
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:29:00",
+      "open": 274.795,
+      "high": 274.87,
+      "low": 274.78,
+      "close": 274.851,
+      "volume": 44349
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:30:00",
+      "open": 274.86,
+      "high": 274.9431,
+      "low": 274.83,
+      "close": 274.91,
+      "volume": 30679
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:31:00",
+      "open": 274.935,
+      "high": 274.99,
+      "low": 274.9,
+      "close": 274.98,
+      "volume": 33655
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:32:00",
+      "open": 274.98,
+      "high": 274.985,
+      "low": 274.93,
+      "close": 274.9738,
+      "volume": 30522
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:33:00",
+      "open": 274.975,
+      "high": 275.08,
+      "low": 274.94,
+      "close": 275.07,
+      "volume": 48129
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:34:00",
+      "open": 275.055,
+      "high": 275.155,
+      "low": 275.0442,
+      "close": 275.13,
+      "volume": 59494
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:35:00",
+      "open": 275.13,
+      "high": 275.16,
+      "low": 275.0402,
+      "close": 275.085,
+      "volume": 41500
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:36:00",
+      "open": 275.0801,
+      "high": 275.14,
+      "low": 275.07,
+      "close": 275.095,
+      "volume": 33652
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:37:00",
+      "open": 275.09,
+      "high": 275.21,
+      "low": 275.03,
+      "close": 275.12,
+      "volume": 67647
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:38:00",
+      "open": 275.11,
+      "high": 275.11,
+      "low": 275.02,
+      "close": 275.1,
+      "volume": 32128
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:39:00",
+      "open": 275.1205,
+      "high": 275.14,
+      "low": 274.94,
+      "close": 274.96,
+      "volume": 46502
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:40:00",
+      "open": 274.95,
+      "high": 275.0105,
+      "low": 274.93,
+      "close": 274.98,
+      "volume": 47994
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:41:00",
+      "open": 274.9788,
+      "high": 275.0099,
+      "low": 274.91,
+      "close": 275.0,
+      "volume": 33799
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:42:00",
+      "open": 274.9915,
+      "high": 274.9915,
+      "low": 274.94,
+      "close": 274.96,
+      "volume": 27530
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:43:00",
+      "open": 274.96,
+      "high": 275.09,
+      "low": 274.88,
+      "close": 275.09,
+      "volume": 60249
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:44:00",
+      "open": 275.08,
+      "high": 275.16,
+      "low": 275.05,
+      "close": 275.16,
+      "volume": 27497
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:45:00",
+      "open": 275.18,
+      "high": 275.2399,
+      "low": 275.16,
+      "close": 275.2276,
+      "volume": 34996
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:46:00",
+      "open": 275.225,
+      "high": 275.305,
+      "low": 275.13,
+      "close": 275.275,
+      "volume": 50970
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:47:00",
+      "open": 275.2672,
+      "high": 275.31,
+      "low": 275.17,
+      "close": 275.1924,
+      "volume": 36472
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:48:00",
+      "open": 275.1801,
+      "high": 275.2799,
+      "low": 275.1673,
+      "close": 275.22,
+      "volume": 27439
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:49:00",
+      "open": 275.22,
+      "high": 275.27,
+      "low": 275.18,
+      "close": 275.27,
+      "volume": 27350
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:50:00",
+      "open": 275.28,
+      "high": 275.3,
+      "low": 275.15,
+      "close": 275.21,
+      "volume": 42427
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:51:00",
+      "open": 275.2151,
+      "high": 275.3,
+      "low": 275.21,
+      "close": 275.2999,
+      "volume": 23946
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:52:00",
+      "open": 275.29,
+      "high": 275.34,
+      "low": 275.27,
+      "close": 275.3,
+      "volume": 34019
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:53:00",
+      "open": 275.305,
+      "high": 275.31,
+      "low": 275.19,
+      "close": 275.195,
+      "volume": 36382
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:54:00",
+      "open": 275.1999,
+      "high": 275.21,
+      "low": 275.12,
+      "close": 275.1599,
+      "volume": 32269
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:55:00",
+      "open": 275.149,
+      "high": 275.2575,
+      "low": 275.11,
+      "close": 275.2243,
+      "volume": 29474
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:56:00",
+      "open": 275.22,
+      "high": 275.23,
+      "low": 275.13,
+      "close": 275.2,
+      "volume": 20827
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:57:00",
+      "open": 275.18,
+      "high": 275.21,
+      "low": 275.16,
+      "close": 275.2,
+      "volume": 21817
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:58:00",
+      "open": 275.2,
+      "high": 275.21,
+      "low": 275.1548,
+      "close": 275.16,
+      "volume": 22293
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T11:59:00",
+      "open": 275.155,
+      "high": 275.1799,
+      "low": 275.14,
+      "close": 275.15,
+      "volume": 23814
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:00:00",
+      "open": 275.17,
+      "high": 275.17,
+      "low": 275.09,
+      "close": 275.14,
+      "volume": 27407
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:01:00",
+      "open": 275.1307,
+      "high": 275.2374,
+      "low": 275.1307,
+      "close": 275.19,
+      "volume": 35098
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:02:00",
+      "open": 275.19,
+      "high": 275.23,
+      "low": 275.12,
+      "close": 275.13,
+      "volume": 32737
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:03:00",
+      "open": 275.1513,
+      "high": 275.19,
+      "low": 275.12,
+      "close": 275.19,
+      "volume": 33886
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:04:00",
+      "open": 275.19,
+      "high": 275.1912,
+      "low": 275.11,
+      "close": 275.13,
+      "volume": 31405
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:05:00",
+      "open": 275.12,
+      "high": 275.12,
+      "low": 274.98,
+      "close": 274.98,
+      "volume": 31493
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:06:00",
+      "open": 275.0,
+      "high": 275.13,
+      "low": 274.97,
+      "close": 275.051,
+      "volume": 41207
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:07:00",
+      "open": 275.0488,
+      "high": 275.1,
+      "low": 275.025,
+      "close": 275.09,
+      "volume": 18661
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:08:00",
+      "open": 275.08,
+      "high": 275.145,
+      "low": 275.0798,
+      "close": 275.1,
+      "volume": 27530
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:09:00",
+      "open": 275.1,
+      "high": 275.1,
+      "low": 275.06,
+      "close": 275.09,
+      "volume": 23001
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:10:00",
+      "open": 275.09,
+      "high": 275.12,
+      "low": 275.07,
+      "close": 275.11,
+      "volume": 29564
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:11:00",
+      "open": 275.11,
+      "high": 275.2,
+      "low": 275.1001,
+      "close": 275.1399,
+      "volume": 36328
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:12:00",
+      "open": 275.13,
+      "high": 275.14,
+      "low": 275.05,
+      "close": 275.1,
+      "volume": 33399
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:13:00",
+      "open": 275.12,
+      "high": 275.29,
+      "low": 275.1,
+      "close": 275.2499,
+      "volume": 69475
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:14:00",
+      "open": 275.24,
+      "high": 275.28,
+      "low": 275.2,
+      "close": 275.22,
+      "volume": 28581
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:15:00",
+      "open": 275.22,
+      "high": 275.225,
+      "low": 275.18,
+      "close": 275.18,
+      "volume": 23211
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:16:00",
+      "open": 275.18,
+      "high": 275.35,
+      "low": 275.18,
+      "close": 275.34,
+      "volume": 43931
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:17:00",
+      "open": 275.34,
+      "high": 275.35,
+      "low": 275.27,
+      "close": 275.28,
+      "volume": 28003
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:18:00",
+      "open": 275.25,
+      "high": 275.2901,
+      "low": 275.1201,
+      "close": 275.2004,
+      "volume": 26919
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:19:00",
+      "open": 275.2,
+      "high": 275.22,
+      "low": 275.17,
+      "close": 275.19,
+      "volume": 24587
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:20:00",
+      "open": 275.19,
+      "high": 275.275,
+      "low": 275.1675,
+      "close": 275.275,
+      "volume": 25210
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:21:00",
+      "open": 275.26,
+      "high": 275.379,
+      "low": 275.26,
+      "close": 275.379,
+      "volume": 37580
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:22:00",
+      "open": 275.37,
+      "high": 275.38,
+      "low": 275.26,
+      "close": 275.305,
+      "volume": 30881
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:23:00",
+      "open": 275.3156,
+      "high": 275.35,
+      "low": 275.26,
+      "close": 275.2751,
+      "volume": 28470
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:24:00",
+      "open": 275.275,
+      "high": 275.3,
+      "low": 275.23,
+      "close": 275.275,
+      "volume": 22319
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:25:00",
+      "open": 275.27,
+      "high": 275.27,
+      "low": 275.17,
+      "close": 275.21,
+      "volume": 32991
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:26:00",
+      "open": 275.21,
+      "high": 275.24,
+      "low": 275.1745,
+      "close": 275.24,
+      "volume": 31468
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:27:00",
+      "open": 275.235,
+      "high": 275.305,
+      "low": 275.215,
+      "close": 275.305,
+      "volume": 25720
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:28:00",
+      "open": 275.305,
+      "high": 275.3234,
+      "low": 275.24,
+      "close": 275.32,
+      "volume": 29953
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:29:00",
+      "open": 275.32,
+      "high": 275.43,
+      "low": 275.29,
+      "close": 275.36,
+      "volume": 58667
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:30:00",
+      "open": 275.355,
+      "high": 275.39,
+      "low": 275.27,
+      "close": 275.3164,
+      "volume": 56526
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:31:00",
+      "open": 275.32,
+      "high": 275.38,
+      "low": 275.2801,
+      "close": 275.2801,
+      "volume": 44200
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:32:00",
+      "open": 275.285,
+      "high": 275.295,
+      "low": 275.21,
+      "close": 275.25,
+      "volume": 43382
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:33:00",
+      "open": 275.27,
+      "high": 275.29,
+      "low": 275.19,
+      "close": 275.19,
+      "volume": 28971
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:34:00",
+      "open": 275.1787,
+      "high": 275.2671,
+      "low": 275.1787,
+      "close": 275.26,
+      "volume": 29017
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:35:00",
+      "open": 275.2527,
+      "high": 275.26,
+      "low": 275.19,
+      "close": 275.2,
+      "volume": 24461
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:36:00",
+      "open": 275.205,
+      "high": 275.212,
+      "low": 275.09,
+      "close": 275.13,
+      "volume": 34722
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:37:00",
+      "open": 275.12,
+      "high": 275.18,
+      "low": 275.07,
+      "close": 275.115,
+      "volume": 38339
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:38:00",
+      "open": 275.1,
+      "high": 275.115,
+      "low": 275.01,
+      "close": 275.03,
+      "volume": 39738
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:39:00",
+      "open": 275.03,
+      "high": 275.06,
+      "low": 274.995,
+      "close": 275.0001,
+      "volume": 37621
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:40:00",
+      "open": 275.01,
+      "high": 275.045,
+      "low": 274.96,
+      "close": 275.0312,
+      "volume": 42968
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:41:00",
+      "open": 275.03,
+      "high": 275.075,
+      "low": 275.0,
+      "close": 275.07,
+      "volume": 28211
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:42:00",
+      "open": 275.06,
+      "high": 275.06,
+      "low": 274.9788,
+      "close": 275.0,
+      "volume": 34365
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:43:00",
+      "open": 274.995,
+      "high": 275.09,
+      "low": 274.97,
+      "close": 275.07,
+      "volume": 28471
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:44:00",
+      "open": 275.0799,
+      "high": 275.0799,
+      "low": 274.85,
+      "close": 274.89,
+      "volume": 70094
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:45:00",
+      "open": 274.8501,
+      "high": 274.925,
+      "low": 274.81,
+      "close": 274.87,
+      "volume": 38157
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:46:00",
+      "open": 274.8803,
+      "high": 274.89,
+      "low": 274.53,
+      "close": 274.5315,
+      "volume": 62849
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:47:00",
+      "open": 274.52,
+      "high": 274.59,
+      "low": 274.32,
+      "close": 274.32,
+      "volume": 104121
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:48:00",
+      "open": 274.32,
+      "high": 274.41,
+      "low": 274.02,
+      "close": 274.27,
+      "volume": 88508
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:49:00",
+      "open": 274.27,
+      "high": 274.325,
+      "low": 274.165,
+      "close": 274.23,
+      "volume": 61909
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:50:00",
+      "open": 274.225,
+      "high": 274.2737,
+      "low": 273.99,
+      "close": 274.03,
+      "volume": 84526
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:51:00",
+      "open": 274.06,
+      "high": 274.1,
+      "low": 274.0,
+      "close": 274.0288,
+      "volume": 53677
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:52:00",
+      "open": 274.05,
+      "high": 274.0899,
+      "low": 273.995,
+      "close": 274.02,
+      "volume": 48344
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:53:00",
+      "open": 274.01,
+      "high": 274.17,
+      "low": 274.0,
+      "close": 274.13,
+      "volume": 60535
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:54:00",
+      "open": 274.13,
+      "high": 274.19,
+      "low": 274.07,
+      "close": 274.125,
+      "volume": 57420
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:55:00",
+      "open": 274.11,
+      "high": 274.11,
+      "low": 273.56,
+      "close": 273.73,
+      "volume": 158727
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:56:00",
+      "open": 273.735,
+      "high": 273.84,
+      "low": 273.735,
+      "close": 273.75,
+      "volume": 72753
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:57:00",
+      "open": 273.73,
+      "high": 273.83,
+      "low": 273.64,
+      "close": 273.7801,
+      "volume": 130037
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:58:00",
+      "open": 273.78,
+      "high": 273.975,
+      "low": 273.72,
+      "close": 273.96,
+      "volume": 119753
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T12:59:00",
+      "open": 273.95,
+      "high": 274.015,
+      "low": 273.77,
+      "close": 273.85,
+      "volume": 231150
+    },
+    {
+      "symbol": "AAPL",
+      "datetime": "2025-12-24T13:00:00",
+      "open": 273.81,
+      "high": 273.82,
+      "low": 273.81,
+      "close": 273.81,
+      "volume": 3466259
+    }
+  ],
+  "count": 991,
+  "message": "Successfully collected 991 candles"
+}

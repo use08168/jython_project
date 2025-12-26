@@ -19,6 +19,12 @@ import java.util.Optional;
 public interface StockNewsRepository extends JpaRepository<StockNews, Long> {
 
     /**
+     * DB에 존재하는 고유 symbol 목록 조회
+     */
+    @Query("SELECT DISTINCT n.symbol FROM StockNews n ORDER BY n.symbol")
+    List<String> findDistinctSymbols();
+
+    /**
      * 종목별 뉴스 조회 (페이징)
      */
     Page<StockNews> findBySymbol(String symbol, Pageable pageable);

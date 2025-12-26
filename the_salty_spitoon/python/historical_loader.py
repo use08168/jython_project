@@ -1,545 +1,199 @@
+#!/usr/bin/env python3
 """
-========================================
-Historical Data Loader - 과거 데이터 수집
-========================================
+Historical Data Loader (Direct API Version)
+- yfinance 대신 Yahoo Finance API 직접 호출
+- 단일 종목의 과거 1분봉 데이터 수집
 
-목적:
-- Yahoo Finance API를 통한 과거 1분봉 데이터 수집
-- Request JSON 기반 작동
-- Result JSON 생성 (Java가 읽음)
+사용법:
+    python historical_loader.py --symbol AAPL --days 3 --output result.json
 
-업데이트:
-- Phase 2 (2025-12-23): start_time, end_time 파라미터 추가
-- Phase 3 (2025-12-26): check_latest 모드 추가
-
-작성자: The Salty Spitoon Team
-작성일: 2025-12-26
+@author The Salty Spitoon Team
+@since 2025-12-26
 """
 
-import yfinance as yf
+import argparse
 import json
 import sys
-import pytz
-from datetime import datetime, timedelta
 from pathlib import Path
-import logging
+from datetime import datetime
 
-# 로깅 설정
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+import requests
+import pytz
 
 
-class HistoricalDataLoader:
+def collect_historical_data(symbol: str, days: int) -> dict:
     """
-    과거 데이터 수집기
+    Yahoo Finance API에서 직접 과거 1분봉 데이터 수집
     
-    역할:
-    - Request JSON 읽기
-    - Yahoo Finance에서 과거 데이터 수집
-    - Result JSON 생성
+    Args:
+        symbol: 종목 코드 (예: AAPL)
+        days: 수집할 일수 (최대 7일 - Yahoo Finance 1분봉 제한)
+    
+    Returns:
+        {
+            "success": bool,
+            "symbol": str,
+            "candles": [...],
+            "count": int,
+            "message": str
+        }
     """
-    
-    def __init__(self):
-        """
-        초기화
-        """
-        self.kst = pytz.timezone('Asia/Seoul')
-        self.utc = pytz.UTC
-    
-    def load_from_request(self, request_file_path):
-        """
-        Request JSON 파일을 읽고 데이터 수집
+    try:
+        # Yahoo Finance 1분봉은 최근 7일까지만 지원
+        days = min(days, 7)
         
-        Request JSON 형식 (기존):
-        {
-          "symbol": "AAPL",
-          "hours": 720
+        # Yahoo Finance API 직접 호출
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+        params = {
+            "interval": "1m",
+            "range": f"{days}d"
+        }
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         }
         
-        Request JSON 형식 (신규 - Phase 2):
-        {
-          "symbol": "AAPL",
-          "start_time": "2025-12-23 06:00:00",  // KST
-          "end_time": "2025-12-23 17:30:00"      // KST
-        }
+        response = requests.get(url, params=params, headers=headers, timeout=30)
         
-        Request JSON 형식 (최신 시각 조회 - Phase 3):
-        {
-          "symbol": "AAPL",
-          "mode": "check_latest"
-        }
+        if response.status_code != 200:
+            return {
+                "success": False,
+                "symbol": symbol,
+                "candles": [],
+                "count": 0,
+                "message": f"API Error: HTTP {response.status_code}"
+            }
         
-        호환성:
-        - mode=check_latest: 최신 데이터 시각만 조회
-        - start_time, end_time 있으면 신규 방식
-        - hours 있으면 기존 방식 (레거시)
+        data = response.json()
         
-        Args:
-            request_file_path (str): Request JSON 파일 경로
+        # 응답 검증
+        if "chart" not in data or "result" not in data["chart"]:
+            return {
+                "success": False,
+                "symbol": symbol,
+                "candles": [],
+                "count": 0,
+                "message": "Invalid API response"
+            }
         
-        Returns:
-            dict: Result JSON
-        """
-        try:
-            # ========================================
-            # 1. Request JSON 읽기
-            # ========================================
-            logger.info("========================================")
-            logger.info("Historical Data Loader Started")
-            logger.info("========================================")
-            
-            request_file = Path(request_file_path)
-            
-            if not request_file.exists():
-                raise FileNotFoundError(f"Request file not found: {request_file_path}")
-            
-            with open(request_file, 'r', encoding='utf-8') as f:
-                request = json.load(f)
-            
-            logger.info(f"Request file: {request_file.name}")
-            logger.info(f"Request content: {request}")
-            
-            # ========================================
-            # 2. 파라미터 추출
-            # ========================================
-            symbol = request.get('symbol')
-            
-            if not symbol:
-                raise ValueError("Missing 'symbol' in request")
-            
-            # ========================================
-            # 3. 수집 방식 결정
-            # ========================================
-            
-            # 🆕 최신 시각 조회 모드
-            if request.get('mode') == 'check_latest':
-                logger.info("Mode: Check latest timestamp")
-                latest_timestamp = self.get_latest_timestamp(symbol)
+        result = data["chart"]["result"]
+        if not result:
+            return {
+                "success": False,
+                "symbol": symbol,
+                "candles": [],
+                "count": 0,
+                "message": "No data returned from Yahoo Finance"
+            }
+        
+        chart_data = result[0]
+        
+        # 타임스탬프와 가격 데이터 추출
+        timestamps = chart_data.get("timestamp", [])
+        indicators = chart_data.get("indicators", {})
+        quote = indicators.get("quote", [{}])[0]
+        
+        opens = quote.get("open", [])
+        highs = quote.get("high", [])
+        lows = quote.get("low", [])
+        closes = quote.get("close", [])
+        volumes = quote.get("volume", [])
+        
+        if not timestamps or not closes:
+            return {
+                "success": False,
+                "symbol": symbol,
+                "candles": [],
+                "count": 0,
+                "message": "No price data in response"
+            }
+        
+        # 캔들 데이터 생성
+        candles = []
+        ny_tz = pytz.timezone('America/New_York')
+        
+        for i, ts in enumerate(timestamps):
+            if ts is None:
+                continue
                 
-                result = {
-                    'symbol': symbol,
-                    'status': 'success',
-                    'mode': 'check_latest',
-                    'latest_timestamp': latest_timestamp,
-                    'data': []
-                }
+            # None 값 체크
+            o = opens[i] if i < len(opens) else None
+            h = highs[i] if i < len(highs) else None
+            l = lows[i] if i < len(lows) else None
+            c = closes[i] if i < len(closes) else None
+            v = volumes[i] if i < len(volumes) else None
             
-            # 신규 방식: start_time, end_time 사용
-            elif 'start_time' in request and request['start_time'] is not None:
-                logger.info("Using new method: start_time + end_time")
-                result = self._collect_by_time_range(
-                    symbol=symbol,
-                    start_time_str=request['start_time'],
-                    end_time_str=request['end_time']
-                )
+            if o is None or h is None or l is None or c is None:
+                continue
             
-            # 레거시 방식: hours 사용
-            elif 'hours' in request:
-                logger.info("Using legacy method: hours")
-                hours = request['hours']
-                result = self._collect_by_hours(symbol, hours)
+            # 타임스탬프 변환 (UTC -> datetime)
+            dt = datetime.fromtimestamp(ts, tz=pytz.UTC)
+            # 뉴욕 시간으로 변환 후 tzinfo 제거
+            dt_ny = dt.astimezone(ny_tz).replace(tzinfo=None)
             
-            else:
-                raise ValueError("Invalid request: missing 'mode', 'start_time'/'end_time' or 'hours'")
-            
-            # ========================================
-            # 4. Result JSON 저장
-            # ========================================
-            result_file_name = request_file.stem.replace('request_', 'result_') + '.json'
-            result_file_path = request_file.parent.parent / 'results' / result_file_name
-            
-            # results 디렉토리 생성
-            result_file_path.parent.mkdir(parents=True, exist_ok=True)
-            
-            with open(result_file_path, 'w', encoding='utf-8') as f:
-                json.dump(result, f, indent=2, ensure_ascii=False)
-            
-            logger.info(f"Result saved: {result_file_path.name}")
-            logger.info("========================================")
-            logger.info("Historical Data Loader Completed")
-            logger.info("========================================")
-            
-            return result
-            
-        except Exception as e:
-            logger.error(f"Error loading historical data: {e}")
-            import traceback
-            traceback.print_exc()
-            
-            # 에러 결과 반환
-            error_result = {
-                'symbol': symbol if 'symbol' in locals() else 'UNKNOWN',
-                'status': 'error',
-                'error': str(e),
-                'data': []
+            candle = {
+                "symbol": symbol,
+                "datetime": dt_ny.strftime('%Y-%m-%dT%H:%M:%S'),
+                "open": round(float(o), 4),
+                "high": round(float(h), 4),
+                "low": round(float(l), 4),
+                "close": round(float(c), 4),
+                "volume": int(v) if v else 0
             }
             
-            # 에러 결과도 저장
-            try:
-                result_file_name = request_file.stem.replace('request_', 'result_') + '.json'
-                result_file_path = request_file.parent.parent / 'results' / result_file_name
-                result_file_path.parent.mkdir(parents=True, exist_ok=True)
-                
-                with open(result_file_path, 'w', encoding='utf-8') as f:
-                    json.dump(error_result, f, indent=2, ensure_ascii=False)
-            except:
-                pass
-            
-            return error_result
-    
-    def get_latest_timestamp(self, symbol):
-        """
-        Yahoo Finance에서 특정 종목의 최신 데이터 시각 조회
+            candles.append(candle)
         
-        Args:
-            symbol (str): 종목 코드
+        return {
+            "success": True,
+            "symbol": symbol,
+            "candles": candles,
+            "count": len(candles),
+            "message": f"Successfully collected {len(candles)} candles"
+        }
         
-        Returns:
-            str: 최신 데이터 시각 (KST, "2025-12-26 05:00:00") 또는 None
-        """
-        logger.info(f"[{symbol}] Checking latest available timestamp from Yahoo Finance")
-        
-        try:
-            # 최근 7일 데이터 조회 (최신 1개만 필요)
-            end_time = datetime.now(self.kst)
-            start_time = end_time - timedelta(days=7)
-            
-            start_time_utc = start_time.astimezone(self.utc)
-            end_time_utc = end_time.astimezone(self.utc)
-            
-            df = yf.download(
-                symbol,
-                start=start_time_utc,
-                end=end_time_utc,
-                interval='1m',
-                progress=False,
-                auto_adjust=True
-            )
-            
-            if df.empty:
-                logger.warning(f"[{symbol}] No data available from Yahoo Finance")
-                return None
-            
-            # 가장 최신 데이터의 timestamp
-            latest_timestamp = df.index[-1]
-            
-            if latest_timestamp.tz is None:
-                latest_timestamp = latest_timestamp.tz_localize(self.utc)
-            
-            latest_timestamp_kst = latest_timestamp.tz_convert(self.kst)
-            latest_str = latest_timestamp_kst.strftime('%Y-%m-%d %H:%M:%S')
-            
-            logger.info(f"[{symbol}] Latest available: {latest_str}")
-            
-            return latest_str
-            
-        except Exception as e:
-            logger.error(f"[{symbol}] Error checking latest timestamp: {e}")
-            return None
-    
-    def _collect_by_time_range(self, symbol, start_time_str, end_time_str):
-        """
-        특정 시간 범위의 데이터 수집 (신규 방식 - Phase 2)
-        
-        Args:
-            symbol (str): 종목 코드
-            start_time_str (str): 시작 시각 (KST, "2025-12-23 06:00:00")
-            end_time_str (str): 종료 시각 (KST, "2025-12-23 17:30:00")
-        
-        Returns:
-            dict: Result JSON
-        """
-        logger.info(f"[{symbol}] Collecting data from {start_time_str} to {end_time_str}")
-        
-        try:
-            # ========================================
-            # 1. 시각 파싱 (KST → UTC)
-            # ========================================
-            
-            # KST 문자열 → datetime 객체
-            start_dt_kst = datetime.strptime(start_time_str, '%Y-%m-%d %H:%M:%S')
-            end_dt_kst = datetime.strptime(end_time_str, '%Y-%m-%d %H:%M:%S')
-            
-            # KST 타임존 설정
-            start_dt_kst = self.kst.localize(start_dt_kst)
-            end_dt_kst = self.kst.localize(end_dt_kst)
-            
-            # UTC 변환 (Yahoo Finance는 UTC 사용)
-            start_dt_utc = start_dt_kst.astimezone(self.utc)
-            end_dt_utc = end_dt_kst.astimezone(self.utc)
-            
-            logger.info(f"[{symbol}] Start (UTC): {start_dt_utc}")
-            logger.info(f"[{symbol}] End (UTC): {end_dt_utc}")
-            
-            # ========================================
-            # 2. Yahoo Finance API 호출
-            # ========================================
-            
-            # yfinance는 start/end를 받음
-            df = yf.download(
-                symbol,
-                start=start_dt_utc,
-                end=end_dt_utc,
-                interval='1m',
-                progress=False,
-                auto_adjust=True
-            )
-            
-            # ========================================
-            # 3. 데이터 확인
-            # ========================================
-            if df.empty:
-                logger.warning(f"[{symbol}] No data available for the specified range")
-                return {
-                    'symbol': symbol,
-                    'status': 'success',
-                    'message': 'No data available for the specified range',
-                    'count': 0,
-                    'data': []
-                }
-            
-            logger.info(f"[{symbol}] Downloaded {len(df)} candles")
-            
-            # ========================================
-            # 4. 데이터 변환 (DataFrame → JSON)
-            # ========================================
-            data_list = []
-            
-            for timestamp, row in df.iterrows():
-                try:
-                    # UTC → KST 변환
-                    if timestamp.tz is None:
-                        timestamp = timestamp.tz_localize(self.utc)
-                    
-                    timestamp_kst = timestamp.tz_convert(self.kst)
-                    
-                    # OHLCV 추출
-                    def safe_extract(column_name):
-                        """안전한 데이터 추출"""
-                        try:
-                            if isinstance(row[column_name], (int, float)):
-                                return float(row[column_name])
-                            else:
-                                return float(row[column_name].iloc[0])
-                        except:
-                            return 0.0
-                    
-                    open_price = safe_extract('Open')
-                    high_price = safe_extract('High')
-                    low_price = safe_extract('Low')
-                    close_price = safe_extract('Close')
-                    
-                    try:
-                        if isinstance(row['Volume'], (int, float)):
-                            volume = int(row['Volume'])
-                        else:
-                            volume = int(row['Volume'].iloc[0])
-                    except:
-                        volume = 0
-                    
-                    # 데이터 추가
-                    data_list.append({
-                        'timestamp': timestamp_kst.strftime('%Y-%m-%d %H:%M:%S'),
-                        'open': str(open_price),      # BigDecimal 호환
-                        'high': str(high_price),
-                        'low': str(low_price),
-                        'close': str(close_price),
-                        'volume': volume
-                    })
-                    
-                except Exception as e:
-                    logger.error(f"[{symbol}] Failed to process row: {e}")
-                    continue
-            
-            # ========================================
-            # 5. 결과 반환
-            # ========================================
-            logger.info(f"[{symbol}] Processed {len(data_list)} candles")
-            
-            return {
-                'symbol': symbol,
-                'status': 'success',
-                'message': f'Collected {len(data_list)} candles',
-                'count': len(data_list),
-                'start_time': start_time_str,
-                'end_time': end_time_str,
-                'data': data_list
-            }
-            
-        except Exception as e:
-            logger.error(f"[{symbol}] Error collecting data: {e}")
-            import traceback
-            traceback.print_exc()
-            
-            return {
-                'symbol': symbol,
-                'status': 'error',
-                'error': str(e),
-                'data': []
-            }
-    
-    def _collect_by_hours(self, symbol, hours):
-        """
-        지정된 시간만큼 과거 데이터 수집 (레거시 방식)
-        
-        Args:
-            symbol (str): 종목 코드
-            hours (int): 수집할 시간 (시간 단위)
-        
-        Returns:
-            dict: Result JSON
-        """
-        logger.info(f"[{symbol}] Collecting last {hours} hours of data")
-        
-        try:
-            # ========================================
-            # 1. 시간 계산
-            # ========================================
-            end_time = datetime.now(self.kst)
-            start_time = end_time - timedelta(hours=hours)
-            
-            logger.info(f"[{symbol}] Start: {start_time}")
-            logger.info(f"[{symbol}] End: {end_time}")
-            
-            # ========================================
-            # 2. UTC 변환
-            # ========================================
-            start_time_utc = start_time.astimezone(self.utc)
-            end_time_utc = end_time.astimezone(self.utc)
-            
-            # ========================================
-            # 3. Yahoo Finance API 호출
-            # ========================================
-            df = yf.download(
-                symbol,
-                start=start_time_utc,
-                end=end_time_utc,
-                interval='1m',
-                progress=False,
-                auto_adjust=True
-            )
-            
-            # ========================================
-            # 4. 데이터 확인
-            # ========================================
-            if df.empty:
-                logger.warning(f"[{symbol}] No data available")
-                return {
-                    'symbol': symbol,
-                    'status': 'success',
-                    'message': 'No data available',
-                    'count': 0,
-                    'data': []
-                }
-            
-            logger.info(f"[{symbol}] Downloaded {len(df)} candles")
-            
-            # ========================================
-            # 5. 데이터 변환
-            # ========================================
-            data_list = []
-            
-            for timestamp, row in df.iterrows():
-                try:
-                    # UTC → KST
-                    if timestamp.tz is None:
-                        timestamp = timestamp.tz_localize(self.utc)
-                    
-                    timestamp_kst = timestamp.tz_convert(self.kst)
-                    
-                    # OHLCV 추출
-                    def safe_extract(column_name):
-                        try:
-                            if isinstance(row[column_name], (int, float)):
-                                return float(row[column_name])
-                            else:
-                                return float(row[column_name].iloc[0])
-                        except:
-                            return 0.0
-                    
-                    open_price = safe_extract('Open')
-                    high_price = safe_extract('High')
-                    low_price = safe_extract('Low')
-                    close_price = safe_extract('Close')
-                    
-                    try:
-                        if isinstance(row['Volume'], (int, float)):
-                            volume = int(row['Volume'])
-                        else:
-                            volume = int(row['Volume'].iloc[0])
-                    except:
-                        volume = 0
-                    
-                    data_list.append({
-                        'timestamp': timestamp_kst.strftime('%Y-%m-%d %H:%M:%S'),
-                        'open': str(open_price),
-                        'high': str(high_price),
-                        'low': str(low_price),
-                        'close': str(close_price),
-                        'volume': volume
-                    })
-                    
-                except Exception as e:
-                    logger.error(f"[{symbol}] Failed to process row: {e}")
-                    continue
-            
-            # ========================================
-            # 6. 결과 반환
-            # ========================================
-            logger.info(f"[{symbol}] Processed {len(data_list)} candles")
-            
-            return {
-                'symbol': symbol,
-                'status': 'success',
-                'message': f'Collected {len(data_list)} candles',
-                'count': len(data_list),
-                'hours': hours,
-                'data': data_list
-            }
-            
-        except Exception as e:
-            logger.error(f"[{symbol}] Error collecting data: {e}")
-            import traceback
-            traceback.print_exc()
-            
-            return {
-                'symbol': symbol,
-                'status': 'error',
-                'error': str(e),
-                'data': []
-            }
+    except requests.exceptions.Timeout:
+        return {
+            "success": False,
+            "symbol": symbol,
+            "candles": [],
+            "count": 0,
+            "message": "API request timeout"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "symbol": symbol,
+            "candles": [],
+            "count": 0,
+            "message": f"Error: {str(e)}"
+        }
 
 
-# ========================================
-# 메인 실행
-# ========================================
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python historical_loader.py <request_file_path>")
-        sys.exit(1)
+def main():
+    parser = argparse.ArgumentParser(description='Historical Data Loader for The Salty Spitoon')
+    parser.add_argument('--symbol', required=True, help='Stock symbol (e.g., AAPL)')
+    parser.add_argument('--days', type=int, default=1, help='Number of days to collect (max 7)')
+    parser.add_argument('--output', required=True, help='Output JSON file path')
     
-    request_file_path = sys.argv[1]
+    args = parser.parse_args()
     
-    loader = HistoricalDataLoader()
-    result = loader.load_from_request(request_file_path)
+    # 데이터 수집
+    result = collect_historical_data(args.symbol, args.days)
     
-    # 결과 출력
-    print("\n" + "="*60)
-    print("Historical Data Loader Result")
-    print("="*60)
-    print(f"Symbol: {result.get('symbol')}")
-    print(f"Status: {result.get('status')}")
+    # JSON 파일로 저장
+    output_path = Path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     
-    if result.get('mode') == 'check_latest':
-        print(f"Latest Timestamp: {result.get('latest_timestamp')}")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    
+    # 결과 출력 (Java에서 로그로 확인 가능)
+    if result['success']:
+        print(f"SUCCESS: {result['symbol']} - {result['count']} candles")
+        sys.exit(0)
     else:
-        print(f"Message: {result.get('message')}")
-        print(f"Count: {result.get('count', 0)}")
-    
-    if result.get('status') == 'error':
-        print(f"Error: {result.get('error')}")
-    
-    print("="*60)
+        print(f"FAILED: {result['symbol']} - {result['message']}")
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()

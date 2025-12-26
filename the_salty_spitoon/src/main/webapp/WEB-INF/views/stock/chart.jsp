@@ -151,6 +151,19 @@
     </style>
 </head>
 <body>
+    <!-- 공통 네비게이션 -->
+    <nav class="navbar" style="background: #1e222d; border-bottom: 1px solid #2a2e39; padding: 0 20px; position: sticky; top: 0; z-index: 1000;">
+        <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px;">
+            <a href="/stock" style="font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #2962ff 0%, #26a69a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;">The Salty Spitoon</a>
+            <div style="display: flex; gap: 8px;">
+                <a href="/stock" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">대시보드</a>
+                <a href="/stock/chart?symbol=AAPL" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; background: #2962ff; color: white; text-decoration: none;">차트</a>
+                <a href="/news" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">뉴스</a>
+                <a href="/admin" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">관리자</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="header">
             <div class="stock-info">

@@ -1,12 +1,26 @@
 """
 ========================================
-Track 2: Selenium 뉴스 본문 크롤링
+Track 2: Selenium 뉴스 본문 크롤링 (새 구조)
 ========================================
 
-수정 사항:
-- 인코딩 로직 추가 (gzip + URL-safe Base64)
-- JSON 구조 변경 (encoded_data 필드 추가)
+목적:
+- news_links.json에서 뉴스 URL 읽기
+- Selenium으로 본문 크롤링
+- 외부 링크 기사는 스킵
+- 더보기 버튼 클릭해서 전체 본문 가져오기
+- gzip + URL-safe Base64 인코딩
+- news_details.json 저장
 """
+
+import sys
+import os
+
+# 출력 버퍼링 해제 (Java에서 실행 시 필요)
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(line_buffering=True)
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(line_buffering=True)
+os.environ['PYTHONUNBUFFERED'] = '1'
 
 import json
 from datetime import datetime
@@ -20,12 +34,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-import gzip  # 추가
-import base64  # 추가
+import gzip
+import base64
 
+# 로깅 설정 (즉시 출력)
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
 )
 logger = logging.getLogger(__name__)
 
@@ -46,27 +62,24 @@ class CrawlerConfig:
     HEADLESS = True
     DELAY_BETWEEN_REQUESTS = 3
     PAGE_LOAD_TIMEOUT = 10
+    
+    # XPath 설정 (새 Yahoo Finance 구조)
+    ARTICLE_XPATH = "/html/body/div[2]/div[3]/main/section/section/section/section/div/article"
+    TITLE_XPATH = "/html/body/div[2]/div[3]/main/section/section/section/section/div/article/div[1]/div[2]/h1"
+    CONTENT_XPATH = "/html/body/div[2]/div[3]/main/section/section/section/section/div/article/div[3]/div/div"
+    MORE_BUTTON_XPATH = "/html/body/div[2]/div[3]/main/section/section/section/section/div/article/div[3]/div/div[2]/button"
+    EXTRA_CONTENT_XPATH = "/html/body/div[2]/div[3]/main/section/section/section/section/div/article/div[3]/div/div[3]"
 
 
 # ========================================
-# 인코딩 함수 추가
+# 인코딩 함수
 # ========================================
 
 def encode_news_detail(url, summary, publisher, full_content):
     """
     뉴스 상세 정보를 gzip + URL-safe Base64로 인코딩
-    
-    Args:
-        url: 원본 기사 URL
-        summary: 요약
-        publisher: 출처
-        full_content: 본문
-    
-    Returns:
-        str: 인코딩된 문자열
     """
     try:
-        # 인코딩할 데이터
         data_to_encode = {
             'url': url,
             'summary': summary,
@@ -74,13 +87,8 @@ def encode_news_detail(url, summary, publisher, full_content):
             'full_content': full_content
         }
         
-        # JSON 문자열로 변환
         json_str = json.dumps(data_to_encode, ensure_ascii=False)
-        
-        # gzip 압축
         compressed = gzip.compress(json_str.encode('utf-8'))
-        
-        # URL-safe Base64 인코딩 (패딩 제거)
         encoded = base64.urlsafe_b64encode(compressed).decode('utf-8').rstrip('=')
         
         return encoded
@@ -92,10 +100,12 @@ def encode_news_detail(url, summary, publisher, full_content):
 
 def setup_driver(headless=True):
     """Selenium 드라이버 설정"""
+    print("[DRIVER] Setting up Chrome driver...", flush=True)
+    
     chrome_options = Options()
     
     if headless:
-        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--disable-gpu")
     
     chrome_options.add_argument("--no-sandbox")
@@ -106,6 +116,8 @@ def setup_driver(headless=True):
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
     chrome_options.add_argument("--log-level=3")
+    chrome_options.add_argument("--disable-logging")
+    chrome_options.add_argument("--silent")
     
     driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()),
@@ -120,36 +132,98 @@ def setup_driver(headless=True):
         '''
     })
     
+    print("[DRIVER] ✅ Chrome driver initialized", flush=True)
     logger.info("✅ Selenium driver initialized")
     
     return driver
 
 
+def is_external_article(driver):
+    """외부 링크 기사인지 확인 (Continue Reading 버튼 있는지)"""
+    try:
+        driver.find_element(By.XPATH, "//a[contains(text(), 'Continue Reading')]")
+        return True
+    except:
+        return False
+
+
 def crawl_article_content(driver, article_url, timeout=10):
-    """기사 페이지 크롤링"""
+    """기사 페이지 크롤링 (새 구조)"""
     try:
         driver.get(article_url)
-        time.sleep(2)
-        
-        wait = WebDriverWait(driver, timeout)
+        time.sleep(3)
         
         result = {
             'full_content': None,
-            'crawled_at': datetime.now(kst).strftime('%Y-%m-%d %H:%M:%S')
+            'crawled_at': datetime.now(kst).strftime('%Y-%m-%d %H:%M:%S'),
+            'skipped': False,
+            'skip_reason': None
         }
         
-        # 방법 1: Yahoo Finance 기사 구조
+        # 외부 링크 기사 체크
+        if is_external_article(driver):
+            result['skipped'] = True
+            result['skip_reason'] = 'External article (Continue Reading)'
+            return result
+        
+        # ========================================
+        # 방법 1: 새 Yahoo Finance 구조 (XPath)
+        # ========================================
+        content_parts = []
+        
         try:
-            content_div = driver.find_element(
-                By.XPATH, 
-                "/html/body/div[2]/div[3]/main/section/section/section/section/div/article/div[3]/div/div[1]"
-            )
-            p_tags = content_div.find_elements(By.TAG_NAME, "p")
+            # article 태그 확인
+            article = driver.find_element(By.XPATH, CrawlerConfig.ARTICLE_XPATH)
+            
+            # 초기 본문 가져오기
+            try:
+                content_div = driver.find_element(By.XPATH, CrawlerConfig.CONTENT_XPATH)
+                p_tags = content_div.find_elements(By.TAG_NAME, "p")
+                
+                for p in p_tags:
+                    text = p.text.strip()
+                    if text:
+                        content_parts.append(text)
+                
+            except Exception as e:
+                pass
+            
+            # 더보기 버튼 클릭
+            try:
+                more_button = driver.find_element(By.XPATH, CrawlerConfig.MORE_BUTTON_XPATH)
+                more_button.click()
+                time.sleep(1)
+                
+                # 추가 본문 가져오기
+                extra_div = driver.find_element(By.XPATH, CrawlerConfig.EXTRA_CONTENT_XPATH)
+                extra_p_tags = extra_div.find_elements(By.TAG_NAME, "p")
+                
+                for p in extra_p_tags:
+                    text = p.text.strip()
+                    if text:
+                        content_parts.append(text)
+                
+            except Exception as e:
+                pass
+            
+            if content_parts:
+                result['full_content'] = "\n\n".join(content_parts)
+                return result
+                
+        except Exception as e:
+            pass
+        
+        # ========================================
+        # 방법 2: body-wrap 클래스
+        # ========================================
+        try:
+            body_wrap = driver.find_element(By.CSS_SELECTOR, ".body-wrap")
+            p_tags = body_wrap.find_elements(By.TAG_NAME, "p")
             
             content_parts = []
             for p in p_tags:
                 text = p.text.strip()
-                if text:
+                if text and len(text) > 20:
                     content_parts.append(text)
             
             if content_parts:
@@ -157,9 +231,11 @@ def crawl_article_content(driver, article_url, timeout=10):
                 return result
                 
         except Exception as e:
-            logger.debug(f"    Method 1 failed: {e}")
+            pass
         
-        # 방법 2: article 태그 내 모든 p 태그
+        # ========================================
+        # 방법 3: article 태그 내 모든 p 태그
+        # ========================================
         try:
             article_element = driver.find_element(By.TAG_NAME, "article")
             p_tags = article_element.find_elements(By.TAG_NAME, "p")
@@ -175,9 +251,11 @@ def crawl_article_content(driver, article_url, timeout=10):
                 return result
                 
         except Exception as e:
-            logger.debug(f"    Method 2 failed: {e}")
+            pass
         
-        # 방법 3: 모든 p 태그
+        # ========================================
+        # 방법 4: 모든 p 태그 (fallback)
+        # ========================================
         try:
             p_tags = driver.find_elements(By.TAG_NAME, "p")
             
@@ -192,18 +270,18 @@ def crawl_article_content(driver, article_url, timeout=10):
                 return result
                 
         except Exception as e:
-            logger.debug(f"    Method 3 failed: {e}")
+            pass
         
-        logger.warning(f"    ⚠️  Failed to extract content from: {article_url[:80]}...")
         result['full_content'] = "Content extraction failed"
         
         return result
         
     except Exception as e:
-        logger.error(f"    ❌ Crawling error: {e}")
         return {
             'full_content': f"Error: {str(e)}",
-            'crawled_at': datetime.now(kst).strftime('%Y-%m-%d %H:%M:%S')
+            'crawled_at': datetime.now(kst).strftime('%Y-%m-%d %H:%M:%S'),
+            'skipped': False,
+            'skip_reason': None
         }
 
 
@@ -214,6 +292,7 @@ def load_news_links():
             data = json.load(f)
         
         news_list = data.get('data', [])
+        print(f"[LOAD] Loaded {len(news_list)} news links", flush=True)
         logger.info(f"📂 Loaded {len(news_list)} news links from {INPUT_FILE}")
         
         return news_list
@@ -225,46 +304,58 @@ def load_news_links():
 
 def crawl_all_news_sequential(news_list, headless=True, delay=3):
     """순차적으로 뉴스 크롤링 + 인코딩"""
+    print(f"[CRAWL] Starting crawling for {len(news_list)} articles", flush=True)
     logger.info("="*80)
     logger.info(f"[CRAWL] Starting sequential crawling")
     logger.info(f"[CONFIG] Total articles: {len(news_list)}")
-    logger.info(f"[CONFIG] Delay: {delay}s")
-    logger.info(f"[CONFIG] Headless: {headless}")
     logger.info("="*80)
+    
+    if len(news_list) == 0:
+        print("[CRAWL] No news to crawl", flush=True)
+        logger.info("ℹ️  크롤링할 뉴스가 없습니다.")
+        return []
     
     driver = setup_driver(headless=headless)
     
     success_count = 0
+    skip_count = 0
     error_count = 0
     encoding_success = 0
-    encoding_fail = 0
+    
+    # 성공한 뉴스만 저장
+    successful_news = []
     
     try:
         for idx, article in enumerate(news_list):
             url = article.get('url')
+            title = article.get('title', 'No Title')[:40]
+            symbol = article.get('symbol', 'N/A')
             
-            logger.info(f"\n📰 [{idx+1}/{len(news_list)}] {article.get('title', 'No Title')[:60]}...")
-            logger.info(f"    🔗 {url[:80]}...")
+            # 진행률 출력 (Java에서 파싱용) - 항상 먼저 출력
+            print(f"PROGRESS:{idx+1}/{len(news_list)}:{symbol}", flush=True)
+            
+            logger.info(f"📰 [{idx+1}/{len(news_list)}] {title}...")
             
             if not url:
-                logger.warning(f"    ⚠️  No URL, skipping")
                 error_count += 1
                 continue
             
             try:
-                # 크롤링
                 content_data = crawl_article_content(driver, url, timeout=10)
+                
+                # 외부 링크 기사 스킵
+                if content_data.get('skipped'):
+                    print(f"[SKIP] {symbol}: External article", flush=True)
+                    skip_count += 1
+                    continue
                 
                 article['full_content'] = content_data['full_content']
                 article['crawled_at'] = content_data['crawled_at']
                 
                 if content_data['full_content'] and content_data['full_content'] != "Content extraction failed":
-                    logger.info(f"    ✅ Success: {len(content_data['full_content'])} chars")
                     success_count += 1
                     
-                    # ========================================
-                    # 인코딩 추가
-                    # ========================================
+                    # 인코딩
                     encoded_data = encode_news_detail(
                         url=article.get('url', ''),
                         summary=article.get('summary', ''),
@@ -274,39 +365,29 @@ def crawl_all_news_sequential(news_list, headless=True, delay=3):
                     
                     if encoded_data:
                         article['encoded_data'] = encoded_data
-                        logger.info(f"    🔐 Encoded: {len(encoded_data)} chars")
                         encoding_success += 1
-                    else:
-                        article['encoded_data'] = None
-                        logger.warning(f"    ⚠️  Encoding failed")
-                        encoding_fail += 1
+                        successful_news.append(article)
+                        print(f"[OK] {symbol}: {len(content_data['full_content'])} chars", flush=True)
                     
                 else:
-                    logger.warning(f"    ⚠️  Failed to extract content")
-                    article['encoded_data'] = None
                     error_count += 1
+                    print(f"[FAIL] {symbol}: Content extraction failed", flush=True)
                 
             except Exception as e:
-                logger.error(f"    ❌ Error: {e}")
-                article['full_content'] = f"Error: {str(e)}"
-                article['crawled_at'] = datetime.now(kst).strftime('%Y-%m-%d %H:%M:%S')
-                article['encoded_data'] = None
                 error_count += 1
+                print(f"[ERROR] {symbol}: {str(e)[:50]}", flush=True)
             
             if idx < len(news_list) - 1:
-                logger.info(f"    ⏱️  Waiting {delay}s...")
                 time.sleep(delay)
         
-        logger.info("\n" + "="*80)
-        logger.info(f"[STATS] Crawling Success: {success_count}, Errors: {error_count}")
-        logger.info(f"[STATS] Encoding Success: {encoding_success}, Errors: {encoding_fail}")
-        logger.info("="*80)
+        print(f"[STATS] Success: {success_count}, Skip: {skip_count}, Error: {error_count}", flush=True)
+        logger.info(f"[STATS] 성공: {success_count}, 스킵: {skip_count}, 실패: {error_count}")
         
     finally:
         driver.quit()
-        logger.info("🔒 Browser closed")
+        print("[DRIVER] Browser closed", flush=True)
     
-    return news_list
+    return successful_news
 
 
 def save_news_details_to_json(news_list):
@@ -325,10 +406,8 @@ def save_news_details_to_json(news_list):
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
         
-        logger.info("="*80)
+        print(f"[SAVE] Saved {len(news_list)} news to {output_path}", flush=True)
         logger.info(f"[SAVE] News details saved: {output_path}")
-        logger.info(f"[STATS] Total news: {len(news_list)}")
-        logger.info("="*80)
         
         return str(output_path)
         
@@ -339,36 +418,30 @@ def save_news_details_to_json(news_list):
 
 def main():
     """메인 함수"""
+    print("[START] News Detail Crawler", flush=True)
     logger.info("="*80)
     logger.info("Track 2: News Detail Crawler Started")
     logger.info("="*80)
-    logger.info(f"Configuration:")
-    logger.info(f"  - Script dir: {SCRIPT_DIR}")
-    logger.info(f"  - Input file: {INPUT_FILE}")
-    logger.info(f"  - Output dir: {OUTPUT_DIR}")
-    logger.info(f"  - Headless: {CrawlerConfig.HEADLESS}")
-    logger.info(f"  - Delay: {CrawlerConfig.DELAY_BETWEEN_REQUESTS}s")
-    logger.info("="*80)
     
     try:
+        # 1. 뉴스 링크 로드
         news_list = load_news_links()
         
-        # 테스트: 처음 50개만 (필요시 주석 처리)
-        # news_list = news_list[:50]
-        
+        # 2. 크롤링 (외부 링크는 스킵, 성공한 것만 반환)
         crawled_news = crawl_all_news_sequential(
             news_list,
             headless=CrawlerConfig.HEADLESS,
             delay=CrawlerConfig.DELAY_BETWEEN_REQUESTS
         )
         
+        # 3. JSON 저장 (성공한 뉴스만)
         save_news_details_to_json(crawled_news)
         
-        logger.info("="*80)
+        print("[COMPLETE] News Detail Crawler finished", flush=True)
         logger.info("✅ Track 2 Completed Successfully")
-        logger.info("="*80)
         
     except Exception as e:
+        print(f"[FATAL] {str(e)}", flush=True)
         logger.error(f"❌ Track 2 failed: {e}")
         import traceback
         traceback.print_exc()

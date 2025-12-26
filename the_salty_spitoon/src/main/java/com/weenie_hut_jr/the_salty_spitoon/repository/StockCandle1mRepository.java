@@ -55,4 +55,16 @@ public interface StockCandle1mRepository extends JpaRepository<StockCandle1m, Lo
          */
         @Query("SELECT MAX(c.timestamp) FROM StockCandle1m c WHERE c.symbol = :symbol")
         Optional<LocalDateTime> findLastTimestampBySymbol(@Param("symbol") String symbol);
+
+        /**
+         * 특정 시간 직전의 캔들 조회 (뉴스 발행 직전 가격)
+         */
+        @Query("SELECT c FROM StockCandle1m c WHERE c.symbol = :symbol AND c.timestamp <= :time ORDER BY c.timestamp DESC LIMIT 1")
+        Optional<StockCandle1m> findLatestBefore(@Param("symbol") String symbol, @Param("time") LocalDateTime time);
+
+        /**
+         * 특정 시간 직후의 캔들 조회 (뉴스 발행 직후 가격)
+         */
+        @Query("SELECT c FROM StockCandle1m c WHERE c.symbol = :symbol AND c.timestamp >= :time ORDER BY c.timestamp ASC LIMIT 1")
+        Optional<StockCandle1m> findEarliestAfter(@Param("symbol") String symbol, @Param("time") LocalDateTime time);
 }

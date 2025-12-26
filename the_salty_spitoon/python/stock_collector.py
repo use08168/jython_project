@@ -1,10 +1,11 @@
 """
 ========================================
-주식 데이터 수집 모듈 (최종 수정 v2)
+주식 데이터 수집 모듈 (Direct API Version)
 ========================================
+yfinance 대신 Yahoo Finance API 직접 호출
 """
 
-import yfinance as yf
+import requests
 from websocket_publisher import WebSocketPublisher
 import logging
 from datetime import datetime
@@ -21,6 +22,11 @@ logger = logging.getLogger(__name__)
 
 kst = pytz.timezone('Asia/Seoul')
 est = pytz.timezone('US/Eastern')
+
+# API 요청 헤더
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+}
 
 
 def load_symbols_from_csv():
@@ -58,121 +64,119 @@ def load_symbols_from_csv():
 
 def collect_stock_data(symbol):
     """
-    종목 데이터 수집 (완전 재작성)
+    종목 데이터 수집 (Direct API Version)
     
-    ========================================
-    핵심 수정:
-    ========================================
-    1. Ticker 객체 직접 사용
-    2. history() 메서드 사용
-    3. MultiIndex 문제 완전 회피
+    Yahoo Finance API를 직접 호출하여 데이터 수집
     """
     try:
         # ========================================
-        # 1. Ticker 객체 생성
+        # 1. Yahoo Finance API 직접 호출
         # ========================================
-        ticker = yf.Ticker(symbol)
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+        params = {
+            "interval": "1m",
+            "range": "1d"
+        }
+        
+        response = requests.get(url, params=params, headers=HEADERS, timeout=10)
+        
+        if response.status_code != 200:
+            logger.error(f"  [ERROR] {symbol}: HTTP {response.status_code}")
+            return None
+        
+        data = response.json()
         
         # ========================================
-        # 2. 1분봉 데이터 다운로드
+        # 2. 응답 검증
         # ========================================
-        df = ticker.history(
-            period='1d',
-            interval='1m',
-            auto_adjust=True,
-            actions=False
-        )
+        if "chart" not in data or "result" not in data["chart"]:
+            logger.error(f"  [ERROR] {symbol}: Invalid API response")
+            return None
         
-        if df.empty:
+        result = data["chart"]["result"]
+        if not result:
             logger.debug(f"  [SKIP] {symbol}: No data")
             return None
         
-        if len(df) < 2:
-            logger.debug(f"  [SKIP] {symbol}: Not enough data (only {len(df)} candles)")
+        chart_data = result[0]
+        
+        # ========================================
+        # 3. 타임스탬프와 가격 데이터 추출
+        # ========================================
+        timestamps = chart_data.get("timestamp", [])
+        indicators = chart_data.get("indicators", {})
+        quote = indicators.get("quote", [{}])[0]
+        
+        opens = quote.get("open", [])
+        highs = quote.get("high", [])
+        lows = quote.get("low", [])
+        closes = quote.get("close", [])
+        volumes = quote.get("volume", [])
+        
+        if not timestamps or len(timestamps) < 2:
+            logger.debug(f"  [SKIP] {symbol}: Not enough data")
             return None
         
         # ========================================
-        # 3. 마지막에서 2번째 봉 사용
+        # 4. None이 아닌 마지막 완성된 봉 찾기
         # ========================================
-        candle = df.iloc[-2]
-        candle_time = df.index[-2]
+        candle_data = None
         
-        # 타임존 처리
-        if isinstance(candle_time, pd.Timestamp):
-            if candle_time.tzinfo is None:
-                candle_time = est.localize(candle_time.to_pydatetime())
-            else:
-                candle_time = candle_time.to_pydatetime()
-        
-        candle_time_kst = candle_time.astimezone(kst)
-        
-        # ========================================
-        # 4. OHLCV 추출 (단일 값으로 확정)
-        # ========================================
-        try:
-            # Ticker.history()는 항상 scalar 반환
-            open_price = float(candle['Open'])
-            high_price = float(candle['High'])
-            low_price = float(candle['Low'])
-            close_price = float(candle['Close'])
-            volume = int(candle['Volume'])
+        # 역순으로 탐색 (최신 → 과거)
+        for idx in range(-1, -len(timestamps) - 1, -1):
+            ts = timestamps[idx] if abs(idx) <= len(timestamps) else None
+            o = opens[idx] if abs(idx) <= len(opens) else None
+            h = highs[idx] if abs(idx) <= len(highs) else None
+            l = lows[idx] if abs(idx) <= len(lows) else None
+            c = closes[idx] if abs(idx) <= len(closes) else None
+            v = volumes[idx] if abs(idx) <= len(volumes) else None
             
-        except Exception as e:
-            logger.error(f"  [ERROR] {symbol}: Failed to extract OHLCV: {e}")
-            logger.error(f"  [DEBUG] Candle type: {type(candle)}")
-            logger.error(f"  [DEBUG] Open type: {type(candle['Open'])}")
+            # 모든 데이터가 있고 volume > 0인 봉 찾기
+            if ts and o and h and l and c and v and v > 0:
+                open_price = float(o)
+                high_price = float(h)
+                low_price = float(l)
+                close_price = float(c)
+                volume = int(v)
+                
+                # 가격 범위 체크
+                MIN_PRICE = 1.0
+                MAX_PRICE = 100000.0
+                
+                if not (MIN_PRICE <= close_price <= MAX_PRICE):
+                    continue
+                
+                # OHLC 관계 검증
+                if high_price < low_price:
+                    continue
+                
+                # 타임스탬프 변환
+                dt = datetime.fromtimestamp(ts, tz=pytz.UTC)
+                candle_time_kst = dt.astimezone(kst)
+                
+                candle_data = {
+                    'timestamp': candle_time_kst.strftime('%Y-%m-%d %H:%M:%S'),
+                    'open': round(open_price, 4),
+                    'high': round(high_price, 4),
+                    'low': round(low_price, 4),
+                    'close': round(close_price, 4),
+                    'volume': volume
+                }
+                
+                break  # 첫 번째 유효한 봉 발견 시 종료
+        
+        if candle_data:
+            logger.info(f"  [OK] {symbol}: ${candle_data['close']:.2f} @ {candle_data['timestamp']} (vol={candle_data['volume']:,})")
+            return candle_data
+        else:
+            logger.debug(f"  [SKIP] {symbol}: No valid candle found")
             return None
         
-        # ========================================
-        # 5. 데이터 검증
-        # ========================================
-        
-        # Volume = 0 스킵
-        if volume == 0:
-            logger.debug(f"  [SKIP] {symbol}: Volume = 0")
-            return None
-        
-        # 가격 범위 체크
-        MIN_PRICE = 1.0
-        MAX_PRICE = 100000.0
-        
-        if not (MIN_PRICE <= close_price <= MAX_PRICE):
-            logger.error(f"  [INVALID] {symbol}: Price out of range: ${close_price:.2f}")
-            return None
-        
-        # OHLC 관계 검증
-        if high_price < low_price:
-            logger.error(f"  [INVALID] {symbol}: High < Low")
-            return None
-        
-        if high_price < close_price or high_price < open_price:
-            logger.error(f"  [INVALID] {symbol}: High price inconsistent")
-            return None
-        
-        if low_price > close_price or low_price > open_price:
-            logger.error(f"  [INVALID] {symbol}: Low price inconsistent")
-            return None
-        
-        # ========================================
-        # 6. 정상 데이터 생성
-        # ========================================
-        candle_data = {
-            'timestamp': candle_time_kst.strftime('%Y-%m-%d %H:%M:%S'),
-            'open': round(open_price, 4),
-            'high': round(high_price, 4),
-            'low': round(low_price, 4),
-            'close': round(close_price, 4),
-            'volume': volume
-        }
-        
-        logger.info(f"  [OK] {symbol}: ${candle_data['close']:.2f} @ {candle_data['timestamp']} (vol={volume:,})")
-        
-        return candle_data
-        
+    except requests.exceptions.Timeout:
+        logger.error(f"  [TIMEOUT] {symbol}")
+        return None
     except Exception as e:
         logger.error(f"  [ERROR] {symbol}: {e}")
-        import traceback
-        traceback.print_exc()
         return None
 
 
@@ -235,7 +239,7 @@ def collect_all_stocks():
 # 테스트
 if __name__ == "__main__":
     print("="*60)
-    print("Stock Collector - Test")
+    print("Stock Collector - Direct API Test")
     print("="*60)
     
     print("\n[TEST] Collecting AAPL...")
