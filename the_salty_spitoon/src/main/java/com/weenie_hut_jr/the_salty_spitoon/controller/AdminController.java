@@ -16,9 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.weenie_hut_jr.the_salty_spitoon.model.Stock;
+import com.weenie_hut_jr.the_salty_spitoon.repository.StockRepository;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,6 +33,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 관리자 컨트롤러 (리팩토링 버전)
@@ -53,6 +59,7 @@ public class AdminController {
     private final FinancialDataService financialDataService;
     private final NewsCollectionService newsCollectionService;
     private final StockNewsRepository stockNewsRepository;
+    private final StockRepository stockRepository;
     
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -100,11 +107,13 @@ public class AdminController {
      * 과거 데이터 수집 시작
      * 
      * @param days 수집할 일수 (1~7)
+     * @param symbols 특정 종목 (쉼표 구분, 비우면 전체)
      */
     @PostMapping("/collect-historical")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> startHistoricalCollection(
-            @RequestParam(defaultValue = "1") int days) {
+            @RequestParam(defaultValue = "1") int days,
+            @RequestParam(defaultValue = "") String symbols) {
         
         Map<String, Object> response = new HashMap<>();
         
@@ -122,12 +131,28 @@ public class AdminController {
             return ResponseEntity.badRequest().body(response);
         }
         
+        // 특정 종목 파싱
+        List<String> targetSymbols = null;
+        String trimmedSymbols = symbols.trim();
+        if (!trimmedSymbols.isEmpty()) {
+            targetSymbols = Arrays.stream(trimmedSymbols.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .map(String::toUpperCase)
+                    .collect(Collectors.toList());
+        }
+        
         // 비동기로 수집 시작
         log.info("========================================");
         log.info("과거 데이터 수집 요청: {}일", days);
+        if (targetSymbols != null) {
+            log.info("대상 종목: {}", targetSymbols);
+        } else {
+            log.info("대상: 전체 종목");
+        }
         log.info("========================================");
         
-        historicalCollectionService.startCollection(days);
+        historicalCollectionService.startCollection(days, targetSymbols);
         
         response.put("success", true);
         response.put("message", "수집이 시작되었습니다. 진행 상황은 화면에서 확인하세요.");
@@ -628,5 +653,249 @@ public class AdminController {
         response.put("progress", newsCollectionProgress);
         response.put("total", newsCollectionTotal);
         return ResponseEntity.ok(response);
+    }
+
+    // ========================================
+    // CSV 동기화 및 자동 완성
+    // ========================================
+
+    /**
+     * CSV에서 종목 목록 조회 (자동 완성용)
+     * @return CSV에 있는 모든 종목 리스트
+     */
+    @GetMapping("/csv-symbols")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, String>>> getCsvSymbols() {
+        List<Map<String, String>> symbols = new ArrayList<>();
+        
+        try {
+            Path csvPath = Paths.get("python", "nasdaq100_tickers.csv");
+            
+            if (!csvPath.toFile().exists()) {
+                log.warn("CSV 파일을 찾을 수 없습니다: {}", csvPath);
+                return ResponseEntity.ok(symbols);
+            }
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(csvPath.toFile()))) {
+                String line;
+                boolean isHeader = true;
+                
+                while ((line = reader.readLine()) != null) {
+                    if (isHeader) {
+                        isHeader = false;
+                        continue;
+                    }
+                    
+                    // CSV 파싱 (symbol,name,logo_url)
+                    String[] parts = parseCsvLine(line);
+                    if (parts.length >= 2) {
+                        Map<String, String> item = new HashMap<>();
+                        item.put("symbol", parts[0].trim());
+                        item.put("name", parts[1].trim());
+                        if (parts.length >= 3) {
+                            item.put("logoUrl", parts[2].trim());
+                        }
+                        symbols.add(item);
+                    }
+                }
+            }
+            
+            log.info("CSV에서 {}개 종목 로드", symbols.size());
+            
+        } catch (Exception e) {
+            log.error("CSV 읽기 실패", e);
+        }
+        
+        return ResponseEntity.ok(symbols);
+    }
+
+    /**
+     * CSV와 DB 비교하여 누락된 종목 확인
+     * @return 누락된 종목 리스트
+     */
+    @GetMapping("/missing-symbols")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getMissingSymbols() {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // CSV에서 모든 종목 읽기
+            List<Map<String, String>> csvSymbols = getCsvSymbolsList();
+            Set<String> csvSymbolSet = csvSymbols.stream()
+                    .map(m -> m.get("symbol"))
+                    .collect(Collectors.toSet());
+            
+            // DB에서 모든 종목 읽기
+            List<Stock> dbStocks = stockRepository.findAll();
+            Set<String> dbSymbolSet = dbStocks.stream()
+                    .map(Stock::getSymbol)
+                    .collect(Collectors.toSet());
+            
+            // 누락된 종목 찾기 (CSV에 있지만 DB에 없는)
+            List<Map<String, String>> missingSymbols = csvSymbols.stream()
+                    .filter(m -> !dbSymbolSet.contains(m.get("symbol")))
+                    .collect(Collectors.toList());
+            
+            response.put("success", true);
+            response.put("csvCount", csvSymbolSet.size());
+            response.put("dbCount", dbSymbolSet.size());
+            response.put("missingCount", missingSymbols.size());
+            response.put("missingSymbols", missingSymbols);
+            
+            log.info("CSV: {}개, DB: {}개, 누락: {}개", 
+                    csvSymbolSet.size(), dbSymbolSet.size(), missingSymbols.size());
+            
+        } catch (Exception e) {
+            log.error("누락 종목 확인 실패", e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+        }
+        
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 누락된 종목 DB에 추가 (동기화) + 기존 종목 로고 업데이트
+     */
+    @PostMapping("/sync-csv-to-db")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> syncCsvToDb() {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // CSV에서 모든 종목 읽기
+            List<Map<String, String>> csvSymbols = getCsvSymbolsList();
+            
+            // DB에서 기존 종목 읽기
+            List<Stock> dbStocks = stockRepository.findAll();
+            Map<String, Stock> dbStockMap = dbStocks.stream()
+                    .collect(Collectors.toMap(Stock::getSymbol, s -> s));
+            
+            int addedCount = 0;
+            int updatedCount = 0;
+            
+            for (Map<String, String> csvItem : csvSymbols) {
+                String symbol = csvItem.get("symbol");
+                String name = csvItem.get("name");
+                String logoUrl = csvItem.get("logoUrl");
+                
+                Stock existingStock = dbStockMap.get(symbol);
+                
+                if (existingStock == null) {
+                    // 새 종목 추가
+                    Stock newStock = new Stock();
+                    newStock.setSymbol(symbol);
+                    newStock.setName(name);
+                    newStock.setLogoUrl(logoUrl);
+                    newStock.setIsActive(true);
+                    stockRepository.save(newStock);
+                    addedCount++;
+                    log.info("새 종목 추가: {} ({})", symbol, name);
+                } else {
+                    // 기존 종목 로고 업데이트 (로고가 없거나 다르면)
+                    boolean needsUpdate = false;
+                    
+                    if (logoUrl != null && !logoUrl.isEmpty()) {
+                        if (existingStock.getLogoUrl() == null || 
+                            !existingStock.getLogoUrl().equals(logoUrl)) {
+                            existingStock.setLogoUrl(logoUrl);
+                            needsUpdate = true;
+                        }
+                    }
+                    
+                    // 이름도 업데이트 (다르면)
+                    if (!existingStock.getName().equals(name)) {
+                        existingStock.setName(name);
+                        needsUpdate = true;
+                    }
+                    
+                    if (needsUpdate) {
+                        stockRepository.save(existingStock);
+                        updatedCount++;
+                        log.info("종목 업데이트: {} ({})", symbol, name);
+                    }
+                }
+            }
+            
+            response.put("success", true);
+            response.put("addedCount", addedCount);
+            response.put("updatedCount", updatedCount);
+            response.put("message", addedCount + "개 종목 추가, " + updatedCount + "개 종목 업데이트");
+            
+            log.info("========================================");
+            log.info("CSV 동기화 완료: {}개 추가, {}개 업데이트", addedCount, updatedCount);
+            log.info("========================================");
+            
+        } catch (Exception e) {
+            log.error("CSV 동기화 실패", e);
+            response.put("success", false);
+            response.put("message", "동기화 실패: " + e.getMessage());
+        }
+        
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * CSV 종목 리스트 읽기 (내부 사용)
+     */
+    private List<Map<String, String>> getCsvSymbolsList() throws Exception {
+        List<Map<String, String>> symbols = new ArrayList<>();
+        Path csvPath = Paths.get("python", "nasdaq100_tickers.csv");
+        
+        if (!csvPath.toFile().exists()) {
+            throw new RuntimeException("CSV 파일을 찾을 수 없습니다: " + csvPath);
+        }
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvPath.toFile()))) {
+            String line;
+            boolean isHeader = true;
+            
+            while ((line = reader.readLine()) != null) {
+                if (isHeader) {
+                    isHeader = false;
+                    continue;
+                }
+                
+                // CSV 파싱 (symbol,name,logo_url)
+                String[] parts = parseCsvLine(line);
+                if (parts.length >= 2) {
+                    Map<String, String> item = new HashMap<>();
+                    item.put("symbol", parts[0].trim());
+                    item.put("name", parts[1].trim());
+                    if (parts.length >= 3) {
+                        item.put("logoUrl", parts[2].trim());
+                    }
+                    symbols.add(item);
+                }
+            }
+        }
+        
+        return symbols;
+    }
+    
+    /**
+     * CSV 라인 파싱 (URL에 쉼표가 있을 수 있으므로 주의)
+     * 형식: symbol,name,logo_url
+     */
+    private String[] parseCsvLine(String line) {
+        List<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+        
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            
+            if (c == '"') {
+                inQuotes = !inQuotes;
+            } else if (c == ',' && !inQuotes) {
+                result.add(current.toString());
+                current = new StringBuilder();
+            } else {
+                current.append(c);
+            }
+        }
+        result.add(current.toString());
+        
+        return result.toArray(new String[0]);
     }
 }

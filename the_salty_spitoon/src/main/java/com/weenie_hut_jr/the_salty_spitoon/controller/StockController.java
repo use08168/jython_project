@@ -236,6 +236,7 @@ public class StockController {
                 // StockService를 통해 실시간 데이터 조회
                 Map<String, Object> stockData = stockService.getRealTimeStock(stock.getSymbol());
                 stockData.put("name", stock.getName()); // 회사명 추가
+                stockData.put("logoUrl", stock.getLogoUrl()); // 로고 URL 추가
                 result.add(stockData);
 
                 // 성공/실패 카운트

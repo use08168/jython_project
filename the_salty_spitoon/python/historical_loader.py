@@ -3,6 +3,7 @@
 Historical Data Loader (Direct API Version)
 - yfinance 대신 Yahoo Finance API 직접 호출
 - 단일 종목의 과거 1분봉 데이터 수집
+- 지수(^IXIC, ^GSPC 등) 지원
 
 사용법:
     python historical_loader.py --symbol AAPL --days 3 --output result.json
@@ -16,9 +17,13 @@ import json
 import sys
 from pathlib import Path
 from datetime import datetime
+from urllib.parse import quote
 
 import requests
 import pytz
+
+# 지수/환율 심볼 (거래량 0 허용)
+INDEX_SYMBOLS = {'^IXIC', '^GSPC', '^DJI', '^VIX', 'KRW=X'}
 
 
 def collect_historical_data(symbol: str, days: int) -> dict:
@@ -26,7 +31,7 @@ def collect_historical_data(symbol: str, days: int) -> dict:
     Yahoo Finance API에서 직접 과거 1분봉 데이터 수집
     
     Args:
-        symbol: 종목 코드 (예: AAPL)
+        symbol: 종목 코드 (예: AAPL, ^IXIC)
         days: 수집할 일수 (최대 7일 - Yahoo Finance 1분봉 제한)
     
     Returns:
@@ -42,8 +47,12 @@ def collect_historical_data(symbol: str, days: int) -> dict:
         # Yahoo Finance 1분봉은 최근 7일까지만 지원
         days = min(days, 7)
         
-        # Yahoo Finance API 직접 호출
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+        # 지수 여부 확인
+        is_index = symbol in INDEX_SYMBOLS
+        
+        # Yahoo Finance API 직접 호출 (^ 문자 URL 인코딩)
+        encoded_symbol = quote(symbol, safe='')
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{encoded_symbol}"
         params = {
             "interval": "1m",
             "range": f"{days}d"
@@ -90,13 +99,13 @@ def collect_historical_data(symbol: str, days: int) -> dict:
         # 타임스탬프와 가격 데이터 추출
         timestamps = chart_data.get("timestamp", [])
         indicators = chart_data.get("indicators", {})
-        quote = indicators.get("quote", [{}])[0]
+        quote_data = indicators.get("quote", [{}])[0]
         
-        opens = quote.get("open", [])
-        highs = quote.get("high", [])
-        lows = quote.get("low", [])
-        closes = quote.get("close", [])
-        volumes = quote.get("volume", [])
+        opens = quote_data.get("open", [])
+        highs = quote_data.get("high", [])
+        lows = quote_data.get("low", [])
+        closes = quote_data.get("close", [])
+        volumes = quote_data.get("volume", [])
         
         if not timestamps or not closes:
             return {
@@ -137,17 +146,18 @@ def collect_historical_data(symbol: str, days: int) -> dict:
                 "high": round(float(h), 4),
                 "low": round(float(l), 4),
                 "close": round(float(c), 4),
-                "volume": int(v) if v else 0
+                "volume": int(v) if v else 0  # 지수는 거래량 0 허용
             }
             
             candles.append(candle)
         
+        index_label = " (INDEX)" if is_index else ""
         return {
             "success": True,
             "symbol": symbol,
             "candles": candles,
             "count": len(candles),
-            "message": f"Successfully collected {len(candles)} candles"
+            "message": f"Successfully collected {len(candles)} candles{index_label}"
         }
         
     except requests.exceptions.Timeout:
@@ -170,7 +180,7 @@ def collect_historical_data(symbol: str, days: int) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description='Historical Data Loader for The Salty Spitoon')
-    parser.add_argument('--symbol', required=True, help='Stock symbol (e.g., AAPL)')
+    parser.add_argument('--symbol', required=True, help='Stock symbol (e.g., AAPL, ^IXIC)')
     parser.add_argument('--days', type=int, default=1, help='Number of days to collect (max 7)')
     parser.add_argument('--output', required=True, help='Output JSON file path')
     

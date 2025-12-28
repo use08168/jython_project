@@ -1,1315 +1,810 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>${symbol} - ${name}</title>
-    
-    <!-- 
-        ========================================
-        외부 라이브러리 (CDN)
-        ========================================
-    -->
-    
-    <!-- Bootstrap 3.3.7 (탭 UI용) -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
-    <!-- 
-        TradingView Lightweight Charts v4.1.0
-        - 역할: 금융 차트 렌더링 엔진
-        - 기능: 캔들스틱, 라인 차트, 기술지표
-    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><c:out value="${symbol}"/> - <c:out value="${name}"/> | The Salty Spitoon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
-    
-    <!-- 
-        SockJS & STOMP (WebSocket)
-        - 역할: 실시간 양방향 통신
-        - 용도: 1분마다 새 캔들 수신
-    -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
-    
     <style>
-        /* 
-            ========================================
-            전역 리셋
-            ========================================
-        */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* 
-            ========================================
-            Body: 다크 테마
-            ========================================
-        */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #131722;
-            color: #d1d4dc;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* 
-            ========================================
-            헤더: 종목 정보 + 뒤로가기
-            ========================================
-        */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            background: #1e222d;
-            border-radius: 8px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        /* 뒤로가기 버튼 */
-        .back-button {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: #2a2e39;
-            color: #d1d4dc;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s;
-            text-decoration: none;
-        }
-        
-        .back-button:hover {
-            background: #363a45;
-        }
-        
-        /* 종목 정보 영역 */
-        .stock-info {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        /* 종목 심볼 */
-        .symbol {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2962ff;
-        }
-        
-        /* 회사명 */
-        .company-name {
-            font-size: 14px;
-            color: #787b86;
-        }
-        
-        /* 현재가 */
-        .price {
-            font-size: 32px;
-            font-weight: bold;
-            color: #26a69a;
-        }
-        
-        .price.down {
-            color: #ef5350;
-        }
-        
-        /* 등락률 */
-        .change {
-            font-size: 18px;
-            color: #26a69a;
-        }
-        
-        .change.down {
-            color: #ef5350;
-        }
-        
-        /* WebSocket 연결 상태 */
-        .connection-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: #787b86;
-        }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ef5350;
-        }
-        
-        .status-dot.connected {
-            background: #26a69a;
-        }
-        
-        /* 
-            ========================================
-            컨트롤 패널
-            ========================================
-        */
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #1e222d;
-            border-radius: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 8px 16px;
-            background: #2a2e39;
-            color: #d1d4dc;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: #363a45;
-        }
-        
-        .btn.active {
-            background: #2962ff;
-            color: white;
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .divider {
-            width: 1px;
-            background: #434651;
-        }
-        
-        /* 
-            ========================================
-            차트 영역
-            ========================================
-        */
-        .chart-container {
-            background: #1e222d;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        #chart {
-            height: 600px;
-        }
-        
-        /* 
-            ========================================
-            로딩 스피너
-            ========================================
-        */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #787b86;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #2a2e39;
-            border-top-color: #2962ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* 
-            ========================================
-            재무 정보 섹션 (신규)
-            ========================================
-        */
-        .financial-section {
-            background: #1e222d;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-        
-        .financial-section h2 {
-            color: #d1d4dc;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-        
-        /* Bootstrap 탭 다크 테마 오버라이드 */
-        .nav-tabs {
-            border-bottom: 2px solid #2a2e39;
-        }
-        
-        .nav-tabs > li > a {
-            color: #787b86;
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 12px 20px;
-            transition: all 0.3s;
-        }
-        
-        .nav-tabs > li > a:hover {
-            background: #2a2e39;
-            border: none;
-            color: #d1d4dc;
-        }
-        
-        .nav-tabs > li.active > a,
-        .nav-tabs > li.active > a:hover,
-        .nav-tabs > li.active > a:focus {
-            color: #2962ff;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #2962ff;
-        }
-        
-        .tab-content {
-            padding: 20px 0;
-        }
-        
-        /* 기간 선택 버튼 */
-        .period-selector {
-            margin-bottom: 15px;
-        }
-        
-        .period-selector .btn {
-            margin-right: 5px;
-        }
-        
-        /* 재무 테이블 */
-        .financial-table {
-            width: 100%;
-            background: #1e222d;
-            color: #d1d4dc;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        
-        .financial-table th {
-            background: #2a2e39;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid #434651;
-        }
-        
-        .financial-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #2a2e39;
-        }
-        
-        .financial-table tr:hover {
-            background: #2a2e39;
-        }
-        
-        /* 숫자 포맷 */
-        .number {
-            text-align: right;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .positive {
-            color: #26a69a;
-        }
-        
-        .negative {
-            color: #ef5350;
-        }
-        
-        /* 정보 카드 */
-        .info-card {
-            background: #2a2e39;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-        
-        .info-card h4 {
-            color: #2962ff;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #1e222d;
-        }
-        
-        .info-row:last-child {
-            border-bottom: none;
-        }
-        
-        .info-label {
-            color: #787b86;
-        }
-        
-        .info-value {
-            color: #d1d4dc;
-            font-weight: 500;
-        }
-        
-        /* 에러 메시지 */
-        .error-message {
-            text-align: center;
-            padding: 40px;
-            color: #ef5350;
-        }
-        
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #787b86;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #0f1419; color: #ffffff; min-height: 100vh; }
+        .navbar { background-color: #1a1f2e; border-bottom: 1px solid #252b3d; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .navbar-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #3b82f6; text-decoration: none; }
+        .navbar-menu { display: flex; align-items: center; gap: 32px; }
+        .navbar-menu a { color: #9ca3af; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        .navbar-menu a:hover, .navbar-menu a.active { color: #ffffff; }
+        .navbar-right { display: flex; align-items: center; gap: 16px; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .main-content { max-width: 1400px; margin: 0 auto; padding: 24px 32px; }
+        .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+        .stock-info { display: flex; align-items: center; gap: 16px; }
+        .stock-icon { width: 250px; height: 56px; border-radius: 14px; background-color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 28px; overflow: hidden; }
+        .stock-icon img { height: 29px; width: auto; max-width: 100%; object-fit: contain; }
+        .stock-title h1 { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .stock-title p { font-size: 14px; color: #6b7280; margin-top: 4px; }
+        .stock-price-section { display: flex; align-items: baseline; gap: 16px; margin-top: 12px; }
+        .current-price { font-size: 36px; font-weight: 700; }
+        .price-change { font-size: 16px; padding: 6px 12px; border-radius: 8px; }
+        .price-change.positive { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+        .price-change.negative { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .stock-actions { display: flex; gap: 12px; }
+        .action-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-watchlist { background-color: #1a1f2e; color: #d1d5db; border: 1px solid #374151; }
+        .btn-watchlist:hover { background-color: #252b3d; }
+        .btn-watchlist.active { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: #f59e0b; }
+        .btn-watchlist svg { width: 18px; height: 18px; }
+        .time-display { display: flex; gap: 16px; margin-top: 8px; }
+        .time-item { font-size: 12px; color: #6b7280; }
+        .time-item span { color: #9ca3af; }
+        .content-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+        .chart-section { background-color: #1a1f2e; border-radius: 16px; padding: 24px; }
+        .chart-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .timeframe-tabs { display: flex; gap: 4px; background-color: #252b3d; padding: 4px; border-radius: 8px; }
+        .timeframe-tab { padding: 8px 16px; font-size: 13px; font-weight: 500; color: #9ca3af; background: none; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .timeframe-tab:hover { color: #ffffff; }
+        .timeframe-tab.active { background-color: #374151; color: #ffffff; }
+        .indicator-controls { display: flex; gap: 8px; }
+        .indicator-btn { padding: 6px 12px; font-size: 12px; background-color: #252b3d; color: #9ca3af; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .indicator-btn:hover { background-color: #374151; }
+        .indicator-btn.active { background-color: #3b82f6; color: #ffffff; }
+        #chart-container { height: 450px; }
+        .connection-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #6b7280; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #ef4444; }
+        .status-dot.connected { background-color: #22c55e; }
+        .sidebar { display: flex; flex-direction: column; gap: 16px; }
+        .info-card { background-color: #1a1f2e; border-radius: 12px; padding: 20px; }
+        .info-card h3 { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #252b3d; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { font-size: 13px; color: #6b7280; }
+        .info-value { font-size: 13px; font-weight: 500; }
+        .financial-section { background-color: #1a1f2e; border-radius: 16px; padding: 24px; margin-top: 24px; }
+        .financial-tabs { display: flex; gap: 4px; margin-bottom: 20px; overflow-x: auto; }
+        .financial-tab { padding: 10px 20px; font-size: 14px; font-weight: 500; color: #9ca3af; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .financial-tab:hover { color: #ffffff; }
+        .financial-tab.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .period-selector { display: flex; gap: 8px; margin-bottom: 16px; }
+        .period-btn { padding: 6px 14px; font-size: 12px; background-color: #252b3d; color: #9ca3af; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .period-btn:hover { background-color: #374151; }
+        .period-btn.active { background-color: #3b82f6; color: #ffffff; }
+        .financial-table { width: 100%; border-collapse: collapse; }
+        .financial-table th { text-align: left; padding: 12px; font-size: 12px; font-weight: 600; color: #6b7280; background-color: #252b3d; border-bottom: 1px solid #374151; }
+        .financial-table th.number { text-align: right; }
+        .financial-table td { padding: 12px; font-size: 13px; border-bottom: 1px solid #252b3d; }
+        .financial-table td.number { text-align: right; font-family: 'SF Mono', monospace; }
+        .financial-table tr:hover { background-color: #252b3d; }
+        .related-news { margin-top: 16px; }
+        .news-item { padding: 16px 0; border-bottom: 1px solid #252b3d; cursor: pointer; transition: all 0.2s; }
+        .news-item:hover { background-color: #252b3d; margin: 0 -20px; padding: 16px 20px; }
+        .news-item:last-child { border-bottom: none; }
+        .news-item h4 { font-size: 14px; font-weight: 500; line-height: 1.5; margin-bottom: 6px; }
+        .news-item-meta { font-size: 12px; color: #6b7280; }
+        .loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: #6b7280; }
+        .loading-spinner { width: 24px; height: 24px; border: 2px solid #252b3d; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 12px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .no-data { text-align: center; padding: 40px; color: #6b7280; }
+        @media (max-width: 1200px) { .content-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .stock-header { flex-direction: column; gap: 16px; } .stock-actions { width: 100%; } .action-btn { flex: 1; justify-content: center; } }
     </style>
 </head>
 <body>
-    <!-- 공통 네비게이션 -->
-    <nav class="navbar" style="background: #1e222d; border-bottom: 1px solid #2a2e39; padding: 0 20px; position: sticky; top: 0; z-index: 1000;">
-        <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px;">
-            <a href="/stock" style="font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #2962ff 0%, #26a69a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;">The Salty Spitoon</a>
-            <div style="display: flex; gap: 8px;">
-                <a href="/stock" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">대시보드</a>
-                <a href="/stock/chart?symbol=AAPL" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">차트</a>
-                <a href="/news" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">뉴스</a>
-                <a href="/admin" style="padding: 10px 16px; border-radius: 6px; font-size: 14px; font-weight: 500; color: #787b86; text-decoration: none;">관리자</a>
-            </div>
+    <nav class="navbar">
+        <a href="/dashboard" class="navbar-brand">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12l3-3 2 2 4-4 3 3v5H7v-3z"/></svg>
+            The Salty Spitoon
+        </a>
+        <div class="navbar-menu">
+            <a href="/dashboard" class="active">Market</a>
+            <a href="/watchlist">Watchlist</a>
+            <a href="/news">News</a>
+            <a href="/admin">Admin</a>
         </div>
-    </nav>
-
-    <div class="container">
-        <!-- 
-            ========================================
-            헤더: 종목 정보 및 네비게이션
-            ========================================
-        -->
-        <div class="header">
-            <!-- 뒤로가기 버튼 -->
-            <a href="/stock" class="back-button">
-                ← 대시보드로
-            </a>
-            
-            <!-- 종목 정보 -->
-            <div class="stock-info">
-                <div>
-                    <span class="symbol">${symbol}</span>
-                    <span class="company-name">${name}</span>
-                </div>
-                <span class="price" id="currentPrice">--</span>
-                <span class="change" id="priceChange">--</span>
-            </div>
-            
-            <!-- WebSocket 연결 상태 -->
+        <div class="navbar-right">
             <div class="connection-status">
                 <span class="status-dot" id="statusDot"></span>
                 <span id="statusText">Connecting...</span>
             </div>
+            <sec:authorize access="isAuthenticated()">
+                <div class="user-avatar" onclick="location.href='/logout'" title="로그아웃">
+                    <sec:authentication property="principal.username" var="userEmail"/>
+                    <c:out value="${userEmail.substring(0,1).toUpperCase()}"/>
+                </div>
+            </sec:authorize>
         </div>
-        
-        <!-- 
-            ========================================
-            컨트롤 패널: 타임프레임 및 기술지표
-            ========================================
-        -->
-        <div class="controls">
-            <!-- 타임프레임 선택 -->
-            <div class="btn-group">
-                <button class="btn active" onclick="changeTimeframe('1m', this)">1m</button>
-                <button class="btn" onclick="changeTimeframe('5m', this)">5m</button>
-                <button class="btn" onclick="changeTimeframe('1h', this)">1h</button>
-                <button class="btn" onclick="changeTimeframe('1d', this)">1d</button>
+    </nav>
+
+    <main class="main-content">
+        <div class="stock-header">
+            <div>
+                <div class="stock-info">
+                    <div class="stock-icon" id="stock-icon">
+                        <c:choose>
+                            <c:when test="${not empty stock.logoUrl}">
+                                <img src="${stock.logoUrl}" alt="${symbol}" onerror="this.parentElement.innerHTML='📈'">
+                            </c:when>
+                            <c:otherwise>
+                                📈
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="stock-title">
+                        <h1><c:out value="${symbol}"/> <span style="font-weight: 400; color: #6b7280; font-size: 18px;"><c:out value="${name}"/></span></h1>
+                        <p id="sector-industry">Loading...</p>
+                    </div>
+                </div>
+                <div class="stock-price-section">
+                    <span class="current-price" id="currentPrice">$--</span>
+                    <span class="price-change positive" id="priceChange">--%</span>
+                </div>
+                <div class="time-display">
+                    <div class="time-item">🇰🇷 KST: <span id="time-kst">--</span></div>
+                    <div class="time-item">🇺🇸 EST: <span id="time-est">--</span></div>
+                </div>
             </div>
-            
-            <!-- 구분선 -->
-            <div class="divider"></div>
-            
-            <!-- 기술지표 토글 -->
-            <button class="btn active" onclick="toggleIndicator('MA5', this)">MA5</button>
-            <button class="btn active" onclick="toggleIndicator('MA20', this)">MA20</button>
-            <button class="btn" onclick="toggleIndicator('MA50', this)">MA50</button>
-            <button class="btn" onclick="toggleIndicator('MA200', this)">MA200</button>
-            <button class="btn" onclick="toggleIndicator('RSI', this)">RSI</button>
-            
-            <span style="margin-left: auto; color: #787b86; font-size: 12px;">
-                Real-time updates every minute
-            </span>
+            <div class="stock-actions">
+                <button class="action-btn btn-watchlist" id="watchlist-btn" onclick="toggleWatchlist()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <span>Add to Watchlist</span>
+                </button>
+            </div>
         </div>
-        
-        <!-- 
-            ========================================
-            차트 영역
-            ========================================
-        -->
-        <div class="chart-container">
-            <div id="chart">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p>Loading chart...</p>
+
+        <div class="content-grid">
+            <div class="chart-section">
+                <div class="chart-controls">
+                    <div class="timeframe-tabs">
+                        <button class="timeframe-tab active" data-tf="1m">1m</button>
+                        <button class="timeframe-tab" data-tf="5m">5m</button>
+                        <button class="timeframe-tab" data-tf="1h">1h</button>
+                        <button class="timeframe-tab" data-tf="1d">1d</button>
+                    </div>
+                    <div class="indicator-controls">
+                        <button class="indicator-btn active" data-ind="MA5">MA5</button>
+                        <button class="indicator-btn active" data-ind="MA20">MA20</button>
+                        <button class="indicator-btn" data-ind="MA50">MA50</button>
+                        <button class="indicator-btn" data-ind="RSI">RSI</button>
+                    </div>
+                </div>
+                <div id="chart-container"></div>
+            </div>
+
+            <div class="sidebar">
+                <div class="info-card">
+                    <h3>Key Statistics</h3>
+                    <div id="key-stats"><div class="loading"><div class="loading-spinner"></div>Loading...</div></div>
+                </div>
+                <div class="info-card">
+                    <h3>Related News</h3>
+                    <div class="related-news" id="related-news"><div class="loading"><div class="loading-spinner"></div>Loading...</div></div>
                 </div>
             </div>
         </div>
-        
-        <!-- 
-            ========================================
-            재무 정보 섹션 (신규)
-            ========================================
-        -->
+
         <div class="financial-section">
-            <h2>📊 Financial Information</h2>
-            
-            <!-- 탭 네비게이션 -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
-                    <a href="#income-statement" data-toggle="tab" onclick="loadIncomeStatement()">
-                        재무제표
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#balance-sheet" data-toggle="tab" onclick="loadBalanceSheet()">
-                        대차대조표
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#cashflow" data-toggle="tab" onclick="loadCashflow()">
-                        현금흐름표
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#metrics" data-toggle="tab" onclick="loadMetrics()">
-                        재무지표
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#dividends" data-toggle="tab" onclick="loadDividends()">
-                        배당
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#company-info" data-toggle="tab" onclick="loadCompanyInfo()">
-                        기업정보
-                    </a>
-                </li>
-            </ul>
-            
-            <!-- 탭 컨텐츠 -->
-            <div class="tab-content">
-                <!-- 재무제표 -->
-                <div role="tabpanel" class="tab-pane active" id="income-statement">
-                    <div class="period-selector">
-                        <button class="btn active" onclick="loadIncomeStatement('quarterly', this)">분기</button>
-                        <button class="btn" onclick="loadIncomeStatement('yearly', this)">연간</button>
-                    </div>
-                    <div id="income-statement-content">
-                        <div class="loading">
-                            <div class="loading-spinner"></div>
-                            <p>Loading...</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 대차대조표 -->
-                <div role="tabpanel" class="tab-pane" id="balance-sheet">
-                    <div class="period-selector">
-                        <button class="btn active" onclick="loadBalanceSheet('quarterly', this)">분기</button>
-                        <button class="btn" onclick="loadBalanceSheet('yearly', this)">연간</button>
-                    </div>
-                    <div id="balance-sheet-content"></div>
-                </div>
-                
-                <!-- 현금흐름표 -->
-                <div role="tabpanel" class="tab-pane" id="cashflow">
-                    <div class="period-selector">
-                        <button class="btn active" onclick="loadCashflow('quarterly', this)">분기</button>
-                        <button class="btn" onclick="loadCashflow('yearly', this)">연간</button>
-                    </div>
-                    <div id="cashflow-content"></div>
-                </div>
-                
-                <!-- 재무지표 -->
-                <div role="tabpanel" class="tab-pane" id="metrics">
-                    <div id="metrics-content"></div>
-                </div>
-                
-                <!-- 배당 -->
-                <div role="tabpanel" class="tab-pane" id="dividends">
-                    <div id="dividends-content"></div>
-                </div>
-                
-                <!-- 기업정보 -->
-                <div role="tabpanel" class="tab-pane" id="company-info">
-                    <div id="company-info-content"></div>
-                </div>
+            <div class="financial-tabs">
+                <button class="financial-tab active" data-tab="income">Income Statement</button>
+                <button class="financial-tab" data-tab="balance">Balance Sheet</button>
+                <button class="financial-tab" data-tab="cashflow">Cash Flow</button>
+                <button class="financial-tab" data-tab="metrics">Key Metrics</button>
+                <button class="financial-tab" data-tab="dividends">Dividends</button>
+                <button class="financial-tab" data-tab="company">Company Info</button>
             </div>
+
+            <div class="tab-content active" id="tab-income">
+                <div class="period-selector">
+                    <button class="period-btn active" data-period="quarterly">Quarterly</button>
+                    <button class="period-btn" data-period="yearly">Yearly</button>
+                </div>
+                <div id="income-content"><div class="loading"><div class="loading-spinner"></div>Loading...</div></div>
+            </div>
+            <div class="tab-content" id="tab-balance">
+                <div class="period-selector">
+                    <button class="period-btn active" data-period="quarterly">Quarterly</button>
+                    <button class="period-btn" data-period="yearly">Yearly</button>
+                </div>
+                <div id="balance-content"></div>
+            </div>
+            <div class="tab-content" id="tab-cashflow">
+                <div class="period-selector">
+                    <button class="period-btn active" data-period="quarterly">Quarterly</button>
+                    <button class="period-btn" data-period="yearly">Yearly</button>
+                </div>
+                <div id="cashflow-content"></div>
+            </div>
+            <div class="tab-content" id="tab-metrics"><div id="metrics-content"></div></div>
+            <div class="tab-content" id="tab-dividends"><div id="dividends-content"></div></div>
+            <div class="tab-content" id="tab-company"><div id="company-content"></div></div>
         </div>
-    </div>
+    </main>
 
     <script>
-        /* 
-            ========================================
-            전역 변수
-            ========================================
-        */
-        
-        const SYMBOL = '${symbol}';
-        
-        // 차트 관련 (기존)
-        let chart;
-        let candlestickSeries;
-        let indicatorSeries = {};
-        let currentTimeframe = '1m';
-        let activeIndicators = new Set(['MA5', 'MA20']);
-        
-        // WebSocket (기존)
-        let stompClient = null;
-        let currentSubscription = null;
+        var SYMBOL = '<c:out value="${symbol}"/>';
+        var chart, candlestickSeries, volumeSeries;
+        var indicatorSeries = {};
+        var currentTimeframe = '1m';
+        var activeIndicators = ['MA5', 'MA20'];
+        var stompClient = null;
+        var isInWatchlist = false;
 
-        /* 
-            ========================================
-            기존 차트 관련 함수들 (유지)
-            ========================================
-        */
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+            loadChartData();
+            connectWebSocket();
+            loadKeyStats();
+            loadRelatedNews();
+            loadIncomeStatement('quarterly');
+            checkWatchlistStatus();
+            updateTime();
+            setInterval(updateTime, 1000);
+            setupTabs();
+        });
+
+        function updateTime() {
+            var now = new Date();
+            var kstOptions = { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            var estOptions = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('time-kst').textContent = now.toLocaleString('en-US', kstOptions);
+            document.getElementById('time-est').textContent = now.toLocaleString('en-US', estOptions);
+        }
+
         function initChart() {
-            const chartOptions = {
-                layout: {
-                    background: { color: '#1e222d' },
-                    textColor: '#d1d4dc',
-                },
-                grid: {
-                    vertLines: { color: '#2b2b43' },
-                    horzLines: { color: '#2b2b43' },
-                },
-                width: document.getElementById('chart').offsetWidth,
-                height: 600,
-                timeScale: {
-                    timeVisible: true,
-                    secondsVisible: false,
-                }
-            };
-            
-            chart = LightweightCharts.createChart(
-                document.getElementById('chart'), 
-                chartOptions
-            );
-            
+            var container = document.getElementById('chart-container');
+            chart = LightweightCharts.createChart(container, {
+                width: container.clientWidth,
+                height: 450,
+                layout: { background: { type: 'solid', color: 'transparent' }, textColor: '#9ca3af' },
+                grid: { vertLines: { color: '#252b3d' }, horzLines: { color: '#252b3d' } },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                rightPriceScale: { borderColor: '#252b3d' },
+                timeScale: { borderColor: '#252b3d', timeVisible: true }
+            });
+
             candlestickSeries = chart.addCandlestickSeries({
-                upColor: '#26a69a',
-                downColor: '#ef5350',
-                borderVisible: false,
-                wickUpColor: '#26a69a',
-                wickDownColor: '#ef5350',
+                upColor: '#22c55e', downColor: '#ef4444', borderVisible: false,
+                wickUpColor: '#22c55e', wickDownColor: '#ef4444'
             });
-            
+
+            volumeSeries = chart.addHistogramSeries({
+                color: '#3b82f6', priceFormat: { type: 'volume' }, priceScaleId: '',
+                scaleMargins: { top: 0.85, bottom: 0 }
+            });
+
             window.addEventListener('resize', function() {
-                chart.applyOptions({
-                    width: document.getElementById('chart').offsetWidth
-                });
+                chart.applyOptions({ width: container.clientWidth });
             });
-        }
 
-        function connectWebSocket() {
-            console.log('WebSocket connecting...');
-            
-            const socket = new SockJS('/ws');
-            stompClient = Stomp.over(socket);
-            stompClient.debug = null;
-            
-            stompClient.connect({}, 
-                function(frame) {
-                    console.log('WebSocket connected');
-                    updateConnectionStatus(true);
-                    subscribeToSymbol(SYMBOL);
-                }, 
-                function(error) {
-                    console.error('WebSocket connection failed:', error);
-                    updateConnectionStatus(false);
-                    setTimeout(connectWebSocket, 5000);
-                }
-            );
-        }
-
-        function subscribeToSymbol(symbol) {
-            if (currentSubscription) {
-                currentSubscription.unsubscribe();
-            }
-            
-            console.log('Subscribing to:', symbol);
-            
-            currentSubscription = stompClient.subscribe(
-                '/topic/stock/' + symbol, 
-                function(message) {
-                    const candle = JSON.parse(message.body);
-                    console.log('New candle received:', candle);
-                    updateChartWithNewCandle(candle);
-                }
-            );
-        }
-
-        function updateChartWithNewCandle(candle) {
-            if (currentTimeframe !== '1m') {
-                loadChartData();
-                return;
-            }
-            
-            const candleData = {
-                time: new Date(candle.timestamp).getTime() / 1000,
-                open: parseFloat(candle.open),
-                high: parseFloat(candle.high),
-                low: parseFloat(candle.low),
-                close: parseFloat(candle.close)
-            };
-            
-            candlestickSeries.update(candleData);
-            updateRealTimePrice();
-        }
-
-        function updateConnectionStatus(connected) {
-            const dot = document.getElementById('statusDot');
-            const text = document.getElementById('statusText');
-            
-            if (connected) {
-                dot.classList.add('connected');
-                text.textContent = 'Live';
-            } else {
-                dot.classList.remove('connected');
-                text.textContent = 'Disconnected';
-            }
-        }
-
-        async function loadChartData() {
-            try {
-                const chartDiv = document.getElementById('chart');
-                const loadingDiv = chartDiv.querySelector('.loading');
-                if (loadingDiv) {
-                    loadingDiv.remove();
-                }
-                
-                if (!currentTimeframe) {
-                    currentTimeframe = '1m';
-                }
-                
-                const indicators = Array.from(activeIndicators).join(',') || 'MA5,MA20';
-                const url = '/stock/api/chart/' + SYMBOL + '/all' +
-                        '?timeframe=' + currentTimeframe + 
-                        '&indicators=' + indicators;
-                
-                console.log('API Request:', url);
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error('HTTP ' + response.status + ': ' + response.statusText);
-                }
-                
-                const data = await response.json();
-                
-                if (data.error) {
-                    console.error('Chart data error:', data.error);
-                    alert('Chart load failed: ' + data.error);
-                    return;
-                }
-                
-                console.log('Chart data loaded:', data.data ? data.data.length : 0, 'candles');
-                
-                if (!data.data || data.data.length === 0) {
-                    console.warn('No chart data');
-                    alert('No chart data available. Please wait for data collection.');
-                    return;
-                }
-                
-                const candleData = data.data.map(function(item) {
-                    return {
-                        time: new Date(item.date).getTime() / 1000,
-                        open: parseFloat(item.open),
-                        high: parseFloat(item.high),
-                        low: parseFloat(item.low),
-                        close: parseFloat(item.close)
-                    };
+            var tfTabs = document.querySelectorAll('.timeframe-tab');
+            for (var i = 0; i < tfTabs.length; i++) {
+                tfTabs[i].addEventListener('click', function() {
+                    for (var j = 0; j < tfTabs.length; j++) { tfTabs[j].classList.remove('active'); }
+                    this.classList.add('active');
+                    currentTimeframe = this.getAttribute('data-tf');
+                    loadChartData();
                 });
-                
-                candlestickSeries.setData(candleData);
-                
-                if (data.indicators) {
-                    updateIndicators(data.data, data.indicators);
-                }
-                
-                updateRealTimePrice();
-                
-            } catch (error) {
-                console.error('Chart load failed:', error);
-                alert('Failed to load chart: ' + error.message);
             }
+
+            var indBtns = document.querySelectorAll('.indicator-btn');
+            for (var i = 0; i < indBtns.length; i++) {
+                indBtns[i].addEventListener('click', function() {
+                    var ind = this.getAttribute('data-ind');
+                    var idx = activeIndicators.indexOf(ind);
+                    if (idx > -1) {
+                        activeIndicators.splice(idx, 1);
+                        this.classList.remove('active');
+                    } else {
+                        activeIndicators.push(ind);
+                        this.classList.add('active');
+                    }
+                    loadChartData();
+                });
+            }
+        }
+
+        function loadChartData() {
+            var indicators = activeIndicators.length > 0 ? activeIndicators.join(',') : 'MA5,MA20';
+            var url = '/stock/api/chart/' + SYMBOL + '/all?timeframe=' + currentTimeframe + '&indicators=' + indicators;
+            
+            fetch(url)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.error || !data.data || data.data.length === 0) {
+                        console.warn('No chart data');
+                        return;
+                    }
+
+                    var candleData = [];
+                    var volumeData = [];
+                    for (var i = 0; i < data.data.length; i++) {
+                        var item = data.data[i];
+                        candleData.push({
+                            time: new Date(item.date).getTime() / 1000,
+                            open: parseFloat(item.open),
+                            high: parseFloat(item.high),
+                            low: parseFloat(item.low),
+                            close: parseFloat(item.close)
+                        });
+                        volumeData.push({
+                            time: new Date(item.date).getTime() / 1000,
+                            value: parseFloat(item.volume || 0),
+                            color: parseFloat(item.close) >= parseFloat(item.open) ? '#22c55e40' : '#ef444440'
+                        });
+                    }
+
+                    candlestickSeries.setData(candleData);
+                    volumeSeries.setData(volumeData);
+
+                    if (data.indicators) {
+                        updateIndicators(data.data, data.indicators);
+                    }
+                    updatePrice();
+                })
+                .catch(function(error) {
+                    console.error('Chart load failed:', error);
+                });
         }
 
         function updateIndicators(rawData, indicators) {
-            Object.values(indicatorSeries).forEach(function(series) {
-                chart.removeSeries(series);
-            });
+            for (var key in indicatorSeries) {
+                chart.removeSeries(indicatorSeries[key]);
+            }
             indicatorSeries = {};
-            
-            const colors = {
-                MA5: '#2962ff',
-                MA20: '#ff6d00',
-                MA50: '#ab47bc',
-                MA200: '#66bb6a',
-                RSI: '#f44336'
-            };
-            
-            Object.keys(indicators).forEach(function(key) {
-                const lineData = [];
-                const indicatorValues = indicators[key];
-                
-                rawData.forEach(function(item, index) {
-                    if (indicatorValues[index] != null) {
+
+            var colors = { MA5: '#3b82f6', MA20: '#f59e0b', MA50: '#a855f7', MA200: '#22c55e', RSI: '#ef4444' };
+
+            for (var key in indicators) {
+                var lineData = [];
+                for (var i = 0; i < indicators[key].length; i++) {
+                    var val = indicators[key][i];
+                    if (val != null) {
                         lineData.push({
-                            time: new Date(item.date).getTime() / 1000,
-                            value: parseFloat(indicatorValues[index])
+                            time: new Date(rawData[i].date).getTime() / 1000,
+                            value: parseFloat(val)
                         });
                     }
-                });
-                
+                }
                 if (lineData.length > 0) {
-                    indicatorSeries[key] = chart.addLineSeries({
-                        color: colors[key] || '#ffffff',
-                        lineWidth: 2
-                    });
+                    indicatorSeries[key] = chart.addLineSeries({ color: colors[key] || '#fff', lineWidth: 2 });
                     indicatorSeries[key].setData(lineData);
                 }
+            }
+        }
+
+        function connectWebSocket() {
+            var socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+            stompClient.debug = null;
+
+            stompClient.connect({}, function(frame) {
+                document.getElementById('statusDot').classList.add('connected');
+                document.getElementById('statusText').textContent = 'Live';
+
+                stompClient.subscribe('/topic/stock/' + SYMBOL, function(msg) {
+                    var candle = JSON.parse(msg.body);
+                    if (currentTimeframe === '1m') {
+                        candlestickSeries.update({
+                            time: new Date(candle.timestamp).getTime() / 1000,
+                            open: parseFloat(candle.open),
+                            high: parseFloat(candle.high),
+                            low: parseFloat(candle.low),
+                            close: parseFloat(candle.close)
+                        });
+                    }
+                    updatePrice();
+                });
+            }, function(error) {
+                document.getElementById('statusDot').classList.remove('connected');
+                document.getElementById('statusText').textContent = 'Disconnected';
+                setTimeout(connectWebSocket, 5000);
             });
         }
 
-        async function updateRealTimePrice() {
-            try {
-                const response = await fetch('/stock/api/realtime/' + SYMBOL);
-                const data = await response.json();
-                
-                if (data.error) return;
-                
-                const price = parseFloat(data.price);
-                document.getElementById('currentPrice').textContent = '$' + price.toFixed(2);
-                
-                const changePercent = parseFloat(data.changePercent);
-                const changeElement = document.getElementById('priceChange');
-                changeElement.textContent = (changePercent >= 0 ? '+' : '') + changePercent.toFixed(2) + '%';
-                
-                const priceElement = document.getElementById('currentPrice');
-                if (changePercent >= 0) {
-                    priceElement.classList.remove('down');
-                    changeElement.classList.remove('down');
-                } else {
-                    priceElement.classList.add('down');
-                    changeElement.classList.add('down');
-                }
-                
-            } catch (error) {
-                console.error('Real-time price update failed:', error);
-            }
-        }
-
-        function changeTimeframe(timeframe, button) {
-            document.querySelectorAll('.btn-group .btn').forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-            
-            currentTimeframe = timeframe;
-            loadChartData();
-        }
-
-        function toggleIndicator(indicator, button) {
-            if (activeIndicators.has(indicator)) {
-                activeIndicators.delete(indicator);
-                button.classList.remove('active');
-            } else {
-                activeIndicators.add(indicator);
-                button.classList.add('active');
-            }
-            
-            loadChartData();
-        }
-
-        /* 
-            ========================================
-            재무 정보 로드 함수들 (신규)
-            ========================================
-        */
-
-        /**
-         * 재무제표 로드
-         */
-        async function loadIncomeStatement(period, button) {
-            period = period || 'quarterly';
-            
-            // 버튼 활성화 상태 변경
-            if (button) {
-                const container = button.parentElement;
-                container.querySelectorAll('.btn').forEach(function(btn) {
-                    btn.classList.remove('active');
+        function updatePrice() {
+            fetch('/stock/api/realtime/' + SYMBOL)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.error) return;
+                    document.getElementById('currentPrice').textContent = '$' + parseFloat(data.price).toFixed(2);
+                    var change = parseFloat(data.changePercent);
+                    var changeEl = document.getElementById('priceChange');
+                    changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+                    changeEl.className = 'price-change ' + (change >= 0 ? 'positive' : 'negative');
+                })
+                .catch(function(error) {
+                    console.error('Price update failed:', error);
                 });
-                button.classList.add('active');
-            }
-            
-            const contentDiv = document.getElementById('income-statement-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/income-statement?period=' + period);
-                const data = await response.json();
-                
-                if (!data.success || !data.data || data.data.length === 0) {
-                    contentDiv.innerHTML = '<div class="no-data">재무제표 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                // 테이블 생성
-                let html = '<table class="financial-table">';
-                html += '<thead><tr>';
-                html += '<th>항목</th>';
-                
-                // 날짜 헤더 (최대 4개)
-                const displayData = data.data.slice(0, 4);
-                displayData.forEach(function(item) {
-                    html += '<th class="number">' + item.fiscalDate + '</th>';
+        }
+
+        function loadKeyStats() {
+            fetch('/stock/api/financial/' + SYMBOL + '/metrics')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data) {
+                        document.getElementById('key-stats').innerHTML = '<div class="no-data">No data available</div>';
+                        return;
+                    }
+                    var m = data.data;
+                    var html = '';
+                    html += '<div class="info-row"><span class="info-label">Market Cap</span><span class="info-value">$' + formatLargeNumber(m.marketCap) + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">P/E Ratio</span><span class="info-value">' + (m.trailingPe ? m.trailingPe.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">EPS</span><span class="info-value">$' + (m.trailingEps ? m.trailingEps.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Dividend Yield</span><span class="info-value">' + (m.dividendYield ? (m.dividendYield * 100).toFixed(2) + '%' : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Beta</span><span class="info-value">' + (m.beta ? m.beta.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">52W High</span><span class="info-value">$' + (m.fiftyTwoWeekHigh ? m.fiftyTwoWeekHigh.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">52W Low</span><span class="info-value">$' + (m.fiftyTwoWeekLow ? m.fiftyTwoWeekLow.toFixed(2) : '-') + '</span></div>';
+                    document.getElementById('key-stats').innerHTML = html;
+
+                    if (m.sector || m.industry) {
+                        document.getElementById('sector-industry').textContent = (m.sector || '') + ' · ' + (m.industry || '');
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Key stats load failed:', error);
                 });
-                html += '</tr></thead><tbody>';
-                
-                // 데이터 행
-                const rows = [
-                    { label: '총 매출', key: 'totalRevenue' },
-                    { label: '매출원가', key: 'costOfRevenue' },
-                    { label: '매출총이익', key: 'grossProfit' },
-                    { label: '연구개발비', key: 'researchAndDevelopment' },
-                    { label: '판매관리비', key: 'sellingGeneralAndAdministration' },
-                    { label: '영업이익', key: 'operatingIncome' },
-                    { label: 'EBITDA', key: 'ebitda' },
-                    { label: '순이익', key: 'netIncome' },
-                    { label: 'EPS (기본)', key: 'basicEps' },
-                    { label: 'EPS (희석)', key: 'dilutedEps' }
-                ];
-                
-                rows.forEach(function(row) {
-                    html += '<tr>';
-                    html += '<td>' + row.label + '</td>';
+        }
+
+        function loadRelatedNews() {
+            fetch('/api/news/latest?symbol=' + SYMBOL + '&limit=5')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data || data.length === 0) {
+                        document.getElementById('related-news').innerHTML = '<div class="no-data">No news available for this stock</div>';
+                        return;
+                    }
+                    var html = '';
+                    for (var i = 0; i < data.length; i++) {
+                        var news = data[i];
+                        html += '<div class="news-item" onclick="location.href=\'/news/detail/' + news.id + '\'">';
+                        html += '<h4>' + news.title + '</h4>';
+                        html += '<div class="news-item-meta">' + formatTimeAgo(news.publishedAt || news.published_at) + '</div>';
+                        html += '</div>';
+                    }
+                    document.getElementById('related-news').innerHTML = html;
+                })
+                .catch(function(error) {
+                    console.error('News load failed:', error);
+                    document.getElementById('related-news').innerHTML = '<div class="no-data">No news available</div>';
+                });
+        }
+
+        function setupTabs() {
+            var finTabs = document.querySelectorAll('.financial-tab');
+            for (var i = 0; i < finTabs.length; i++) {
+                finTabs[i].addEventListener('click', function() {
+                    var tabId = this.getAttribute('data-tab');
+                    for (var j = 0; j < finTabs.length; j++) { finTabs[j].classList.remove('active'); }
+                    var contents = document.querySelectorAll('.tab-content');
+                    for (var k = 0; k < contents.length; k++) { contents[k].classList.remove('active'); }
+                    this.classList.add('active');
+                    document.getElementById('tab-' + tabId).classList.add('active');
+
+                    switch(tabId) {
+                        case 'income': loadIncomeStatement('quarterly'); break;
+                        case 'balance': loadBalanceSheet('quarterly'); break;
+                        case 'cashflow': loadCashflow('quarterly'); break;
+                        case 'metrics': loadMetrics(); break;
+                        case 'dividends': loadDividends(); break;
+                        case 'company': loadCompanyInfo(); break;
+                    }
+                });
+            }
+
+            var periodBtns = document.querySelectorAll('.period-btn');
+            for (var i = 0; i < periodBtns.length; i++) {
+                periodBtns[i].addEventListener('click', function() {
+                    var period = this.getAttribute('data-period');
+                    var parent = this.closest('.tab-content');
+                    var siblings = parent.querySelectorAll('.period-btn');
+                    for (var j = 0; j < siblings.length; j++) { siblings[j].classList.remove('active'); }
+                    this.classList.add('active');
+
+                    var tabId = parent.id.replace('tab-', '');
+                    switch(tabId) {
+                        case 'income': loadIncomeStatement(period); break;
+                        case 'balance': loadBalanceSheet(period); break;
+                        case 'cashflow': loadCashflow(period); break;
+                    }
+                });
+            }
+        }
+
+        function loadIncomeStatement(period) {
+            var content = document.getElementById('income-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/income-statement?period=' + period)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data || data.data.length === 0) {
+                        content.innerHTML = '<div class="no-data">No data available</div>';
+                        return;
+                    }
+                    var rows = [
+                        { label: 'Total Revenue', key: 'totalRevenue' },
+                        { label: 'Gross Profit', key: 'grossProfit' },
+                        { label: 'Operating Income', key: 'operatingIncome' },
+                        { label: 'Net Income', key: 'netIncome' },
+                        { label: 'EBITDA', key: 'ebitda' },
+                        { label: 'EPS (Basic)', key: 'basicEps' },
+                        { label: 'EPS (Diluted)', key: 'dilutedEps' }
+                    ];
+                    content.innerHTML = buildFinancialTable(data.data.slice(0, 4), rows);
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function loadBalanceSheet(period) {
+            var content = document.getElementById('balance-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/balance-sheet?period=' + period)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data || data.data.length === 0) {
+                        content.innerHTML = '<div class="no-data">No data available</div>';
+                        return;
+                    }
+                    var rows = [
+                        { label: 'Total Assets', key: 'totalAssets' },
+                        { label: 'Current Assets', key: 'currentAssets' },
+                        { label: 'Cash & Equivalents', key: 'cashAndCashEquivalents' },
+                        { label: 'Total Liabilities', key: 'totalLiabilitiesNetMinorityInterest' },
+                        { label: 'Current Liabilities', key: 'currentLiabilities' },
+                        { label: 'Long Term Debt', key: 'longTermDebt' },
+                        { label: 'Stockholders Equity', key: 'stockholdersEquity' }
+                    ];
+                    content.innerHTML = buildFinancialTable(data.data.slice(0, 4), rows);
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function loadCashflow(period) {
+            var content = document.getElementById('cashflow-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/cashflow?period=' + period)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data || data.data.length === 0) {
+                        content.innerHTML = '<div class="no-data">No data available</div>';
+                        return;
+                    }
+                    var rows = [
+                        { label: 'Operating Cash Flow', key: 'operatingCashFlow' },
+                        { label: 'Investing Cash Flow', key: 'investingCashFlow' },
+                        { label: 'Financing Cash Flow', key: 'financingCashFlow' },
+                        { label: 'Free Cash Flow', key: 'freeCashFlow' },
+                        { label: 'Capital Expenditure', key: 'capitalExpenditure' }
+                    ];
+                    content.innerHTML = buildFinancialTable(data.data.slice(0, 4), rows);
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function loadMetrics() {
+            var content = document.getElementById('metrics-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/metrics')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data) {
+                        content.innerHTML = '<div class="no-data">No data available</div>';
+                        return;
+                    }
+                    var m = data.data;
+                    var html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">';
                     
-                    displayData.forEach(function(item) {
-                        const value = item[row.key];
-                        if (value == null) {
-                            html += '<td class="number">-</td>';
-                        } else if (row.key.includes('Eps')) {
-                            html += '<td class="number">$' + parseFloat(value).toFixed(2) + '</td>';
-                        } else {
-                            html += '<td class="number">$' + formatNumber(value) + '</td>';
-                        }
-                    });
-                    
-                    html += '</tr>';
-                });
-                
-                html += '</tbody></table>';
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load income statement:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
-            }
-        }
-
-        /**
-         * 대차대조표 로드
-         */
-        async function loadBalanceSheet(period, button) {
-            period = period || 'quarterly';
-            
-            if (button) {
-                const container = button.parentElement;
-                container.querySelectorAll('.btn').forEach(function(btn) {
-                    btn.classList.remove('active');
-                });
-                button.classList.add('active');
-            }
-            
-            const contentDiv = document.getElementById('balance-sheet-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/balance-sheet?period=' + period);
-                const data = await response.json();
-                
-                if (!data.success || !data.data || data.data.length === 0) {
-                    contentDiv.innerHTML = '<div class="no-data">대차대조표 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                let html = '<table class="financial-table">';
-                html += '<thead><tr><th>항목</th>';
-                
-                const displayData = data.data.slice(0, 4);
-                displayData.forEach(function(item) {
-                    html += '<th class="number">' + item.fiscalDate + '</th>';
-                });
-                html += '</tr></thead><tbody>';
-                
-                const rows = [
-                    { label: '총 자산', key: 'totalAssets' },
-                    { label: '유동 자산', key: 'currentAssets' },
-                    { label: '현금 및 현금성 자산', key: 'cashAndCashEquivalents' },
-                    { label: '매출채권', key: 'receivables' },
-                    { label: '재고자산', key: 'inventory' },
-                    { label: '총 부채', key: 'totalLiabilitiesNetMinorityInterest' },
-                    { label: '유동 부채', key: 'currentLiabilities' },
-                    { label: '장기 부채', key: 'longTermDebt' },
-                    { label: '자본총계', key: 'stockholdersEquity' },
-                    { label: '이익잉여금', key: 'retainedEarnings' }
-                ];
-                
-                rows.forEach(function(row) {
-                    html += '<tr><td>' + row.label + '</td>';
-                    displayData.forEach(function(item) {
-                        const value = item[row.key];
-                        html += '<td class="number">' + (value != null ? '$' + formatNumber(value) : '-') + '</td>';
-                    });
-                    html += '</tr>';
-                });
-                
-                html += '</tbody></table>';
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load balance sheet:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
-            }
-        }
-
-        /**
-         * 현금흐름표 로드
-         */
-        async function loadCashflow(period, button) {
-            period = period || 'quarterly';
-            
-            if (button) {
-                const container = button.parentElement;
-                container.querySelectorAll('.btn').forEach(function(btn) {
-                    btn.classList.remove('active');
-                });
-                button.classList.add('active');
-            }
-            
-            const contentDiv = document.getElementById('cashflow-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/cashflow?period=' + period);
-                const data = await response.json();
-                
-                if (!data.success || !data.data || data.data.length === 0) {
-                    contentDiv.innerHTML = '<div class="no-data">현금흐름표 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                let html = '<table class="financial-table">';
-                html += '<thead><tr><th>항목</th>';
-                
-                const displayData = data.data.slice(0, 4);
-                displayData.forEach(function(item) {
-                    html += '<th class="number">' + item.fiscalDate + '</th>';
-                });
-                html += '</tr></thead><tbody>';
-                
-                const rows = [
-                    { label: '영업활동 현금흐름', key: 'operatingCashFlow' },
-                    { label: '투자활동 현금흐름', key: 'investingCashFlow' },
-                    { label: '재무활동 현금흐름', key: 'financingCashFlow' },
-                    { label: '잉여현금흐름', key: 'freeCashFlow' },
-                    { label: '자본적 지출', key: 'capitalExpenditure' },
-                    { label: '배당금 지급', key: 'cashDividendsPaid' },
-                    { label: '기말 현금', key: 'endCashPosition' }
-                ];
-                
-                rows.forEach(function(row) {
-                    html += '<tr><td>' + row.label + '</td>';
-                    displayData.forEach(function(item) {
-                        const value = item[row.key];
-                        html += '<td class="number">' + (value != null ? '$' + formatNumber(value) : '-') + '</td>';
-                    });
-                    html += '</tr>';
-                });
-                
-                html += '</tbody></table>';
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load cashflow:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
-            }
-        }
-
-        /**
-         * 재무지표 로드
-         */
-        async function loadMetrics() {
-            const contentDiv = document.getElementById('metrics-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/metrics');
-                const data = await response.json();
-                
-                if (!data.success || !data.data) {
-                    contentDiv.innerHTML = '<div class="no-data">재무지표 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                const metrics = data.data;
-                
-                let html = '';
-                
-                // 수익성 지표
-                html += '<div class="info-card">';
-                html += '<h4>수익성 지표</h4>';
-                html += createInfoRow('순이익률', formatPercent(metrics.profitMargins));
-                html += createInfoRow('영업이익률', formatPercent(metrics.operatingMargins));
-                html += createInfoRow('매출총이익률', formatPercent(metrics.grossMargins));
-                html += createInfoRow('ROE', formatPercent(metrics.returnOnEquity));
-                html += createInfoRow('ROA', formatPercent(metrics.returnOnAssets));
-                html += '</div>';
-                
-                // 밸류에이션
-                html += '<div class="info-card">';
-                html += '<h4>밸류에이션</h4>';
-                html += createInfoRow('P/E Ratio (후행)', formatNumber(metrics.trailingPe, 2));
-                html += createInfoRow('P/E Ratio (선행)', formatNumber(metrics.forwardPe, 2));
-                html += createInfoRow('PEG Ratio', formatNumber(metrics.pegRatio, 2));
-                html += createInfoRow('P/B Ratio', formatNumber(metrics.priceToBook, 2));
-                html += createInfoRow('시가총액', '$' + formatNumber(metrics.marketCap));
-                html += '</div>';
-                
-                // 배당
-                html += '<div class="info-card">';
-                html += '<h4>배당</h4>';
-                html += createInfoRow('배당수익률', formatPercent(metrics.dividendYield));
-                html += createInfoRow('배당성향', formatPercent(metrics.payoutRatio));
-                html += createInfoRow('연간 배당금', '$' + formatNumber(metrics.dividendRate, 2));
-                html += '</div>';
-                
-                // 재무 건전성
-                html += '<div class="info-card">';
-                html += '<h4>재무 건전성</h4>';
-                html += createInfoRow('유동비율', formatNumber(metrics.currentRatio, 2));
-                html += createInfoRow('당좌비율', formatNumber(metrics.quickRatio, 2));
-                html += createInfoRow('부채비율', formatNumber(metrics.debtToEquity, 2));
-                html += createInfoRow('베타', formatNumber(metrics.beta, 2));
-                html += '</div>';
-                
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load metrics:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
-            }
-        }
-
-        /**
-         * 배당 정보 로드
-         */
-        async function loadDividends() {
-            const contentDiv = document.getElementById('dividends-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/dividends');
-                const data = await response.json();
-                
-                if (!data.success || !data.data || data.data.length === 0) {
-                    contentDiv.innerHTML = '<div class="no-data">배당 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                let html = '<table class="financial-table">';
-                html += '<thead><tr>';
-                html += '<th>지급일</th>';
-                html += '<th class="number">주당 배당금</th>';
-                html += '</tr></thead><tbody>';
-                
-                data.data.forEach(function(dividend) {
-                    html += '<tr>';
-                    html += '<td>' + dividend.paymentDate + '</td>';
-                    html += '<td class="number">$' + parseFloat(dividend.dividendAmount).toFixed(4) + '</td>';
-                    html += '</tr>';
-                });
-                
-                html += '</tbody></table>';
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load dividends:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
-            }
-        }
-
-        /**
-         * 기업 정보 로드
-         */
-        async function loadCompanyInfo() {
-            const contentDiv = document.getElementById('company-info-content');
-            contentDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading...</p></div>';
-            
-            try {
-                const response = await fetch('/stock/api/financial/' + SYMBOL + '/info');
-                const data = await response.json();
-                
-                if (!data.success || !data.data) {
-                    contentDiv.innerHTML = '<div class="no-data">기업 정보 데이터가 없습니다.</div>';
-                    return;
-                }
-                
-                const info = data.data;
-                
-                let html = '';
-                
-                // 기본 정보
-                html += '<div class="info-card">';
-                html += '<h4>기본 정보</h4>';
-                html += createInfoRow('정식 회사명', info.longName || '-');
-                html += createInfoRow('섹터', info.sector || '-');
-                html += createInfoRow('산업', info.industry || '-');
-                html += createInfoRow('국가', info.country || '-');
-                html += createInfoRow('도시', info.city || '-');
-                html += '</div>';
-                
-                // 연락처
-                html += '<div class="info-card">';
-                html += '<h4>연락처</h4>';
-                html += createInfoRow('웹사이트', info.website ? '<a href="' + info.website + '" target="_blank" style="color: #2962ff;">' + info.website + '</a>' : '-');
-                html += createInfoRow('전화번호', info.phone || '-');
-                html += createInfoRow('주소', info.address || '-');
-                html += '</div>';
-                
-                // 조직
-                html += '<div class="info-card">';
-                html += '<h4>조직 정보</h4>';
-                html += createInfoRow('정규직 직원 수', info.fullTimeEmployees ? formatNumber(info.fullTimeEmployees) + '명' : '-');
-                html += createInfoRow('시가총액', info.marketCap ? '$' + formatNumber(info.marketCap) : '-');
-                html += createInfoRow('기업가치', info.enterpriseValue ? '$' + formatNumber(info.enterpriseValue) : '-');
-                html += '</div>';
-                
-                // 사업 설명
-                if (info.longBusinessSummary) {
-                    html += '<div class="info-card">';
-                    html += '<h4>사업 개요</h4>';
-                    html += '<p style="color: #d1d4dc; line-height: 1.6;">' + info.longBusinessSummary + '</p>';
+                    html += '<div class="info-card" style="margin: 0;"><h3>Profitability</h3>';
+                    html += '<div class="info-row"><span class="info-label">Profit Margin</span><span class="info-value">' + formatPercent(m.profitMargins) + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Operating Margin</span><span class="info-value">' + formatPercent(m.operatingMargins) + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">ROE</span><span class="info-value">' + formatPercent(m.returnOnEquity) + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">ROA</span><span class="info-value">' + formatPercent(m.returnOnAssets) + '</span></div>';
                     html += '</div>';
+                    
+                    html += '<div class="info-card" style="margin: 0;"><h3>Valuation</h3>';
+                    html += '<div class="info-row"><span class="info-label">P/E (Trailing)</span><span class="info-value">' + (m.trailingPe ? m.trailingPe.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">P/E (Forward)</span><span class="info-value">' + (m.forwardPe ? m.forwardPe.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">PEG Ratio</span><span class="info-value">' + (m.pegRatio ? m.pegRatio.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Price to Book</span><span class="info-value">' + (m.priceToBook ? m.priceToBook.toFixed(2) : '-') + '</span></div>';
+                    html += '</div>';
+                    
+                    html += '<div class="info-card" style="margin: 0;"><h3>Financial Health</h3>';
+                    html += '<div class="info-row"><span class="info-label">Current Ratio</span><span class="info-value">' + (m.currentRatio ? m.currentRatio.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Quick Ratio</span><span class="info-value">' + (m.quickRatio ? m.quickRatio.toFixed(2) : '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Debt to Equity</span><span class="info-value">' + (m.debtToEquity ? m.debtToEquity.toFixed(2) : '-') + '</span></div>';
+                    html += '</div>';
+                    
+                    html += '</div>';
+                    content.innerHTML = html;
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function loadDividends() {
+            var content = document.getElementById('dividends-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/dividends')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data || data.data.length === 0) {
+                        content.innerHTML = '<div class="no-data">No dividend data available</div>';
+                        return;
+                    }
+                    var html = '<table class="financial-table"><thead><tr><th>Payment Date</th><th class="number">Dividend Amount</th></tr></thead><tbody>';
+                    for (var i = 0; i < data.data.length; i++) {
+                        var d = data.data[i];
+                        html += '<tr><td>' + d.paymentDate + '</td><td class="number">$' + parseFloat(d.dividendAmount).toFixed(4) + '</td></tr>';
+                    }
+                    html += '</tbody></table>';
+                    content.innerHTML = html;
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function loadCompanyInfo() {
+            var content = document.getElementById('company-content');
+            content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading...</div>';
+
+            fetch('/stock/api/financial/' + SYMBOL + '/info')
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success || !data.data) {
+                        content.innerHTML = '<div class="no-data">No company info available</div>';
+                        return;
+                    }
+                    var info = data.data;
+                    var html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">';
+                    
+                    html += '<div class="info-card" style="margin: 0;"><h3>Company Profile</h3>';
+                    html += '<div class="info-row"><span class="info-label">Name</span><span class="info-value">' + (info.longName || '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Sector</span><span class="info-value">' + (info.sector || '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Industry</span><span class="info-value">' + (info.industry || '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Employees</span><span class="info-value">' + (info.fullTimeEmployees ? info.fullTimeEmployees.toLocaleString() : '-') + '</span></div>';
+                    html += '</div>';
+                    
+                    html += '<div class="info-card" style="margin: 0;"><h3>Contact</h3>';
+                    html += '<div class="info-row"><span class="info-label">Country</span><span class="info-value">' + (info.country || '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">City</span><span class="info-value">' + (info.city || '-') + '</span></div>';
+                    html += '<div class="info-row"><span class="info-label">Website</span><span class="info-value">' + (info.website ? '<a href="' + info.website + '" target="_blank" style="color: #3b82f6;">Visit</a>' : '-') + '</span></div>';
+                    html += '</div>';
+                    
+                    html += '</div>';
+                    
+                    if (info.longBusinessSummary) {
+                        html += '<div class="info-card" style="margin-top: 16px;"><h3>Business Summary</h3>';
+                        html += '<p style="color: #9ca3af; line-height: 1.7; font-size: 14px;">' + info.longBusinessSummary + '</p>';
+                        html += '</div>';
+                    }
+                    content.innerHTML = html;
+                })
+                .catch(function(error) {
+                    content.innerHTML = '<div class="no-data">Failed to load data</div>';
+                });
+        }
+
+        function buildFinancialTable(data, rows) {
+            var html = '<table class="financial-table"><thead><tr><th>Item</th>';
+            for (var i = 0; i < data.length; i++) {
+                html += '<th class="number">' + data[i].fiscalDate + '</th>';
+            }
+            html += '</tr></thead><tbody>';
+            
+            for (var r = 0; r < rows.length; r++) {
+                var row = rows[r];
+                html += '<tr><td>' + row.label + '</td>';
+                for (var d = 0; d < data.length; d++) {
+                    var val = data[d][row.key];
+                    if (val == null) {
+                        html += '<td class="number">-</td>';
+                    } else if (row.key.indexOf('Eps') > -1) {
+                        html += '<td class="number">$' + parseFloat(val).toFixed(2) + '</td>';
+                    } else {
+                        html += '<td class="number">$' + formatLargeNumber(val) + '</td>';
+                    }
                 }
-                
-                contentDiv.innerHTML = html;
-                
-            } catch (error) {
-                console.error('Failed to load company info:', error);
-                contentDiv.innerHTML = '<div class="error-message">데이터 로드 실패: ' + error.message + '</div>';
+                html += '</tr>';
             }
+            html += '</tbody></table>';
+            return html;
         }
 
-        /* 
-            ========================================
-            유틸리티 함수들
-            ========================================
-        */
-
-        /**
-         * 숫자 포맷팅 (천 단위 콤마)
-         */
-        function formatNumber(num, decimals) {
+        function formatLargeNumber(num) {
             if (num == null || isNaN(num)) return '-';
-            
-            decimals = decimals || 0;
-            
-            // 억 단위 변환
-            if (Math.abs(num) >= 1000000000) {
-                return (num / 1000000000).toFixed(2) + 'B';
-            } else if (Math.abs(num) >= 1000000) {
-                return (num / 1000000).toFixed(2) + 'M';
-            } else if (Math.abs(num) >= 1000) {
-                return (num / 1000).toFixed(2) + 'K';
-            }
-            
-            return parseFloat(num).toFixed(decimals);
+            if (Math.abs(num) >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+            if (Math.abs(num) >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+            if (Math.abs(num) >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+            if (Math.abs(num) >= 1e3) return (num / 1e3).toFixed(2) + 'K';
+            return num.toFixed(2);
         }
 
-        /**
-         * 퍼센트 포맷팅
-         */
         function formatPercent(num) {
             if (num == null || isNaN(num)) return '-';
-            return (parseFloat(num) * 100).toFixed(2) + '%';
+            return (num * 100).toFixed(2) + '%';
         }
 
-        /**
-         * 정보 행 생성
-         */
-        function createInfoRow(label, value) {
-            return '<div class="info-row">' +
-                   '<span class="info-label">' + label + '</span>' +
-                   '<span class="info-value">' + (value || '-') + '</span>' +
-                   '</div>';
+        function formatTimeAgo(dateStr) {
+            if (!dateStr) return '';
+            var date = new Date(dateStr);
+            var now = new Date();
+            var diff = now - date;
+            var hours = Math.floor(diff / 3600000);
+            var days = Math.floor(diff / 86400000);
+            if (hours < 1) return 'Just now';
+            if (hours < 24) return hours + 'h ago';
+            if (days < 7) return days + 'd ago';
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         }
 
-        /* 
-            ========================================
-            페이지 로드 초기화
-            ========================================
-        */
-        window.onload = function() {
-            console.log('Page loaded:', SYMBOL);
-            
-            // 차트 초기화
-            initChart();
-            
-            setTimeout(function() {
-                console.log('Loading chart with timeframe:', currentTimeframe);
-                loadChartData();
-            }, 100);
-            
-            // WebSocket 연결
-            connectWebSocket();
-            
-            // 1분마다 가격 업데이트
-            setInterval(updateRealTimePrice, 60000);
-            
-            // 재무제표 로드 (기본 탭)
-            setTimeout(function() {
-                loadIncomeStatement('quarterly');
-            }, 500);
-        };
+        function checkWatchlistStatus() {
+            fetch('/api/watchlist/check/' + SYMBOL)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    isInWatchlist = data.isInWatchlist;
+                    updateWatchlistButton();
+                })
+                .catch(function(error) {
+                    console.error('Watchlist check failed:', error);
+                });
+        }
+
+        function toggleWatchlist() {
+            fetch('/api/watchlist/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ symbol: SYMBOL })
+            })
+            .then(function(response) {
+                if (response.status === 401) {
+                    location.href = '/login';
+                    return null;
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                if (data && data.success) {
+                    isInWatchlist = data.isInWatchlist;
+                    updateWatchlistButton();
+                }
+            })
+            .catch(function(error) {
+                console.error('Watchlist toggle failed:', error);
+            });
+        }
+
+        function updateWatchlistButton() {
+            var btn = document.getElementById('watchlist-btn');
+            var svg = btn.querySelector('svg');
+            var span = btn.querySelector('span');
+
+            if (isInWatchlist) {
+                btn.classList.add('active');
+                svg.setAttribute('fill', 'currentColor');
+                span.textContent = 'In Watchlist';
+            } else {
+                btn.classList.remove('active');
+                svg.setAttribute('fill', 'none');
+                span.textContent = 'Add to Watchlist';
+            }
+        }
     </script>
 </body>
 </html>

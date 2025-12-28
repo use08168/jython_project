@@ -121,6 +121,29 @@ public class Stock {
     private String exchange;
 
     /**
+     * 로고 이미지 URL (Logo URL)
+     * 
+     * 특징:
+     * - 회사 로고 이미지 URL
+     * - Wikipedia, Clearbit 등에서 제공하는 로고
+     * - 최대 500자
+     * 
+     * 예시:
+     * - "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/500px-Apple_logo_black.svg.png"
+     * 
+     * 사용 위치:
+     * - 대시보드 종목 리스트
+     * - 종목 상세 페이지
+     * - 뉴스 페이지
+     * 
+     * 데이터 출처:
+     * - nasdaq100_tickers.csv의 logo_url 컬럼
+     * - Admin 페이지 CSV 동기화 기능
+     */
+    @Column(name = "logo_url", length = 500)
+    private String logoUrl;
+
+    /**
      * 활성 상태 (Active Status)
      * 
      * 역할:

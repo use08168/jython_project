@@ -36,6 +36,11 @@ out/
 ### VS Code ###
 .vscode/
 
+### Environment Variables ###
+.env
+.env.local
+.env.*.local
+
 # Python 임시 파일
 python/config/historical_config.json
 python/requests/*.json

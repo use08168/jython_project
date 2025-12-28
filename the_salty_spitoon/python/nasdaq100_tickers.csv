@@ -1,102 +1,118 @@
-symbol,name
-AAPL,Apple Inc.
-ABNB,Airbnb Inc.
-ADBE,Adobe Inc.
-ADI,Analog Devices Inc.
-ADP,Automatic Data Processing Inc.
-ADSK,Autodesk Inc.
-AEP,American Electric Power Company Inc.
-AMAT,Applied Materials Inc.
-AMD,Advanced Micro Devices Inc.
-AMGN,Amgen Inc.
-AMZN,Amazon.com Inc.
-APP,Applovin Corporation
-ARM,Arm Holdings plc
-ASML,ASML Holding N.V.
-AVGO,Broadcom Inc.
-AXON,Axon Enterprise Inc.
-AZN,AstraZeneca PLC
-BIIB,Biogen Inc.
-BKNG,Booking Holdings Inc.
-BKR,Baker Hughes Company
-CCEP,Coca-Cola Europacific Partners plc
-CDNS,Cadence Design Systems Inc.
-CDW,CDW Corporation
-CEG,Constellation Energy Corporation
-CHTR,Charter Communications Inc.
-CMCSA,Comcast Corporation
-COST,Costco Wholesale Corporation
-CPRT,Copart Inc.
-CRWD,CrowdStrike Holdings Inc.
-CSCO,Cisco Systems Inc.
-CSGP,CoStar Group Inc.
-CSX,CSX Corporation
-CTAS,Cintas Corporation
-CTSH,Cognizant Technology Solutions Corporation
-DASH,DoorDash Inc.
-DDOG,Datadog Inc.
-DXCM,DexCom Inc.
-EA,Electronic Arts Inc.
-EXC,Exelon Corporation
-FANG,Diamondback Energy Inc.
-FAST,Fastenal Company
-FTNT,Fortinet Inc.
-GEHC,GE HealthCare Technologies Inc.
-GFS,GlobalFoundries Inc.
-GILD,Gilead Sciences Inc.
-GOOG,Alphabet Inc. Class C
-GOOGL,Alphabet Inc. Class A
-HON,Honeywell International Inc.
-IDXX,IDEXX Laboratories Inc.
-INTC,Intel Corporation
-INTU,Intuit Inc.
-ISRG,Intuitive Surgical Inc.
-KDP,Keurig Dr Pepper Inc.
-KHC,The Kraft Heinz Company
-KLAC,KLA Corporation
-LIN,Linde plc
-LRCX,Lam Research Corporation
-LULU,lululemon athletica inc.
-MAR,Marriott International
-MCHP,Microchip Technology Incorporated
-MDLZ,Mondelez International Inc.
-MELI,MercadoLibre Inc.
-META,Meta Platforms Inc.
-MNST,Monster Beverage Corporation
-MRVL,Marvell Technology Inc.
-MSFT,Microsoft Corporation
-MSTR,Strategy Inc
-MU,Micron Technology Inc.
-NFLX,Netflix Inc.
-NVDA,NVIDIA Corporation
-NXPI,NXP Semiconductors N.V.
-ODFL,Old Dominion Freight Line Inc.
-ON,ON Semiconductor Corporation
-ORLY,O'Reilly Automotive Inc.
-PANW,Palo Alto Networks Inc.
-PAYX,Paychex Inc.
-PCAR,PACCAR Inc.
-PDD,PDD Holdings Inc.
-PEP,PepsiCo Inc.
-PLTR,Palantir Technologies Inc.
-PYPL,PayPal Holdings Inc.
-QCOM,QUALCOMM Incorporated
-REGN,Regeneron Pharmaceuticals Inc.
-ROP,Roper Technologies Inc.
-ROST,Ross Stores Inc.
-SBUX,Starbucks Corporation
-SHOP,Shopify Inc.
-SNPS,Synopsys Inc.
-TEAM,Atlassian Corporation
-TMUS,T-Mobile US Inc.
-TRI,Thomson Reuters Corporation
-TSLA,Tesla Inc.
-TTD,The Trade Desk Inc.
-TTWO,Take-Two Interactive Software Inc.
-TXN,Texas Instruments Incorporated
-VRSK,Verisk Analytics Inc.
-VRTX,Vertex Pharmaceuticals Incorporated
-WBD,Warner Bros. Discovery Inc.
-WDAY,Workday Inc.
-XEL,Xcel Energy Inc.
-ZS,Zscaler Inc.
+symbol,name,logo_url 
+AAPL,Apple Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/500px-Apple_logo_black.svg.png
+ABNB,Airbnb Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/960px-Airbnb_Logo_B%C3%A9lo.svg.png
+ADBE,Adobe Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Adobe_Corporate_wordmark.svg/2560px-Adobe_Corporate_wordmark.svg.png
+ADI,Analog Devices Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Analog_Devices_Logo.svg/250px-Analog_Devices_Logo.svg.png
+ADP,Automatic Data Processing Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Automatic_Data_Processing_%28logo%29.svg/250px-Automatic_Data_Processing_%28logo%29.svg.png
+ADSK,Autodesk Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Autodesk_Logo_2021.svg/250px-Autodesk_Logo_2021.svg.png
+AEP,American Electric Power Company Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/AEP-Logo-Red-Gray.svg/250px-AEP-Logo-Red-Gray.svg.png
+AMAT,Applied Materials Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Applied_Materials_Inc._Logo.svg/250px-Applied_Materials_Inc._Logo.svg.png
+AMD,Advanced Micro Devices Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/AMD_Logo.svg/250px-AMD_Logo.svg.png
+AMGN,Amgen Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Amgen.svg/250px-Amgen.svg.png
+AMZN,Amazon.com Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Amazon_2024.svg/250px-Amazon_2024.svg.png
+APP,Applovin Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/AppLovin_logo.png/250px-AppLovin_logo.png
+ARM,Arm Holdings plc,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Arm_logo_2025.svg/250px-Arm_logo_2025.svg.png
+ASML,ASML Holding N.V.,https://upload.wikimedia.org/wikipedia/en/thumb/6/6c/ASML_Holding_N.V._logo.svg/330px-ASML_Holding_N.V._logo.svg.png
+AVGO,Broadcom Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Broadcom_logo_%282016-present%29.svg/330px-Broadcom_logo_%282016-present%29.svg.png
+AXON,Axon Enterprise Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/AXON_Company_logo.svg/250px-AXON_Company_logo.svg.png
+AZN,AstraZeneca PLC,https://upload.wikimedia.org/wikipedia/en/thumb/4/4f/AstraZeneca.svg/250px-AstraZeneca.svg.png
+BIIB,Biogen Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/b/bc/Biogen.svg/250px-Biogen.svg.png
+BKNG,Booking Holdings Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Booking_Holdings_Inc._Logo.svg/250px-Booking_Holdings_Inc._Logo.svg.png
+BKR,Baker Hughes Company,https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Baker_Hughes_logo.svg/250px-Baker_Hughes_logo.svg.png
+CCEP,Coca-Cola Europacific Partners plc,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Coca-Cola_Europacific_Partners_%28LOGO%29.png/250px-Coca-Cola_Europacific_Partners_%28LOGO%29.png
+CDNS,Cadence Design Systems Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Cadence-Logo.svg/250px-Cadence-Logo.svg.png
+CDW,CDW Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Cdw-c-orbital-logo-2023-rgb.svg/250px-Cdw-c-orbital-logo-2023-rgb.svg.png
+CEG,Constellation Energy Corporation,https://upload.wikimedia.org/wikipedia/en/thumb/4/44/Constellation_Energy.png/250px-Constellation_Energy.png
+CHTR,Charter Communications Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Charter_Communications_Logo.svg/250px-Charter_Communications_Logo.svg.png
+CMCSA,Comcast Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Comcast.svg/250px-Comcast.svg.png
+COST,Costco Wholesale Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Costco_Wholesale_logo_2010-10-26.svg/250px-Costco_Wholesale_logo_2010-10-26.svg.png
+CPRT,Copart Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Copart_logo.svg/250px-Copart_logo.svg.png
+CRWD,CrowdStrike Holdings Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/CrowdStrike_logo.svg/250px-CrowdStrike_logo.svg.png
+CSCO,Cisco Systems Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/250px-Cisco_logo_blue_2016.svg.png
+CSGP,CoStar Group Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/a/a3/Costar_group_logo.png/250px-Costar_group_logo.png
+CSX,CSX Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/CSX_Corporation_logo.svg/250px-CSX_Corporation_logo.svg.png
+CTAS,Cintas Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Cintas_logo_%282%29.svg/250px-Cintas_logo_%282%29.svg.png
+CTSH,Cognizant Technology Solutions Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Cognizant_logo_2022.svg/250px-Cognizant_logo_2022.svg.png
+DASH,DoorDash Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/DoorDash_Logo.svg/250px-DoorDash_Logo.svg.png
+DDOG,Datadog Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Datadog_logo.svg/250px-Datadog_logo.svg.png
+DXCM,DexCom Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Dexcom_logo.svg/250px-Dexcom_logo.svg.png
+EA,Electronic Arts Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Electronic_Arts_Logo_Blue.svg/250px-Electronic_Arts_Logo_Blue.svg.png
+EXC,Exelon Corporation,https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Exelon_Logo.svg/250px-Exelon_Logo.svg.png
+FANG,Diamondback Energy Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Diamondback_Energy%2C_Logo_2022.svg/250px-Diamondback_Energy%2C_Logo_2022.svg.png
+FAST,Fastenal Company,https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Fastenal_logo.svg/250px-Fastenal_logo.svg.png
+FTNT,Fortinet Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Fortinet_logo.svg/250px-Fortinet_logo.svg.png
+GEHC,GE HealthCare Technologies Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GE_HealthCare_logo_2023.svg/330px-GE_HealthCare_logo_2023.svg.png
+GFS,GlobalFoundries Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/GF_logo_horz_rgb_R_2025.svg/250px-GF_logo_horz_rgb_R_2025.svg.png
+GILD,Gilead Sciences Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Gilead_Sciences_Logo.svg/250px-Gilead_Sciences_Logo.svg.png
+GOOG,Alphabet Inc. Class C,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Alphabet_Inc_Logo_2015.svg/250px-Alphabet_Inc_Logo_2015.svg.png
+GOOGL,Alphabet Inc. Class A,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Alphabet_Inc_Logo_2015.svg/250px-Alphabet_Inc_Logo_2015.svg.png
+HON,Honeywell International Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Honeywell_logo.svg/250px-Honeywell_logo.svg.png
+IDXX,IDEXX Laboratories Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/IDEXX_Labs.svg/250px-IDEXX_Labs.svg.png
+INTC,Intel Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Intel_logo_2023.svg/250px-Intel_logo_2023.svg.png
+INTU,Intuit Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Intuit-logo-super-blue_%281%29.png/250px-Intuit-logo-super-blue_%281%29.png
+ISRG,Intuitive Surgical Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Intuitive_Surgical_logo.svg/250px-Intuitive_Surgical_logo.svg.png
+KDP,Keurig Dr Pepper Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Keurig_Dr_Pepper.svg/250px-Keurig_Dr_Pepper.svg.png
+KHC,The Kraft Heinz Company,https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/KraftHeinz.svg/250px-KraftHeinz.svg.png
+KLAC,KLA Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/KLA_Corp._logo.svg/250px-KLA_Corp._logo.svg.png
+LIN,Linde plc,https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Linde_plc_logo.png/250px-Linde_plc_logo.png
+LRCX,Lam Research Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Lam_Research_logo.svg/250px-Lam_Research_logo.svg.png
+LULU,lululemon athletica inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Lululemon_Athletica_logo.svg/120px-Lululemon_Athletica_logo.svg.png
+MAR,Marriott International,https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Marriott_International.svg/250px-Marriott_International.svg.png
+MCHP,Microchip Technology Incorporated,https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Microchip_logo.svg/250px-Microchip_logo.svg.png
+MDLZ,Mondelez International Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mondelez_International.svg/250px-Mondelez_International.svg.png
+MELI,MercadoLibre Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Mercado_Livre_logo_%28Portuguese_version%29.svg/250px-Mercado_Livre_logo_%28Portuguese_version%29.svg.png
+META,Meta Platforms Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/330px-Meta_Platforms_Inc._logo.svg.png
+MNST,Monster Beverage Corporation,https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Monster_Beverage_logo.png/250px-Monster_Beverage_logo.png
+MRVL,Marvell Technology Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Marvell_Logo.svg/250px-Marvell_Logo.svg.png
+MSFT,Microsoft Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/330px-Microsoft_logo_%282012%29.svg.png
+MSTR,Strategy Inc,https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Strategy_logo_%282025%29.svg/250px-Strategy_logo_%282025%29.svg.png
+MU,Micron Technology Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Micron_Technology_logo_2024.svg/250px-Micron_Technology_logo_2024.svg.png
+NFLX,Netflix Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/250px-Netflix_2015_logo.svg.png
+NVDA,NVIDIA Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/NVIDIA_logo.svg/330px-NVIDIA_logo.svg.png
+NXPI,NXP Semiconductors N.V.,https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/NXP_Semiconductors_logo_2023.svg/250px-NXP_Semiconductors_logo_2023.svg.png
+ODFL,Old Dominion Freight Line Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Old_Dominion_Freight_Line%2C_Inc._Logo.png/250px-Old_Dominion_Freight_Line%2C_Inc._Logo.png
+ON,ON Semiconductor Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Onsemi_logo_2021.svg/250px-Onsemi_logo_2021.svg.png
+ORLY,O'Reilly Automotive Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/O%27Reilly_Auto_Parts_Logo.svg/250px-O%27Reilly_Auto_Parts_Logo.svg.png
+PANW,Palo Alto Networks Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/PaloAltoNetworks_2020_Logo.svg/250px-PaloAltoNetworks_2020_Logo.svg.png
+PAYX,Paychex Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Paychex_logo.svg/250px-Paychex_logo.svg.png
+PCAR,PACCAR Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Paccar_Inc_logo.svg/250px-Paccar_Inc_logo.svg.png
+PDD,PDD Holdings Inc.,https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Pinduoduo_logo.svg/250px-Pinduoduo_logo.svg.png
+PEP,PepsiCo Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/PepsiCo_%282025%2C_wordmark%29.svg/250px-PepsiCo_%282025%2C_wordmark%29.svg.png
+PLTR,Palantir Technologies Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Palantir_Technologies_logo.svg/250px-Palantir_Technologies_logo.svg.png
+PYPL,PayPal Holdings Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/PayPal_2024.svg/250px-PayPal_2024.svg.png
+QCOM,QUALCOMM Incorporated,https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Qualcomm-Logo.svg/330px-Qualcomm-Logo.svg.png
+REGN,Regeneron Pharmaceuticals Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Regeneron_logo.svg/250px-Regeneron_logo.svg.png
+ROP,Roper Technologies Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Roper_Technologies_logo.svg/250px-Roper_Technologies_logo.svg.png
+ROST,Ross Stores Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Ross_Stores_logo.svg/250px-Ross_Stores_logo.svg.png
+SBUX,Starbucks Corporation,https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/250px-Starbucks_Corporation_Logo_2011.svg.png
+SHOP,Shopify Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopify_logo_2018.svg/250px-Shopify_logo_2018.svg.png
+SNPS,Synopsys Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Synopsys_Logo.svg/250px-Synopsys_Logo.svg.png
+TEAM,Atlassian Corporation,https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Atlassian-horizontal-blue-rgb.svg/250px-Atlassian-horizontal-blue-rgb.svg.png
+TMUS,T-Mobile US Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/T-Mobile_US_Logo_2022_RGB_Magenta_on_Transparent.svg/250px-T-Mobile_US_Logo_2022_RGB_Magenta_on_Transparent.svg.png
+TRI,Thomson Reuters Corporation,https://upload.wikimedia.org/wikipedia/en/thumb/9/96/TR_Logo_2024.svg/250px-TR_Logo_2024.svg.png
+TSLA,Tesla Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/250px-Tesla_Motors.svg.png
+TTD,The Trade Desk Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/The_Trade_Desk.svg/250px-The_Trade_Desk.svg.png
+TTWO,Take-Two Interactive Software Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Take-Two_Interactive_Logo.svg/250px-Take-Two_Interactive_Logo.svg.png
+TXN,Texas Instruments Incorporated,https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Texas_Instruments_logo_2024.svg/250px-Texas_Instruments_logo_2024.svg.png
+VRSK,Verisk Analytics Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Verisk_Logo.png/250px-Verisk_Logo.png
+VRTX,Vertex Pharmaceuticals Incorporated,https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Vertex_logo.svg/250px-Vertex_logo.svg.png
+WBD,Warner Bros. Discovery Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros._Discovery.svg/250px-Warner_Bros._Discovery.svg.png
+WDAY,Workday Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Workday_logo.svg/250px-Workday_logo.svg.png
+XEL,Xcel Energy Inc.,https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Xcel-energy.svg/250px-Xcel-energy.svg.png
+ZS,Zscaler Inc.,https://upload.wikimedia.org/wikipedia/commons/2/29/Zscaler_logo.png
+^IXIC,NASDAQ Composite,https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/NASDAQ_Logo.svg/250px-NASDAQ_Logo.svg.png
+^GSPC,S&P 500,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCPrnBnAwDzHOxdmnNdT3SmmciQUyDNTa-vA&s
+^DJI,Dow Jones Industrial Average,https://upload.wikimedia.org/wikipedia/commons/f/f8/Dow_Jones_Logo.svg
+^VIX,CBOE Volatility Index,https://www.binaryoptions.com/wp-content/uploads/Bildschirmfoto-2022-08-04-um-20.49.35.png
+KRW=X,USD/KRW Exchange Rate,https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Bank_of_Korea_Logo.svg/250px-Bank_of_Korea_Logo.svg.png
+XLK,Technology Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLF,Financial Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLE,Energy Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLV,Health Care Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLY,Consumer Discretionary Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLP,Consumer Staples Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLI,Industrial Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLB,Materials Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLRE,Real Estate Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLU,Utilities Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg
+XLC,Communication Services Select Sector SPDR Fund,https://i.namu.wiki/i/fSxaM1N3Gpqp_jI37BNjPsWnqcKdpOdrThOhEQFhgH8v9BF3HuQD3HRYYEA2teLPBuh1q-IKGSwPbBcMPdpj7Q.svg

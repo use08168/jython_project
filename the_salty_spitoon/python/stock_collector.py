@@ -3,9 +3,11 @@
 주식 데이터 수집 모듈 (Direct API Version)
 ========================================
 yfinance 대신 Yahoo Finance API 직접 호출
+지수(^IXIC, ^GSPC 등)와 ETF 지원
 """
 
 import requests
+from urllib.parse import quote
 from websocket_publisher import WebSocketPublisher
 import logging
 from datetime import datetime
@@ -27,6 +29,9 @@ est = pytz.timezone('US/Eastern')
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 }
+
+# 지수/환율 심볼 (거래량 체크 스킵)
+INDEX_SYMBOLS = {'^IXIC', '^GSPC', '^DJI', '^VIX', 'KRW=X'}
 
 
 def load_symbols_from_csv():
@@ -51,7 +56,7 @@ def load_symbols_from_csv():
         logger.info(f"📂 Loading symbols from: {csv_file}")
         
         df = pd.read_csv(csv_file)
-        symbols = df['symbol'].str.strip().str.upper().tolist()
+        symbols = df['symbol'].str.strip().tolist()  # 대문자 변환 제거 (^는 유지)
         
         logger.info(f"✅ Loaded {len(symbols)} symbols")
         
@@ -67,12 +72,15 @@ def collect_stock_data(symbol):
     종목 데이터 수집 (Direct API Version)
     
     Yahoo Finance API를 직접 호출하여 데이터 수집
+    지수 심볼(^로 시작)도 지원
     """
     try:
         # ========================================
         # 1. Yahoo Finance API 직접 호출
         # ========================================
-        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+        # ^ 문자를 URL 인코딩 (%5E)
+        encoded_symbol = quote(symbol, safe='')
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{encoded_symbol}"
         params = {
             "interval": "1m",
             "range": "1d"
@@ -105,20 +113,25 @@ def collect_stock_data(symbol):
         # ========================================
         timestamps = chart_data.get("timestamp", [])
         indicators = chart_data.get("indicators", {})
-        quote = indicators.get("quote", [{}])[0]
+        quote_data = indicators.get("quote", [{}])[0]
         
-        opens = quote.get("open", [])
-        highs = quote.get("high", [])
-        lows = quote.get("low", [])
-        closes = quote.get("close", [])
-        volumes = quote.get("volume", [])
+        opens = quote_data.get("open", [])
+        highs = quote_data.get("high", [])
+        lows = quote_data.get("low", [])
+        closes = quote_data.get("close", [])
+        volumes = quote_data.get("volume", [])
         
         if not timestamps or len(timestamps) < 2:
             logger.debug(f"  [SKIP] {symbol}: Not enough data")
             return None
         
         # ========================================
-        # 4. None이 아닌 마지막 완성된 봉 찾기
+        # 4. 지수 여부 확인 (거래량 체크 스킵 여부)
+        # ========================================
+        is_index = symbol in INDEX_SYMBOLS
+        
+        # ========================================
+        # 5. None이 아닌 마지막 완성된 봉 찾기
         # ========================================
         candle_data = None
         
@@ -131,42 +144,59 @@ def collect_stock_data(symbol):
             c = closes[idx] if abs(idx) <= len(closes) else None
             v = volumes[idx] if abs(idx) <= len(volumes) else None
             
-            # 모든 데이터가 있고 volume > 0인 봉 찾기
-            if ts and o and h and l and c and v and v > 0:
-                open_price = float(o)
-                high_price = float(h)
-                low_price = float(l)
-                close_price = float(c)
-                volume = int(v)
-                
-                # 가격 범위 체크
-                MIN_PRICE = 1.0
-                MAX_PRICE = 100000.0
-                
-                if not (MIN_PRICE <= close_price <= MAX_PRICE):
+            # 지수는 거래량 체크 스킵
+            if is_index:
+                # OHLC만 있으면 됨
+                if ts and o and h and l and c:
+                    open_price = float(o)
+                    high_price = float(h)
+                    low_price = float(l)
+                    close_price = float(c)
+                    volume = int(v) if v else 0
+                else:
                     continue
-                
-                # OHLC 관계 검증
-                if high_price < low_price:
+            else:
+                # 일반 종목은 모든 데이터가 있고 volume > 0이어야 함
+                if ts and o and h and l and c and v and v > 0:
+                    open_price = float(o)
+                    high_price = float(h)
+                    low_price = float(l)
+                    close_price = float(c)
+                    volume = int(v)
+                else:
                     continue
-                
-                # 타임스탬프 변환
-                dt = datetime.fromtimestamp(ts, tz=pytz.UTC)
-                candle_time_kst = dt.astimezone(kst)
-                
-                candle_data = {
-                    'timestamp': candle_time_kst.strftime('%Y-%m-%d %H:%M:%S'),
-                    'open': round(open_price, 4),
-                    'high': round(high_price, 4),
-                    'low': round(low_price, 4),
-                    'close': round(close_price, 4),
-                    'volume': volume
-                }
-                
-                break  # 첫 번째 유효한 봉 발견 시 종료
+            
+            # 가격 범위 체크
+            MIN_PRICE = 0.01  # VIX는 10~80 범위이므로 낮춤
+            MAX_PRICE = 100000.0
+            
+            if not (MIN_PRICE <= close_price <= MAX_PRICE):
+                continue
+            
+            # OHLC 관계 검증
+            if high_price < low_price:
+                continue
+            
+            # 타임스탬프 변환
+            dt = datetime.fromtimestamp(ts, tz=pytz.UTC)
+            candle_time_kst = dt.astimezone(kst)
+            
+            candle_data = {
+                'timestamp': candle_time_kst.strftime('%Y-%m-%d %H:%M:%S'),
+                'open': round(open_price, 4),
+                'high': round(high_price, 4),
+                'low': round(low_price, 4),
+                'close': round(close_price, 4),
+                'volume': volume
+            }
+            
+            break  # 첫 번째 유효한 봉 발견 시 종료
         
         if candle_data:
-            logger.info(f"  [OK] {symbol}: ${candle_data['close']:.2f} @ {candle_data['timestamp']} (vol={candle_data['volume']:,})")
+            if is_index:
+                logger.info(f"  [OK] {symbol} (INDEX): ${candle_data['close']:.2f} @ {candle_data['timestamp']}")
+            else:
+                logger.info(f"  [OK] {symbol}: ${candle_data['close']:.2f} @ {candle_data['timestamp']} (vol={candle_data['volume']:,})")
             return candle_data
         else:
             logger.debug(f"  [SKIP] {symbol}: No valid candle found")
@@ -242,6 +272,7 @@ if __name__ == "__main__":
     print("Stock Collector - Direct API Test")
     print("="*60)
     
+    # 일반 종목 테스트
     print("\n[TEST] Collecting AAPL...")
     data = collect_stock_data('AAPL')
     
@@ -253,8 +284,30 @@ if __name__ == "__main__":
     else:
         print("❌ No data")
     
-    print("\n[TEST] Collecting TSLA...")
-    data = collect_stock_data('TSLA')
+    # 지수 테스트
+    print("\n[TEST] Collecting ^IXIC (NASDAQ Composite)...")
+    data = collect_stock_data('^IXIC')
+    
+    if data:
+        print(f"✅ Success:")
+        print(f"   Time: {data['timestamp']}")
+        print(f"   OHLC: {data['open']:.2f} / {data['high']:.2f} / {data['low']:.2f} / {data['close']:.2f}")
+    else:
+        print("❌ No data")
+    
+    print("\n[TEST] Collecting ^VIX (Volatility Index)...")
+    data = collect_stock_data('^VIX')
+    
+    if data:
+        print(f"✅ Success:")
+        print(f"   Time: {data['timestamp']}")
+        print(f"   OHLC: {data['open']:.2f} / {data['high']:.2f} / {data['low']:.2f} / {data['close']:.2f}")
+    else:
+        print("❌ No data")
+    
+    # 섹터 ETF 테스트
+    print("\n[TEST] Collecting XLK (Technology ETF)...")
+    data = collect_stock_data('XLK')
     
     if data:
         print(f"✅ Success:")

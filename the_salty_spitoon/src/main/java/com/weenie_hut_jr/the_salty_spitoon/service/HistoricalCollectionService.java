@@ -75,17 +75,35 @@ public class HistoricalCollectionService {
     }
     
     /**
-     * 비동기로 과거 데이터 수집 시작
+     * 비동기로 과거 데이터 수집 시작 (전체 종목)
      */
     @Async
     public void startCollection(int days) {
+        startCollection(days, null);
+    }
+    
+    /**
+     * 비동기로 과거 데이터 수집 시작 (특정 종목)
+     * @param days 수집할 일수
+     * @param targetSymbols 특정 종목 리스트 (null이면 전체)
+     */
+    @Async
+    public void startCollection(int days, List<String> targetSymbols) {
         if (!isCollecting.compareAndSet(false, true)) {
             sendProgress(CollectionProgress.error("이미 수집이 진행 중입니다."));
             return;
         }
         
         long startTime = System.currentTimeMillis();
-        List<String> symbols = loadTickers();
+        
+        // 특정 종목이 지정되었으면 그것만, 아니면 CSV에서 읽기
+        List<String> symbols;
+        if (targetSymbols != null && !targetSymbols.isEmpty()) {
+            symbols = targetSymbols;
+            log.info("특정 종목 수집 모드: {}개", symbols.size());
+        } else {
+            symbols = loadTickers();
+        }
         
         if (symbols.isEmpty()) {
             isCollecting.set(false);
