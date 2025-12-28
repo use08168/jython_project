@@ -69,6 +69,12 @@ public interface StockCandle1mRepository extends JpaRepository<StockCandle1m, Lo
         List<StockCandle1m> findBySymbolAndTimestampBeforeOrderByTimestampDesc(String symbol, LocalDateTime timestamp);
 
         /**
+         * 심볼의 모든 데이터 조회 (최신순)
+         * 1시간봉 집계용
+         */
+        List<StockCandle1m> findBySymbolOrderByTimestampDesc(String symbol);
+
+        /**
          * 특정 시간 직후의 캔들 조회 (뉴스 발행 직후 가격)
          */
         @Query("SELECT c FROM StockCandle1m c WHERE c.symbol = :symbol AND c.timestamp >= :time ORDER BY c.timestamp ASC LIMIT 1")

@@ -129,15 +129,16 @@ public class StockApiController {
 
     /**
      * 특정 종목의 과거 데이터 조회 (차트용)
+     * 1분봉 데이터를 1시간 단위로 집계해서 반환
      * 
      * @param symbol 종목 심볼
-     * @param days 조회할 일수 (기본 1일)
-     * @return 캔들 데이터 리스트
+     * @param days 조회할 일수 (기본 7일)
+     * @return 1시간 단위로 집계된 캔들 데이터 리스트
      */
     @GetMapping("/{symbol}/history")
     public ResponseEntity<List<Map<String, Object>>> getHistory(
             @PathVariable String symbol,
-            @RequestParam(defaultValue = "1") int days) {
+            @RequestParam(defaultValue = "7") int days) {
         
         log.debug("과거 데이터 조회: {} ({}일)", symbol, days);
         
@@ -148,22 +149,69 @@ public class StockApiController {
             List<StockCandle1m> candles = candleRepository
                     .findBySymbolAndTimestampBetweenOrderByTimestampAsc(symbol, from, to);
             
-            List<Map<String, Object>> result = new ArrayList<>();
+            if (candles.isEmpty()) {
+                // 데이터가 없으면 전체 데이터에서 최근 것 조회
+                candles = candleRepository.findBySymbolOrderByTimestampDesc(symbol);
+                if (candles.size() > 1000) {
+                    candles = candles.subList(0, 1000);
+                }
+                // 시간순 정렬
+                Collections.reverse(candles);
+            }
+            
+            // 1시간 단위로 집계
+            Map<String, List<StockCandle1m>> hourlyGroups = new LinkedHashMap<>();
             
             for (StockCandle1m candle : candles) {
+                // 시간 단위로 그룹 키 생성 (분, 초 제거)
+                LocalDateTime hourKey = candle.getTimestamp()
+                        .withMinute(0)
+                        .withSecond(0)
+                        .withNano(0);
+                String key = hourKey.toString();
+                
+                hourlyGroups.computeIfAbsent(key, k -> new ArrayList<>()).add(candle);
+            }
+            
+            List<Map<String, Object>> result = new ArrayList<>();
+            
+            for (Map.Entry<String, List<StockCandle1m>> entry : hourlyGroups.entrySet()) {
+                List<StockCandle1m> group = entry.getValue();
+                if (group.isEmpty()) continue;
+                
+                // OHLCV 집계
+                BigDecimal open = group.get(0).getOpen();
+                BigDecimal close = group.get(group.size() - 1).getClose();
+                BigDecimal high = group.stream()
+                        .map(StockCandle1m::getHigh)
+                        .max(BigDecimal::compareTo)
+                        .orElse(BigDecimal.ZERO);
+                BigDecimal low = group.stream()
+                        .map(StockCandle1m::getLow)
+                        .min(BigDecimal::compareTo)
+                        .orElse(BigDecimal.ZERO);
+                Long volume = group.stream()
+                        .mapToLong(StockCandle1m::getVolume)
+                        .sum();
+                
                 Map<String, Object> item = new HashMap<>();
-                item.put("timestamp", candle.getTimestamp().toString());
-                item.put("datetime", candle.getTimestamp().toString());
-                item.put("open", candle.getOpen());
-                item.put("high", candle.getHigh());
-                item.put("low", candle.getLow());
-                item.put("close", candle.getClose());
-                item.put("closePrice", candle.getClose());
-                item.put("volume", candle.getVolume());
+                item.put("timestamp", entry.getKey());
+                item.put("datetime", entry.getKey());
+                item.put("open", open);
+                item.put("high", high);
+                item.put("low", low);
+                item.put("close", close);
+                item.put("closePrice", close);
+                item.put("volume", volume);
                 result.add(item);
             }
             
-            log.info("{} - {}개 캔들 반환", symbol, result.size());
+            // 최근 60개만 반환 (60시간 = 약 2.5일)
+            if (result.size() > 60) {
+                result = result.subList(result.size() - 60, result.size());
+            }
+            
+            log.info("{} - {}개 1시간봉 반환 (원본 {}개 1분봉)", symbol, result.size(), candles.size());
             return ResponseEntity.ok(result);
             
         } catch (Exception e) {
