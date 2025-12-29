@@ -14,9 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 워치리스트 Controller
@@ -112,7 +111,7 @@ public class WatchlistController {
     }
 
     /**
-     * 워치리스트 조회
+     * 워치리스트 조회 (All - 중복 제거된 심볼 기준)
      */
     @GetMapping("/api/watchlist")
     @ResponseBody
@@ -132,21 +131,51 @@ public class WatchlistController {
 
             List<UserWatchlist> watchlist;
             if (groupId != null) {
-                watchlist = watchlistService.getWatchlistByGroup(userId, groupId);
+                // 특정 그룹 또는 Ungrouped
+                if (groupId == 0) {
+                    watchlist = watchlistService.getWatchlistByGroup(userId, null);
+                } else {
+                    watchlist = watchlistService.getWatchlistByGroup(userId, groupId);
+                }
             } else {
+                // All - 전체 (중복 포함)
                 watchlist = watchlistService.getWatchlist(userId);
             }
 
+            // 모든 경우에 groupIds 포함하여 반환
+            List<Map<String, Object>> data;
+            if (groupId == null) {
+                // All: symbol 기준 중복 제거, 첫 번째 것만 유지
+                Map<String, UserWatchlist> uniqueMap = new LinkedHashMap<>();
+                for (UserWatchlist w : watchlist) {
+                    if (!uniqueMap.containsKey(w.getSymbol())) {
+                        uniqueMap.put(w.getSymbol(), w);
+                    }
+                }
+                data = uniqueMap.values().stream().map(w -> {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("id", w.getId());
+                    item.put("symbol", w.getSymbol());
+                    item.put("groupIds", watchlistService.getGroupIds(userId, w.getSymbol()));
+                    item.put("createdAt", w.getCreatedAt());
+                    return item;
+                }).collect(Collectors.toList());
+            } else {
+                // 그룹별/Ungrouped: groupIds도 함께 반환
+                data = watchlist.stream().map(w -> {
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("id", w.getId());
+                    item.put("symbol", w.getSymbol());
+                    item.put("groupId", w.getGroup() != null ? w.getGroup().getId() : null);
+                    item.put("groupName", w.getGroup() != null ? w.getGroup().getName() : null);
+                    item.put("groupIds", watchlistService.getGroupIds(userId, w.getSymbol()));
+                    item.put("createdAt", w.getCreatedAt());
+                    return item;
+                }).collect(Collectors.toList());
+            }
+
             response.put("success", true);
-            response.put("data", watchlist.stream().map(w -> {
-                Map<String, Object> item = new HashMap<>();
-                item.put("id", w.getId());
-                item.put("symbol", w.getSymbol());
-                item.put("groupId", w.getGroup() != null ? w.getGroup().getId() : null);
-                item.put("groupName", w.getGroup() != null ? w.getGroup().getName() : null);
-                item.put("createdAt", w.getCreatedAt());
-                return item;
-            }).toList());
+            response.put("data", data);
 
             return ResponseEntity.ok(response);
 
@@ -178,6 +207,11 @@ public class WatchlistController {
 
             boolean isInWatchlist = watchlistService.isInWatchlist(userId, symbol);
             response.put("isInWatchlist", isInWatchlist);
+            
+            // 속한 그룹 ID 목록도 반환
+            if (isInWatchlist) {
+                response.put("groupIds", watchlistService.getGroupIds(userId, symbol));
+            }
 
             return ResponseEntity.ok(response);
 
@@ -189,7 +223,97 @@ public class WatchlistController {
     }
 
     /**
-     * 종목 그룹 변경
+     * 종목을 그룹에 추가
+     */
+    @PostMapping("/api/watchlist/addToGroup")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> addToGroup(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody Map<String, Object> request) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            Long userId = getUserId(userDetails);
+            if (userId == null) {
+                response.put("success", false);
+                response.put("message", "로그인이 필요합니다.");
+                return ResponseEntity.status(401).body(response);
+            }
+
+            String symbol = (String) request.get("symbol");
+            Long groupId = request.get("groupId") != null ? 
+                    Long.valueOf(request.get("groupId").toString()) : null;
+
+            if (groupId == null) {
+                response.put("success", false);
+                response.put("message", "그룹 ID가 필요합니다.");
+                return ResponseEntity.badRequest().body(response);
+            }
+
+            watchlistService.addToGroup(userId, symbol, groupId);
+
+            response.put("success", true);
+            response.put("message", "그룹에 추가되었습니다.");
+            response.put("groupIds", watchlistService.getGroupIds(userId, symbol));
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("그룹 추가 실패", e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * 종목을 그룹에서 제거
+     */
+    @PostMapping("/api/watchlist/removeFromGroup")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> removeFromGroup(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody Map<String, Object> request) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            Long userId = getUserId(userDetails);
+            if (userId == null) {
+                response.put("success", false);
+                response.put("message", "로그인이 필요합니다.");
+                return ResponseEntity.status(401).body(response);
+            }
+
+            String symbol = (String) request.get("symbol");
+            Long groupId = request.get("groupId") != null ? 
+                    Long.valueOf(request.get("groupId").toString()) : null;
+
+            if (groupId == null) {
+                response.put("success", false);
+                response.put("message", "그룹 ID가 필요합니다.");
+                return ResponseEntity.badRequest().body(response);
+            }
+
+            watchlistService.removeFromGroup(userId, symbol, groupId);
+
+            response.put("success", true);
+            response.put("message", "그룹에서 제거되었습니다.");
+            response.put("groupIds", watchlistService.getGroupIds(userId, symbol));
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("그룹 제거 실패", e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * 종목 그룹 변경 (레거시 - 단일 그룹 이동용)
      */
     @PostMapping("/api/watchlist/move")
     @ResponseBody
@@ -256,9 +380,14 @@ public class WatchlistController {
                 item.put("id", g.getId());
                 item.put("name", g.getName());
                 item.put("color", g.getColor());
+                item.put("count", watchlistService.countByGroup(userId, g.getId()));
                 item.put("createdAt", g.getCreatedAt());
                 return item;
             }).toList());
+            
+            // 카운트 정보도 함께 반환
+            response.put("allCount", watchlistService.countAll(userId));
+            response.put("ungroupedCount", watchlistService.countUngrouped(userId));
 
             return ResponseEntity.ok(response);
 

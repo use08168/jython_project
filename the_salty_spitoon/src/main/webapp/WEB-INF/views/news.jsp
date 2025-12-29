@@ -539,13 +539,26 @@
                                     <h3 class="news-title">${news.title}</h3>
                                     <div class="news-footer">
                                         <span class="news-publisher"></span>
-                                        <button class="bookmark-btn ${bookmarkedIds.contains(news.id) ? 'active' : ''}" 
-                                                onclick="event.stopPropagation(); toggleBookmark(${news.id}, this)">
-                                            <svg viewBox="0 0 24 24" fill="${bookmarkedIds.contains(news.id) ? 'currentColor' : 'none'}" 
-                                                 stroke="currentColor" stroke-width="2">
-                                                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
-                                            </svg>
-                                        </button>
+                                        <c:choose>
+                                            <c:when test="${bookmarkedIds.contains(news.id)}">
+                                                <button class="bookmark-btn active" data-news-id="<c:out value='${news.id}' />"
+                                                        onclick="event.stopPropagation(); toggleBookmark(this)">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" 
+                                                         stroke="currentColor" stroke-width="2">
+                                                        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                                                    </svg>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="bookmark-btn" data-news-id="<c:out value='${news.id}' />"
+                                                        onclick="event.stopPropagation(); toggleBookmark(this)">
+                                                    <svg viewBox="0 0 24 24" fill="none" 
+                                                         stroke="currentColor" stroke-width="2">
+                                                        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                                                    </svg>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -583,62 +596,70 @@
 
     <script>
         // 시간 변환 (KST/EST)
-        document.querySelectorAll('[data-time]').forEach(el => {
-            const isoTime = el.dataset.time;
-            if (!isoTime) return;
+        var timeElements = document.querySelectorAll('[data-time]');
+        for (var i = 0; i < timeElements.length; i++) {
+            (function(el) {
+                var isoTime = el.dataset.time;
+                if (!isoTime) return;
 
-            const date = new Date(isoTime);
-            
-            // KST
-            const kstOptions = { 
-                timeZone: 'Asia/Seoul',
-                month: 'short', 
-                day: 'numeric',
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false
-            };
-            el.textContent = date.toLocaleString('en-US', kstOptions) + ' KST';
-        });
+                var date = new Date(isoTime);
+                
+                // KST
+                var kstOptions = { 
+                    timeZone: 'Asia/Seoul',
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false
+                };
+                el.textContent = date.toLocaleString('en-US', kstOptions) + ' KST';
+            })(timeElements[i]);
+        }
 
-        document.querySelectorAll('[data-time-est]').forEach(el => {
-            const isoTime = el.dataset.timeEst;
-            if (!isoTime) return;
+        var estElements = document.querySelectorAll('[data-time-est]');
+        for (var j = 0; j < estElements.length; j++) {
+            (function(el) {
+                var isoTime = el.dataset.timeEst;
+                if (!isoTime) return;
 
-            const date = new Date(isoTime);
-            
-            // EST
-            const estOptions = { 
-                timeZone: 'America/New_York',
-                month: 'short', 
-                day: 'numeric',
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false
-            };
-            el.textContent = date.toLocaleString('en-US', estOptions) + ' EST';
-        });
+                var date = new Date(isoTime);
+                
+                // EST
+                var estOptions = { 
+                    timeZone: 'America/New_York',
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false
+                };
+                el.textContent = date.toLocaleString('en-US', estOptions) + ' EST';
+            })(estElements[j]);
+        }
 
         // 북마크 토글
-        async function toggleBookmark(newsId, btn) {
-            try {
-                const response = await fetch('/news/api/bookmark/toggle', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ newsId: newsId })
-                });
-
-                const data = await response.json();
-
+        function toggleBookmark(btn) {
+            var newsId = btn.getAttribute('data-news-id');
+            fetch('/news/api/bookmark/toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newsId: newsId })
+            })
+            .then(function(response) {
                 if (response.status === 401) {
                     location.href = '/login';
-                    return;
+                    return null;
                 }
-
+                return response.json();
+            })
+            .then(function(data) {
+                if (!data) return;
+                
                 if (data.success) {
-                    const svg = btn.querySelector('svg');
+                    var svg = btn.querySelector('svg');
                     if (data.isBookmarked) {
                         btn.classList.add('active');
                         svg.setAttribute('fill', 'currentColor');
@@ -647,9 +668,10 @@
                         svg.setAttribute('fill', 'none');
                     }
                 }
-            } catch (error) {
+            })
+            .catch(function(error) {
                 console.error('Bookmark toggle failed:', error);
-            }
+            });
         }
     </script>
 </body>

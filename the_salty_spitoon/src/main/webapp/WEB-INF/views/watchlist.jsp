@@ -11,87 +11,184 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #0f1419; color: #ffffff; min-height: 100vh; }
+        a { color: inherit; text-decoration: none; }
+
+        /* 네비게이션 */
         .navbar { background-color: #1a1f2e; border-bottom: 1px solid #252b3d; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
         .navbar-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #3b82f6; text-decoration: none; }
-        .navbar-menu { display: flex; align-items: center; gap: 32px; }
+        .navbar-brand svg { width: 28px; height: 28px; }
+        .navbar-search { flex: 0 1 360px; position: relative; }
+        .navbar-search input { width: 100%; padding: 10px 16px 10px 40px; font-size: 14px; background-color: #252b3d; border: 1px solid #374151; border-radius: 8px; color: #ffffff; transition: all 0.2s; }
+        .navbar-search input:focus { outline: none; border-color: #3b82f6; }
+        .navbar-search input::placeholder { color: #6b7280; }
+        .navbar-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: #6b7280; }
+        .navbar-menu { display: flex; align-items: center; gap: 24px; }
         .navbar-menu a { color: #9ca3af; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
         .navbar-menu a:hover, .navbar-menu a.active { color: #ffffff; }
         .navbar-right { display: flex; align-items: center; gap: 16px; }
-        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; cursor: pointer; }
-        .main-content { max-width: 1200px; margin: 0 auto; padding: 32px; }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-        .page-header h1 { font-size: 28px; font-weight: 700; }
-        .header-actions { display: flex; gap: 12px; }
-        .btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
-        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #ffffff; }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
-        .btn-outline { background-color: transparent; color: #d1d5db; border: 1px solid #374151; }
-        .btn-outline:hover { background-color: #1a1f2e; border-color: #6b7280; }
-        .group-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-        .group-tab { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: #1a1f2e; border: 1px solid transparent; border-radius: 10px; color: #9ca3af; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+        .user-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; cursor: pointer; border: 2px solid #22c55e; }
+
+        /* 메인 레이아웃 */
+        .main-layout { display: flex; max-width: 1600px; margin: 0 auto; padding: 24px 32px; gap: 24px; }
+        .main-content { flex: 1; min-width: 0; }
+        .sidebar { width: 300px; flex-shrink: 0; }
+
+        /* 페이지 헤더 */
+        .page-header { margin-bottom: 24px; }
+        .page-header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .page-header p { color: #6b7280; font-size: 14px; }
+
+        /* 그룹 탭 - 가로 스크롤 */
+        .group-tabs-container { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .group-tabs-scroll-btn { width: 32px; height: 32px; border-radius: 8px; background: #252b3d; border: 1px solid #374151; color: #9ca3af; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
+        .group-tabs-scroll-btn:hover { background: #374151; color: #ffffff; }
+        .group-tabs-scroll-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .group-tabs-scroll-btn svg { width: 16px; height: 16px; }
+        .group-tabs-wrapper { flex: 1; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: smooth; }
+        .group-tabs-wrapper::-webkit-scrollbar { display: none; }
+        .group-tabs { display: flex; gap: 8px; padding: 4px 0; }
+        .group-tab { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: #1a1f2e; border: 1px solid transparent; border-radius: 10px; color: #9ca3af; font-size: 14px; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
         .group-tab:hover { background-color: #252b3d; }
         .group-tab.active { background-color: #252b3d; border-color: #3b82f6; color: #ffffff; }
-        .group-tab .dot { width: 8px; height: 8px; border-radius: 50%; }
-        .group-tab .count { font-size: 12px; background-color: #374151; padding: 2px 8px; border-radius: 10px; }
-        .stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-        .stock-card { background-color: #1a1f2e; border-radius: 12px; padding: 20px; transition: all 0.2s; cursor: pointer; }
-        .stock-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); }
-        .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-        .stock-info { display: flex; align-items: center; gap: 12px; }
-        .stock-icon { width: 48px; height: 48px; border-radius: 12px; background-color: #252b3d; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .stock-name h3 { font-size: 18px; font-weight: 600; margin-bottom: 2px; }
-        .stock-name p { font-size: 12px; color: #6b7280; }
-        .stock-actions { display: flex; gap: 4px; }
-        .action-btn { width: 32px; height: 32px; border-radius: 8px; background-color: #252b3d; border: none; color: #9ca3af; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-        .action-btn:hover { background-color: #374151; color: #ffffff; }
-        .action-btn.remove:hover { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .group-tab .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .group-tab .count { font-size: 12px; background-color: #374151; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
+        .group-tab.active .count { background-color: #3b82f6; }
+        .group-tab-actions { display: flex; gap: 4px; margin-left: 8px; }
+        .group-tab-btn { width: 20px; height: 20px; border-radius: 4px; background: transparent; border: none; color: #6b7280; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 12px; }
+        .group-tab-btn:hover { background-color: #374151; color: #ffffff; }
+        .group-tab-btn.delete:hover { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        /* Create Group 버튼 */
+        .create-group-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 10px; color: #ffffff; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
+        .create-group-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+
+        /* 컨트롤 패널 */
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 16px 20px; background: #1a1f2e; border-radius: 12px; border: 1px solid #252b3d; flex-wrap: wrap; gap: 16px; }
+        .search-filter { flex: 0 1 300px; position: relative; }
+        .search-filter input { width: 100%; padding: 10px 16px 10px 40px; font-size: 14px; background-color: #252b3d; border: 1px solid #374151; border-radius: 8px; color: #ffffff; }
+        .search-filter input:focus { outline: none; border-color: #3b82f6; }
+        .search-filter svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #6b7280; }
+        .sort-options { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .sort-label { font-size: 13px; color: #6b7280; margin-right: 4px; }
+        .sort-btn { padding: 8px 14px; background: #252b3d; border: 1px solid #374151; border-radius: 6px; color: #9ca3af; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+        .sort-btn:hover { background: #374151; color: #ffffff; }
+        .sort-btn.active { background: #3b82f6; border-color: #3b82f6; color: #ffffff; }
+        .sort-btn svg { width: 14px; height: 14px; }
+        .stock-count { font-size: 13px; color: #6b7280; }
+        .stock-count span { color: #d1d5db; font-weight: 600; }
+
+        /* 테이블 */
+        .stock-table { width: 100%; background: #1a1f2e; border-radius: 12px; overflow: hidden; border: 1px solid #252b3d; }
+        .table-header { display: grid; grid-template-columns: 2fr 1fr 1fr 150px 120px; gap: 16px; padding: 16px 24px; background: #252b3d; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table-row { display: grid; grid-template-columns: 2fr 1fr 1fr 250px 120px; gap: 16px; padding: 16px 24px; border-bottom: 1px solid #252b3d; align-items: center; transition: background 0.2s; cursor: pointer; }
+        .table-row:last-child { border-bottom: none; }
+        .table-row:hover { background: #1e2433; }
+
+        /* 테이블 셀 */
+        .cell-company { display: flex; align-items: center; gap: 12px; }
+        .company-logo { width: 120px; height: 40px; border-radius: 8px; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px; flex-shrink: 0; }
+        .company-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .company-info { min-width: 0; }
+        .company-symbol { font-size: 15px; font-weight: 600; color: #ffffff; }
+        .company-name { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cell-price { font-size: 15px; font-weight: 600; color: #ffffff; padding-left: 40px;}
+        .cell-change { font-size: 14px; font-weight: 500; padding-left: 70px;}
+        .cell-change.positive { color: #22c55e; }
+        .cell-change.negative { color: #ef4444; }
+        .cell-chart { width: 250px; height: 40px; }
+        .cell-chart canvas { width: 100%; height: 100%; }
+        .cell-actions { display: flex; gap: 8px; justify-content: flex-end; position: relative; }
+        .action-btn { width: 32px; height: 32px; border-radius: 6px; background: #252b3d; border: none; color: #6b7280; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; position: relative; }
+        .action-btn:hover { background: #374151; color: #ffffff; }
+        .action-btn.delete:hover { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .action-btn.add:hover { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
         .action-btn svg { width: 16px; height: 16px; }
-        .stock-price { display: flex; align-items: baseline; gap: 12px; }
-        .price-value { font-size: 24px; font-weight: 700; }
-        .price-change { font-size: 14px; padding: 4px 8px; border-radius: 6px; }
-        .price-change.positive { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
-        .price-change.negative { background-color: rgba(239, 68, 68, 0.15); color: #ef4444; }
-        .stock-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid #252b3d; }
-        .stock-group { font-size: 12px; padding: 4px 10px; border-radius: 6px; background-color: #252b3d; color: #9ca3af; }
-        .stock-time { font-size: 11px; color: #6b7280; }
-        .empty-state { text-align: center; padding: 80px 20px; color: #6b7280; }
-        .empty-state svg { width: 80px; height: 80px; margin-bottom: 20px; opacity: 0.3; }
-        .empty-state h3 { font-size: 20px; margin-bottom: 8px; color: #9ca3af; }
-        .empty-state p { margin-bottom: 24px; }
-        .empty-state a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #ffffff; text-decoration: none; border-radius: 10px; font-weight: 500; transition: all 0.2s; }
+
+        /* 그룹 드롭다운 - position: fixed로 변경 */
+        .group-dropdown { position: fixed; background: #1a1f2e; border: 1px solid #374151; border-radius: 10px; padding: 8px 0; min-width: 200px; z-index: 1000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); display: none; }
+        .group-dropdown.active { display: block; }
+        .group-dropdown-title { padding: 8px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+        .group-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; cursor: pointer; transition: background 0.2s; }
+        .group-dropdown-item:hover { background: #252b3d; }
+        .group-dropdown-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .group-dropdown-item .name { flex: 1; font-size: 14px; color: #d1d5db; }
+        .group-dropdown-item .check { color: #22c55e; font-size: 14px; }
+        .group-dropdown-empty { padding: 16px; text-align: center; color: #6b7280; font-size: 13px; }
+
+        /* 더보기 버튼 */
+        .load-more-section { text-align: center; margin-top: 24px; }
+        .load-more-btn { padding: 14px 48px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 10px; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .load-more-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+        .load-more-btn:disabled { background: #374151; cursor: not-allowed; transform: none; box-shadow: none; }
+        .load-more-info { font-size: 13px; color: #6b7280; margin-top: 12px; }
+
+        /* 빈 상태 */
+        .empty-state { text-align: center; padding: 80px 20px; }
+        .empty-state svg { width: 80px; height: 80px; color: #374151; margin-bottom: 20px; }
+        .empty-state h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #9ca3af; }
+        .empty-state p { color: #6b7280; margin-bottom: 24px; }
+        .empty-state a { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #ffffff; border-radius: 10px; font-weight: 500; transition: all 0.2s; }
         .empty-state a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+
+        /* 사이드바 */
+        .sidebar-card { background: #1a1f2e; border-radius: 12px; border: 1px solid #252b3d; padding: 20px; margin-top: 160px;}
+        .sidebar-card h3 { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 16px; }
+        .sidebar-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; color: #374151; font-size: 13px; }
+
+        /* 모달 */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
-        .modal { background-color: #1a1f2e; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; margin: 20px; }
-        .modal h2 { font-size: 18px; margin-bottom: 20px; }
+        .modal { background-color: #1a1f2e; border-radius: 16px; padding: 24px; width: 100%; max-width: 400px; margin: 20px; position: relative; }
+        .modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 8px; background: #252b3d; border: none; color: #9ca3af; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .modal-close:hover { background: #374151; color: #ffffff; }
+        .modal h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; padding-right: 40px; }
         .modal-input { width: 100%; padding: 12px 16px; background-color: #252b3d; border: 1px solid #374151; border-radius: 8px; color: #ffffff; font-size: 14px; margin-bottom: 16px; }
         .modal-input:focus { outline: none; border-color: #3b82f6; }
-        .color-picker { display: flex; gap: 8px; margin-bottom: 20px; }
+        .color-picker { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
         .color-option { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
         .color-option:hover, .color-option.active { border-color: #ffffff; transform: scale(1.1); }
         .modal-actions { display: flex; gap: 12px; justify-content: flex-end; }
-        .modal-actions .btn { padding: 10px 20px; }
-        .dropdown { position: relative; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; right: 0; background-color: #1a1f2e; border: 1px solid #252b3d; border-radius: 8px; min-width: 160px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); z-index: 50; margin-top: 4px; }
-        .dropdown-menu.active { display: block; }
-        .dropdown-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; color: #d1d5db; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-        .dropdown-item:hover { background-color: #252b3d; }
-        .dropdown-item.danger { color: #ef4444; }
-        .dropdown-divider { height: 1px; background-color: #252b3d; margin: 4px 0; }
-        @media (max-width: 768px) { .page-header { flex-direction: column; gap: 16px; align-items: flex-start; } .stock-grid { grid-template-columns: 1fr; } }
+        .modal-btn { padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
+        .modal-btn.cancel { background: #252b3d; color: #9ca3af; }
+        .modal-btn.cancel:hover { background: #374151; color: #ffffff; }
+        .modal-btn.primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #ffffff; }
+        .modal-btn.primary:hover { box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+        .modal-btn.danger { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #ffffff; }
+        .modal-btn.danger:hover { box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+        .modal-message { font-size: 14px; color: #9ca3af; margin-bottom: 20px; line-height: 1.6; }
+
+        /* 로딩 */
+        .loading { text-align: center; padding: 60px 20px; color: #6b7280; }
+        .loading-spinner { width: 40px; height: 40px; border: 3px solid #252b3d; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .sidebar { display: none; }
+        }
+        @media (max-width: 768px) {
+            .main-layout { padding: 16px; }
+            .table-header, .table-row { grid-template-columns: 2fr 1fr 1fr 100px; }
+            .cell-chart { display: none; }
+        }
     </style>
 </head>
 <body>
+    <!-- 네비게이션 -->
     <nav class="navbar">
         <a href="/dashboard" class="navbar-brand">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12l3-3 2 2 4-4 3 3v5H7v-3z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 12l3-3 2 2 4-4 3 3v5H7v-3z"/></svg>
             The Salty Spitoon
         </a>
+        <div class="navbar-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Search tickers, news..." disabled>
+        </div>
         <div class="navbar-menu">
             <a href="/dashboard">Market</a>
+            <a href="/stock">Stocks</a>
             <a href="/watchlist" class="active">Watchlist</a>
             <a href="/news">News</a>
-            <a href="/news/saved">Saved</a>
             <a href="/admin">Admin</a>
         </div>
         <div class="navbar-right">
@@ -101,49 +198,108 @@
                     <c:out value="${userEmail.substring(0,1).toUpperCase()}"/>
                 </div>
             </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <div class="user-avatar" onclick="location.href='/login'" title="로그인">?</div>
+            </sec:authorize>
         </div>
     </nav>
 
-    <main class="main-content">
-        <div class="page-header">
-            <h1>⭐ My Watchlist</h1>
-            <div class="header-actions">
-                <button class="btn btn-outline" onclick="openGroupModal()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-                    New Group
+    <div class="main-layout">
+        <main class="main-content">
+            <!-- 페이지 헤더 -->
+            <div class="page-header">
+                <h1>⭐ My Watchlist</h1>
+                <p>Track your favorite stocks and manage them in groups</p>
+            </div>
+
+            <!-- 그룹 탭 -->
+            <div class="group-tabs-container">
+                <button class="group-tabs-scroll-btn" id="scroll-left-btn" onclick="scrollGroupTabs(-200)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="group-tabs-wrapper" id="group-tabs-wrapper">
+                    <div class="group-tabs" id="group-tabs">
+                        <!-- JavaScript로 렌더링 -->
+                    </div>
+                </div>
+                <button class="group-tabs-scroll-btn" id="scroll-right-btn" onclick="scrollGroupTabs(200)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+                <button class="create-group-btn" onclick="openCreateGroupModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                    Create Group
                 </button>
             </div>
-        </div>
 
-        <div class="group-tabs">
-            <button class="group-tab active" onclick="filterByGroup(null, this)">All <span class="count" id="all-count">0</span></button>
-            <button class="group-tab" onclick="filterByGroup(0, this)">
-                <span class="dot" style="background-color: #6b7280;"></span>
-                Ungrouped <span class="count" id="ungrouped-count">0</span>
-            </button>
-            <c:forEach var="group" items="${groups}">
-                <button class="group-tab" data-group-id="${group.id}" data-color="${group.color}">
-                    <span class="dot"></span>
-                    <c:out value="${group.name}"/>
-                    <span class="count">0</span>
-                </button>
-            </c:forEach>
-        </div>
+            <!-- 컨트롤 패널 -->
+            <div class="controls">
+                <div class="search-filter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="searchInput" placeholder="Search in watchlist..." oninput="filterStocks()">
+                </div>
+                <div class="sort-options">
+                    <span class="sort-label">Sort by:</span>
+                    <button class="sort-btn active" data-sort="alpha" onclick="sortStocks('alpha')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h12M3 18h6"/></svg>
+                        A-Z
+                    </button>
+                    <button class="sort-btn" data-sort="alpha-desc" onclick="sortStocks('alpha-desc')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h6M3 12h12M3 18h18"/></svg>
+                        Z-A
+                    </button>
+                    <button class="sort-btn" data-sort="price-high" onclick="sortStocks('price-high')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
+                        Price ↑
+                    </button>
+                    <button class="sort-btn" data-sort="price-low" onclick="sortStocks('price-low')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                        Price ↓
+                    </button>
+                </div>
+                <div class="stock-count">Showing <span id="stockCount">0</span> stocks</div>
+            </div>
 
-        <div class="stock-grid" id="stock-grid"></div>
+            <!-- 테이블 -->
+            <div class="stock-table" id="stock-table">
+                <div class="table-header">
+                    <div>Company</div>
+                    <div>Price</div>
+                    <div>Change</div>
+                    <div>Trend (24h)</div>
+                    <div style="text-align: center;">Actions</div>
+                </div>
+                <div id="table-body">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading watchlist...</p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="empty-state" id="empty-state" style="display: none;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <h3>No stocks in watchlist</h3>
-            <p>Add stocks to your watchlist to track them here</p>
-            <a href="/dashboard">Browse Stocks <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-        </div>
-    </main>
+            <!-- 더보기 버튼 -->
+            <div class="load-more-section" id="load-more-section" style="display: none;">
+                <button class="load-more-btn" id="load-more-btn" onclick="loadMore()">Load More</button>
+                <div class="load-more-info" id="load-more-info"></div>
+            </div>
+        </main>
 
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3>📊 Coming Soon</h3>
+                <div class="sidebar-placeholder">
+                    Additional features will be added here
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 그룹 생성/수정 모달 -->
     <div class="modal-overlay" id="group-modal">
         <div class="modal">
-            <h2 id="modal-title">Create New Group</h2>
-            <input type="text" class="modal-input" id="group-name" placeholder="Group name">
+            <button class="modal-close" onclick="closeGroupModal()">✕</button>
+            <h2 id="group-modal-title">Create New Group</h2>
+            <input type="text" class="modal-input" id="group-name-input" placeholder="Group name">
             <div class="color-picker" id="color-picker">
                 <div class="color-option active" style="background-color: #3b82f6;" data-color="#3b82f6"></div>
                 <div class="color-option" style="background-color: #22c55e;" data-color="#22c55e"></div>
@@ -151,338 +307,797 @@
                 <div class="color-option" style="background-color: #ef4444;" data-color="#ef4444"></div>
                 <div class="color-option" style="background-color: #a855f7;" data-color="#a855f7"></div>
                 <div class="color-option" style="background-color: #ec4899;" data-color="#ec4899"></div>
+                <div class="color-option" style="background-color: #06b6d4;" data-color="#06b6d4"></div>
+                <div class="color-option" style="background-color: #6b7280;" data-color="#6b7280"></div>
             </div>
             <div class="modal-actions">
-                <button class="btn btn-outline" onclick="closeGroupModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveGroup()">Create</button>
+                <button class="modal-btn cancel" onclick="closeGroupModal()">Cancel</button>
+                <button class="modal-btn primary" id="group-modal-submit" onclick="saveGroup()">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 그룹 삭제 확인 모달 -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+            <h2>Delete Group</h2>
+            <p class="modal-message" id="delete-modal-message">Are you sure you want to delete this group?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeDeleteModal()">Cancel</button>
+                <button class="modal-btn danger" onclick="confirmDeleteGroup()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 종목 삭제 확인 모달 -->
+    <div class="modal-overlay" id="stock-delete-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeStockDeleteModal()">✕</button>
+            <h2>Remove Stock</h2>
+            <p class="modal-message" id="stock-delete-modal-message">Are you sure you want to remove this stock?</p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeStockDeleteModal()">Cancel</button>
+                <button class="modal-btn danger" onclick="confirmRemoveStock()">Remove</button>
             </div>
         </div>
     </div>
 
     <script>
-        var watchlistData = [];
+        // ========================================
+        // 상태 변수
+        // ========================================
         var groupsData = [];
+        var watchlistData = [];
+        var filteredData = [];
+        var displayedData = [];
+        var stockInfoCache = {};
+        var chartDataCache = {};
+        var stockGroupsCache = {}; // 종목별 그룹 ID 캐시
+        
         var currentGroupFilter = null;
-        var editingGroupId = null;
+        var currentSort = 'alpha';
+        var itemsPerPage = 10;
+        var currentPage = 0;
+        
         var selectedColor = '#3b82f6';
+        var editingGroupId = null;
+        var deletingGroupId = null;
+        var deletingStockSymbol = null;
+        var activeDropdown = null;
 
-        var stockIcons = {
-            'AAPL': '🍎', 'MSFT': '🪟', 'GOOGL': '🔍', 'AMZN': '📦',
-            'NVDA': '🎮', 'TSLA': '🚗', 'META': '👤', 'NFLX': '🎬',
-            'AMD': '💻', 'INTC': '🔷', 'ORCL': '☁️', 'CRM': '📊'
-        };
-
+        // ========================================
+        // 초기화
+        // ========================================
         document.addEventListener('DOMContentLoaded', function() {
-            loadWatchlist();
             loadGroups();
             setupColorPicker();
-            applyGroupColors();
+            setupModalClose();
+            setupGroupTabsScroll();
+            
+            // 드롭다운 외부 클릭 시 닫기
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.group-dropdown') && !e.target.closest('.action-btn.add')) {
+                    closeAllDropdowns();
+                }
+            });
+            
+            // 스크롤 시 드롭다운 닫기
+            window.addEventListener('scroll', closeAllDropdowns);
         });
 
-        function applyGroupColors() {
-            var tabs = document.querySelectorAll('.group-tab[data-group-id]');
-            for (var i = 0; i < tabs.length; i++) {
-                var tab = tabs[i];
-                var color = tab.getAttribute('data-color');
-                var groupId = parseInt(tab.getAttribute('data-group-id'));
-                var dot = tab.querySelector('.dot');
-                if (dot && color) {
-                    dot.style.backgroundColor = color;
+        // ========================================
+        // 그룹 탭 스크롤
+        // ========================================
+        function setupGroupTabsScroll() {
+            var wrapper = document.getElementById('group-tabs-wrapper');
+            if (!wrapper) return;
+            
+            // 마우스 휠 가로 스크롤
+            wrapper.addEventListener('wheel', function(e) {
+                if (e.deltaY !== 0) {
+                    e.preventDefault();
+                    wrapper.scrollLeft += e.deltaY;
+                    updateScrollButtons();
                 }
-                (function(gid, t) {
-                    t.addEventListener('click', function() {
-                        filterByGroup(gid, t);
-                    });
-                })(groupId, tab);
+            }, { passive: false });
+            
+            // 스크롤 이벤트로 버튼 상태 업데이트
+            wrapper.addEventListener('scroll', updateScrollButtons);
+            
+            // 초기 버튼 상태
+            setTimeout(updateScrollButtons, 100);
+        }
+        
+        function scrollGroupTabs(amount) {
+            var wrapper = document.getElementById('group-tabs-wrapper');
+            if (wrapper) {
+                wrapper.scrollLeft += amount;
+                setTimeout(updateScrollButtons, 300);
             }
         }
-
-        function loadWatchlist() {
-            fetch('/api/watchlist')
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
-                    if (data.success) {
-                        watchlistData = data.data;
-                        renderWatchlist();
-                        updateCounts();
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Failed to load watchlist:', error);
-                });
+        
+        function updateScrollButtons() {
+            var wrapper = document.getElementById('group-tabs-wrapper');
+            var leftBtn = document.getElementById('scroll-left-btn');
+            var rightBtn = document.getElementById('scroll-right-btn');
+            
+            if (!wrapper || !leftBtn || !rightBtn) return;
+            
+            var scrollLeft = wrapper.scrollLeft;
+            var maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+            
+            leftBtn.disabled = scrollLeft <= 0;
+            rightBtn.disabled = scrollLeft >= maxScroll - 1;
         }
 
+        // ========================================
+        // 그룹 관련
+        // ========================================
         function loadGroups() {
             fetch('/api/watchlist/groups')
-                .then(function(response) { return response.json(); })
+                .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (data.success) {
                         groupsData = data.data;
+                        renderGroupTabs(data.allCount, data.ungroupedCount);
+                        loadWatchlist();
                     }
-                })
-                .catch(function(error) {
-                    console.error('Failed to load groups:', error);
                 });
         }
 
-        function renderWatchlist() {
-            var grid = document.getElementById('stock-grid');
-            var emptyState = document.getElementById('empty-state');
+        function renderGroupTabs(allCount, ungroupedCount) {
+            var html = '';
+            
+            html += '<div class="group-tab ' + (currentGroupFilter === null ? 'active' : '') + '" onclick="filterByGroup(null, this)">';
+            html += 'All <span class="count">' + (allCount || 0) + '</span>';
+            html += '</div>';
+            
+            html += '<div class="group-tab ' + (currentGroupFilter === 0 ? 'active' : '') + '" onclick="filterByGroup(0, this)">';
+            html += '<span class="dot" style="background-color: #6b7280;"></span>';
+            html += 'Ungrouped <span class="count">' + (ungroupedCount || 0) + '</span>';
+            html += '</div>';
+            
+            groupsData.forEach(function(group) {
+                html += '<div class="group-tab ' + (currentGroupFilter === group.id ? 'active' : '') + '" data-group-id="' + group.id + '">';
+                html += '<span class="dot" style="background-color: ' + group.color + ';"></span>';
+                html += '<span onclick="filterByGroup(' + group.id + ', this.parentElement)">' + escapeHtml(group.name) + '</span>';
+                html += '<span class="count">' + (group.count || 0) + '</span>';
+                html += '<div class="group-tab-actions">';
+                html += '<button class="group-tab-btn" onclick="event.stopPropagation(); openEditGroupModal(' + group.id + ', \'' + escapeHtml(group.name) + '\', \'' + group.color + '\')" title="Edit">✎</button>';
+                html += '<button class="group-tab-btn delete" onclick="event.stopPropagation(); openDeleteModal(' + group.id + ', \'' + escapeHtml(group.name) + '\')" title="Delete">✕</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+            
+            document.getElementById('group-tabs').innerHTML = html;
+            
+            // 스크롤 버튼 상태 업데이트
+            setTimeout(updateScrollButtons, 50);
+        }
 
-            var filtered = watchlistData;
-            if (currentGroupFilter !== null) {
-                if (currentGroupFilter === 0) {
-                    filtered = watchlistData.filter(function(w) { return !w.groupId; });
-                } else {
-                    filtered = watchlistData.filter(function(w) { return w.groupId === currentGroupFilter; });
-                }
+        function filterByGroup(groupId, element) {
+            currentGroupFilter = groupId;
+            currentPage = 0;
+            displayedData = [];
+            
+            document.querySelectorAll('.group-tab').forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            if (element) {
+                element.classList.add('active');
             }
+            
+            loadWatchlist();
+        }
 
-            if (filtered.length === 0) {
-                grid.innerHTML = '';
-                emptyState.style.display = 'block';
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ========================================
+        // 워치리스트 로드
+        // ========================================
+        function loadWatchlist() {
+            var url = '/api/watchlist';
+            if (currentGroupFilter !== null) {
+                url += '?groupId=' + currentGroupFilter;
+            }
+            
+            fetch(url)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        watchlistData = data.data;
+                        
+                        // 종목별 그룹 ID 캐시 업데이트
+                        watchlistData.forEach(function(item) {
+                            if (item.groupIds) {
+                                stockGroupsCache[item.symbol] = item.groupIds;
+                            }
+                        });
+                        
+                        filteredData = watchlistData.slice();
+                        applySorting();
+                        currentPage = 0;
+                        displayedData = [];
+                        loadMore();
+                    }
+                });
+        }
+
+        // ========================================
+        // 검색 & 정렬
+        // ========================================
+        function filterStocks() {
+            var q = document.getElementById('searchInput').value.toLowerCase();
+            
+            filteredData = watchlistData.filter(function(item) {
+                var symbol = item.symbol.toLowerCase();
+                var info = stockInfoCache[item.symbol];
+                var name = info ? info.name.toLowerCase() : '';
+                return symbol.includes(q) || name.includes(q);
+            });
+            
+            applySorting();
+            currentPage = 0;
+            displayedData = [];
+            loadMore();
+        }
+
+        function sortStocks(sortType) {
+            currentSort = sortType;
+            document.querySelectorAll('.sort-btn').forEach(function(btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-sort') === sortType);
+            });
+            
+            var currentDisplayCount = displayedData.length || itemsPerPage;
+            applySorting();
+            currentPage = 0;
+            displayedData = [];
+            
+            var pagesToLoad = Math.ceil(currentDisplayCount / itemsPerPage);
+            for (var i = 0; i < pagesToLoad; i++) {
+                var start = currentPage * itemsPerPage;
+                var end = Math.min(start + itemsPerPage, filteredData.length);
+                var newItems = filteredData.slice(start, end);
+                displayedData = displayedData.concat(newItems);
+                currentPage++;
+            }
+            
+            renderTable();
+            updateLoadMoreButton();
+            loadAllCharts();
+        }
+
+        function applySorting() {
+            filteredData.sort(function(a, b) {
+                var infoA = stockInfoCache[a.symbol] || {};
+                var infoB = stockInfoCache[b.symbol] || {};
+                
+                switch (currentSort) {
+                    case 'alpha':
+                        return a.symbol.localeCompare(b.symbol);
+                    case 'alpha-desc':
+                        return b.symbol.localeCompare(a.symbol);
+                    case 'price-high':
+                        return (parseFloat(infoB.price) || 0) - (parseFloat(infoA.price) || 0);
+                    case 'price-low':
+                        return (parseFloat(infoA.price) || 0) - (parseFloat(infoB.price) || 0);
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // ========================================
+        // 페이지네이션
+        // ========================================
+        function loadMore() {
+            var start = currentPage * itemsPerPage;
+            var end = Math.min(start + itemsPerPage, filteredData.length);
+            var newItems = filteredData.slice(start, end);
+            
+            displayedData = displayedData.concat(newItems);
+            currentPage++;
+            
+            document.getElementById('stockCount').textContent = filteredData.length;
+            
+            // 먼저 모든 종목 정보 로드
+            var promises = newItems.map(function(item) {
+                return loadStockInfoAsync(item.symbol);
+            });
+            
+            Promise.all(promises).then(function() {
+                renderTable();
+                updateLoadMoreButton();
+                
+                // 테이블 렌더링 후 차트 로드
+                setTimeout(function() {
+                    displayedData.forEach(function(item) {
+                        loadMiniChart(item.symbol);
+                    });
+                }, 50);
+            });
+        }
+
+        function updateLoadMoreButton() {
+            var section = document.getElementById('load-more-section');
+            var btn = document.getElementById('load-more-btn');
+            var info = document.getElementById('load-more-info');
+            var remaining = filteredData.length - displayedData.length;
+            
+            if (remaining > 0) {
+                section.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Load More (' + Math.min(remaining, itemsPerPage) + ')';
+                info.textContent = 'Showing ' + displayedData.length + ' of ' + filteredData.length + ' stocks';
+            } else if (displayedData.length > itemsPerPage) {
+                section.style.display = 'block';
+                btn.disabled = true;
+                btn.textContent = 'All Loaded';
+                info.textContent = 'Showing all ' + filteredData.length + ' stocks';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+
+        // ========================================
+        // 테이블 렌더링
+        // ========================================
+        function renderTable() {
+            var tbody = document.getElementById('table-body');
+            
+            if (displayedData.length === 0) {
+                tbody.innerHTML = '<div class="empty-state">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>' +
+                    '<h3>No stocks in watchlist</h3>' +
+                    '<p>Add stocks to your watchlist to track them here</p>' +
+                    '<a href="/stock">Browse Stocks →</a>' +
+                    '</div>';
                 return;
             }
-
-            emptyState.style.display = 'none';
-
+            
             var html = '';
-            for (var i = 0; i < filtered.length; i++) {
-                var stock = filtered[i];
-                var icon = stockIcons[stock.symbol] || '📈';
-                var groupColor = getGroupColor(stock.groupId);
+            displayedData.forEach(function(item) {
+                var info = stockInfoCache[item.symbol] || {};
+                var price = info.price || '--';
+                var change = info.changePercent || 0;
+                var isNegative = change < 0;
+                var logoUrl = info.logoUrl;
                 
-                html += '<div class="stock-card" onclick="location.href=\'/stock/detail/' + stock.symbol + '\'">';
-                html += '<div class="stock-header">';
-                html += '<div class="stock-info">';
-                html += '<div class="stock-icon">' + icon + '</div>';
-                html += '<div class="stock-name"><h3>' + stock.symbol + '</h3><p id="name-' + stock.symbol + '">Loading...</p></div>';
-                html += '</div>';
-                html += '<div class="stock-actions"><div class="dropdown">';
-                html += '<button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(\'' + stock.symbol + '\')">';
-                html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>';
-                html += '</button>';
-                html += '<div class="dropdown-menu" id="dropdown-' + stock.symbol + '">';
+                html += '<div class="table-row" onclick="location.href=\'/stock/detail/' + item.symbol + '\'">';
                 
-                for (var j = 0; j < groupsData.length; j++) {
-                    var g = groupsData[j];
-                    html += '<div class="dropdown-item" onclick="event.stopPropagation(); moveToGroup(\'' + stock.symbol + '\', ' + g.id + ')">';
-                    html += '<span class="dot" style="background-color: ' + g.color + '; width: 8px; height: 8px; border-radius: 50%;"></span>';
-                    html += 'Move to ' + g.name + '</div>';
-                }
-                
-                if (stock.groupId) {
-                    html += '<div class="dropdown-item" onclick="event.stopPropagation(); moveToGroup(\'' + stock.symbol + '\', null)">Remove from group</div>';
-                }
-                
-                html += '<div class="dropdown-divider"></div>';
-                html += '<div class="dropdown-item danger" onclick="event.stopPropagation(); removeFromWatchlist(\'' + stock.symbol + '\')">';
-                html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>';
-                html += 'Remove</div>';
-                html += '</div></div></div></div>';
-                
-                html += '<div class="stock-price">';
-                html += '<span class="price-value" id="price-' + stock.symbol + '">$--</span>';
-                html += '<span class="price-change positive" id="change-' + stock.symbol + '">--%</span>';
-                html += '</div>';
-                
-                html += '<div class="stock-footer">';
-                if (stock.groupName) {
-                    html += '<span class="stock-group" style="border-left: 3px solid ' + groupColor + '; padding-left: 8px;">' + stock.groupName + '</span>';
+                // Company
+                html += '<div class="cell-company">';
+                html += '<div class="company-logo">';
+                if (logoUrl) {
+                    html += '<img src="' + logoUrl + '" onerror="this.parentElement.innerHTML=\'📈\'">';
                 } else {
-                    html += '<span></span>';
+                    html += '📈';
                 }
-                html += '<span class="stock-time">Added ' + formatDate(stock.createdAt) + '</span>';
-                html += '</div></div>';
-            }
-
-            grid.innerHTML = html;
-
-            for (var k = 0; k < filtered.length; k++) {
-                fetchStockPrice(filtered[k].symbol);
-            }
+                html += '</div>';
+                html += '<div class="company-info">';
+                html += '<div class="company-symbol">' + item.symbol + '</div>';
+                html += '<div class="company-name">' + (info.name || 'Loading...') + '</div>';
+                html += '</div>';
+                html += '</div>';
+                
+                // Price
+                html += '<div class="cell-price">$' + (typeof price === 'number' ? price.toFixed(2) : price) + '</div>';
+                
+                // Change
+                html += '<div class="cell-change ' + (isNegative ? 'negative' : 'positive') + '">';
+                html += (change >= 0 ? '↑ ' : '↓ ') + Math.abs(change).toFixed(2) + '%';
+                html += '</div>';
+                
+                // Chart
+                html += '<div class="cell-chart"><canvas id="chart-' + item.symbol + '" width="150" height="40"></canvas></div>';
+                
+                // Actions
+                html += '<div class="cell-actions">';
+                // Add to Group 버튼
+                html += '<button class="action-btn add" onclick="event.stopPropagation(); toggleGroupDropdown(\'' + item.symbol + '\', this)" title="Add to Group">';
+                html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>';
+                html += '</button>';
+                // 드롭다운 (숨김 상태)
+                html += '<div class="group-dropdown" id="dropdown-' + item.symbol + '">';
+                html += renderGroupDropdown(item.symbol);
+                html += '</div>';
+                // Alert 버튼
+                html += '<button class="action-btn" onclick="event.stopPropagation();" title="Set Alert (Coming Soon)">';
+                html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>';
+                html += '</button>';
+                // Delete 버튼
+                html += '<button class="action-btn delete" onclick="event.stopPropagation(); removeStock(\'' + item.symbol + '\')" title="Remove">';
+                html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>';
+                html += '</button>';
+                html += '</div>';
+                
+                html += '</div>';
+            });
+            
+            tbody.innerHTML = html;
         }
 
-        function fetchStockPrice(symbol) {
-            fetch('/api/stocks/' + symbol + '/latest')
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
-                    if (data) {
-                        var priceEl = document.getElementById('price-' + symbol);
-                        var changeEl = document.getElementById('change-' + symbol);
-                        var nameEl = document.getElementById('name-' + symbol);
-
-                        if (priceEl) {
-                            var price = data.closePrice || data.close_price || 0;
-                            priceEl.textContent = '$' + price.toFixed(2);
-                        }
-                        if (changeEl) {
-                            var change = data.changePercent || data.change_percent || 0;
-                            changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-                            changeEl.className = 'price-change ' + (change >= 0 ? 'positive' : 'negative');
-                        }
-                        if (nameEl && data.name) {
-                            nameEl.textContent = data.name;
-                        }
+        function renderGroupDropdown(symbol) {
+            var groupIds = stockGroupsCache[symbol] || [];
+            var html = '<div class="group-dropdown-title">Add to Group</div>';
+            
+            if (groupsData.length === 0) {
+                html += '<div class="group-dropdown-empty">No groups yet.<br>Create one first!</div>';
+            } else {
+                groupsData.forEach(function(group) {
+                    var isInGroup = groupIds.indexOf(group.id) !== -1;
+                    html += '<div class="group-dropdown-item" onclick="event.stopPropagation(); toggleStockGroup(\'' + symbol + '\', ' + group.id + ', ' + isInGroup + ')">';
+                    html += '<span class="dot" style="background-color: ' + group.color + ';"></span>';
+                    html += '<span class="name">' + escapeHtml(group.name) + '</span>';
+                    if (isInGroup) {
+                        html += '<span class="check">✓</span>';
                     }
-                })
-                .catch(function(error) {
-                    console.error('Failed to fetch price for', symbol);
+                    html += '</div>';
                 });
-        }
-
-        function filterByGroup(groupId, btn) {
-            currentGroupFilter = groupId;
-            var tabs = document.querySelectorAll('.group-tab');
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
             }
-            btn.classList.add('active');
-            renderWatchlist();
+            
+            return html;
         }
 
-        function updateCounts() {
-            document.getElementById('all-count').textContent = watchlistData.length;
-            document.getElementById('ungrouped-count').textContent = watchlistData.filter(function(w) { return !w.groupId; }).length;
-
-            for (var i = 0; i < groupsData.length; i++) {
-                var group = groupsData[i];
-                var tab = document.querySelector('[data-group-id="' + group.id + '"] .count');
-                if (tab) {
-                    tab.textContent = watchlistData.filter(function(w) { return w.groupId === group.id; }).length;
+        // ========================================
+        // 그룹 드롭다운
+        // ========================================
+        function toggleGroupDropdown(symbol, btn) {
+            var dropdown = document.getElementById('dropdown-' + symbol);
+            var isActive = dropdown.classList.contains('active');
+            
+            closeAllDropdowns();
+            
+            if (!isActive) {
+                // 버튼 위치 기준으로 드롭다운 위치 계산
+                var rect = btn.getBoundingClientRect();
+                var dropdownHeight = 200; // 예상 높이
+                var viewportHeight = window.innerHeight;
+                
+                // 아래 공간이 부족하면 위로 표시
+                if (rect.bottom + dropdownHeight > viewportHeight) {
+                    dropdown.style.bottom = (viewportHeight - rect.top + 8) + 'px';
+                    dropdown.style.top = 'auto';
+                } else {
+                    dropdown.style.top = (rect.bottom + 8) + 'px';
+                    dropdown.style.bottom = 'auto';
                 }
+                
+                dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+                dropdown.classList.add('active');
+                activeDropdown = dropdown;
             }
         }
 
-        function getGroupColor(groupId) {
-            for (var i = 0; i < groupsData.length; i++) {
-                if (groupsData[i].id === groupId) {
-                    return groupsData[i].color;
-                }
-            }
-            return '#6b7280';
+        function closeAllDropdowns() {
+            document.querySelectorAll('.group-dropdown.active').forEach(function(d) {
+                d.classList.remove('active');
+            });
+            activeDropdown = null;
         }
 
-        function formatDate(dateStr) {
-            var date = new Date(dateStr);
-            var now = new Date();
-            var diff = now - date;
-            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            if (days === 0) return 'today';
-            if (days === 1) return 'yesterday';
-            if (days < 7) return days + ' days ago';
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        }
-
-        function toggleDropdown(symbol) {
-            var menus = document.querySelectorAll('.dropdown-menu');
-            for (var i = 0; i < menus.length; i++) {
-                menus[i].classList.remove('active');
-            }
-            document.getElementById('dropdown-' + symbol).classList.toggle('active');
-        }
-
-        function moveToGroup(symbol, groupId) {
-            fetch('/api/watchlist/move', {
+        function toggleStockGroup(symbol, groupId, isInGroup) {
+            var url = isInGroup ? '/api/watchlist/removeFromGroup' : '/api/watchlist/addToGroup';
+            
+            fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ symbol: symbol, groupId: groupId })
             })
-            .then(function(response) { return response.json(); })
+            .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
-                    loadWatchlist();
+                    // 캐시 업데이트
+                    stockGroupsCache[symbol] = data.groupIds || [];
+                    
+                    // 드롭다운 업데이트
+                    var dropdown = document.getElementById('dropdown-' + symbol);
+                    if (dropdown) {
+                        dropdown.innerHTML = renderGroupDropdown(symbol);
+                    }
+                    
+                    // 그룹 카운트 업데이트
+                    loadGroups();
                 }
-            })
-            .catch(function(error) {
-                console.error('Failed to move to group:', error);
             });
         }
 
-        function removeFromWatchlist(symbol) {
-            if (!confirm('Remove ' + symbol + ' from watchlist?')) return;
-            fetch('/api/watchlist/toggle', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ symbol: symbol })
-            })
-            .then(function(response) { return response.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    loadWatchlist();
+        // ========================================
+        // 주식 정보 & 차트 로드
+        // ========================================
+        function loadStockInfoAsync(symbol) {
+            return new Promise(function(resolve) {
+                if (stockInfoCache[symbol]) {
+                    resolve();
+                    return;
                 }
-            })
-            .catch(function(error) {
-                console.error('Failed to remove from watchlist:', error);
+                
+                fetch('/api/stocks/' + symbol + '/latest')
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        if (data && !data.error) {
+                            stockInfoCache[symbol] = {
+                                name: data.name || symbol,
+                                price: data.closePrice || data.close_price || 0,
+                                changePercent: data.changePercent || data.change_percent || 0,
+                                logoUrl: data.logoUrl
+                            };
+                        }
+                        resolve();
+                    })
+                    .catch(function() { resolve(); });
             });
         }
 
-        function openGroupModal() {
-            editingGroupId = null;
-            document.getElementById('modal-title').textContent = 'Create New Group';
-            document.getElementById('group-name').value = '';
-            selectedColor = '#3b82f6';
-            var options = document.querySelectorAll('.color-option');
-            for (var i = 0; i < options.length; i++) {
-                options[i].classList.remove('active');
+        function loadAllCharts() {
+            setTimeout(function() {
+                displayedData.forEach(function(item) {
+                    loadMiniChart(item.symbol);
+                });
+            }, 50);
+        }
+
+        function loadMiniChart(symbol) {
+            var canvas = document.getElementById('chart-' + symbol);
+            if (!canvas) return;
+            
+            if (chartDataCache[symbol]) {
+                drawSparkline(canvas, chartDataCache[symbol]);
+                return;
             }
-            document.querySelector('[data-color="#3b82f6"]').classList.add('active');
+            
+            fetch('/stock/api/chart/' + symbol + '/all?timeframe=1h')
+                .then(function(r) { return r.json(); })
+                .then(function(response) {
+                    if (response.data && response.data.length > 1) {
+                        var prices = response.data.slice(-24);
+                        chartDataCache[symbol] = prices;
+                        drawSparkline(canvas, prices);
+                    }
+                });
+        }
+
+        function drawSparkline(canvas, data) {
+            if (!canvas || !data || data.length < 2) return;
+            
+            var ctx = canvas.getContext('2d');
+            var width = canvas.width;
+            var height = canvas.height;
+            var padding = 4;
+            
+            var prices = data.map(function(d) { return parseFloat(d.close || d.closePrice || 0); });
+            var min = Math.min.apply(null, prices);
+            var max = Math.max.apply(null, prices);
+            var range = max - min || 1;
+            
+            var first = prices[0];
+            var last = prices[prices.length - 1];
+            var isPositive = last >= first;
+            
+            var lineColor = isPositive ? '#22c55e' : '#ef4444';
+            var fillColor = isPositive ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            var points = prices.map(function(price, i) {
+                return {
+                    x: padding + (i / (prices.length - 1)) * (width - padding * 2),
+                    y: padding + (1 - (price - min) / range) * (height - padding * 2)
+                };
+            });
+            
+            var gradient = ctx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(0, fillColor);
+            gradient.addColorStop(1, 'transparent');
+            
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (var i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.lineTo(points[points.length - 1].x, height - padding);
+            ctx.lineTo(points[0].x, height - padding);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (var i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+            ctx.strokeStyle = lineColor;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // ========================================
+        // 종목 제거
+        // ========================================
+        function removeStock(symbol) {
+            deletingStockSymbol = symbol;
+            var isGroupTab = currentGroupFilter !== null && currentGroupFilter !== 0;
+            
+            if (isGroupTab) {
+                var groupName = '';
+                groupsData.forEach(function(g) {
+                    if (g.id === currentGroupFilter) groupName = g.name;
+                });
+                document.getElementById('stock-delete-modal-message').textContent = 
+                    'Remove "' + symbol + '" from group "' + groupName + '"?';
+            } else {
+                document.getElementById('stock-delete-modal-message').textContent = 
+                    'Are you sure you want to remove "' + symbol + '" from your watchlist completely?';
+            }
+            document.getElementById('stock-delete-modal').classList.add('active');
+        }
+
+        function closeStockDeleteModal() {
+            document.getElementById('stock-delete-modal').classList.remove('active');
+            deletingStockSymbol = null;
+        }
+
+        function confirmRemoveStock() {
+            if (!deletingStockSymbol) return;
+            
+            var symbol = deletingStockSymbol;
+            var isGroupTab = currentGroupFilter !== null && currentGroupFilter !== 0;
+            
+            if (isGroupTab) {
+                fetch('/api/watchlist/removeFromGroup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: symbol, groupId: currentGroupFilter })
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        closeStockDeleteModal();
+                        loadGroups();
+                    }
+                });
+            } else {
+                fetch('/api/watchlist/toggle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ symbol: symbol })
+                })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        closeStockDeleteModal();
+                        loadGroups();
+                    }
+                });
+            }
+        }
+
+        // ========================================
+        // 그룹 모달
+        // ========================================
+        function setupColorPicker() {
+            document.querySelectorAll('.color-option').forEach(function(option) {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(function(o) { o.classList.remove('active'); });
+                    this.classList.add('active');
+                    selectedColor = this.getAttribute('data-color');
+                });
+            });
+        }
+
+        function setupModalClose() {
+            document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) {
+                        closeGroupModal();
+                        closeDeleteModal();
+                        closeStockDeleteModal();
+                    }
+                });
+            });
+        }
+
+        function openCreateGroupModal() {
+            editingGroupId = null;
+            document.getElementById('group-modal-title').textContent = 'Create New Group';
+            document.getElementById('group-name-input').value = '';
+            document.getElementById('group-modal-submit').textContent = 'Create';
+            selectedColor = '#3b82f6';
+            document.querySelectorAll('.color-option').forEach(function(o) {
+                o.classList.toggle('active', o.getAttribute('data-color') === '#3b82f6');
+            });
+            document.getElementById('group-modal').classList.add('active');
+        }
+
+        function openEditGroupModal(groupId, name, color) {
+            editingGroupId = groupId;
+            document.getElementById('group-modal-title').textContent = 'Edit Group';
+            document.getElementById('group-name-input').value = name;
+            document.getElementById('group-modal-submit').textContent = 'Save';
+            selectedColor = color;
+            document.querySelectorAll('.color-option').forEach(function(o) {
+                o.classList.toggle('active', o.getAttribute('data-color') === color);
+            });
             document.getElementById('group-modal').classList.add('active');
         }
 
         function closeGroupModal() {
             document.getElementById('group-modal').classList.remove('active');
-        }
-
-        function setupColorPicker() {
-            var options = document.querySelectorAll('.color-option');
-            for (var i = 0; i < options.length; i++) {
-                options[i].addEventListener('click', function() {
-                    for (var j = 0; j < options.length; j++) {
-                        options[j].classList.remove('active');
-                    }
-                    this.classList.add('active');
-                    selectedColor = this.getAttribute('data-color');
-                });
-            }
+            editingGroupId = null;
         }
 
         function saveGroup() {
-            var name = document.getElementById('group-name').value.trim();
+            var name = document.getElementById('group-name-input').value.trim();
             if (!name) {
                 alert('Please enter a group name');
                 return;
             }
-            fetch('/api/watchlist/groups', {
-                method: 'POST',
+            
+            var url, method, body;
+            
+            if (editingGroupId) {
+                url = '/api/watchlist/groups/' + editingGroupId;
+                method = 'PUT';
+                body = { name: name, color: selectedColor };
+            } else {
+                url = '/api/watchlist/groups';
+                method = 'POST';
+                body = { name: name, color: selectedColor };
+            }
+            
+            fetch(url, {
+                method: method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: name, color: selectedColor })
+                body: JSON.stringify(body)
             })
-            .then(function(response) { return response.json(); })
+            .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
                     closeGroupModal();
-                    location.reload();
+                    loadGroups();
                 } else {
                     alert(data.message);
                 }
-            })
-            .catch(function(error) {
-                console.error('Failed to create group:', error);
             });
         }
 
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                var menus = document.querySelectorAll('.dropdown-menu');
-                for (var i = 0; i < menus.length; i++) {
-                    menus[i].classList.remove('active');
+        // ========================================
+        // 그룹 삭제 모달
+        // ========================================
+        function openDeleteModal(groupId, groupName) {
+            deletingGroupId = groupId;
+            document.getElementById('delete-modal-message').textContent = 
+                'Are you sure you want to delete "' + groupName + '"? Stocks in this group will be moved to Ungrouped.';
+            document.getElementById('delete-modal').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').classList.remove('active');
+            deletingGroupId = null;
+        }
+
+        function confirmDeleteGroup() {
+            if (!deletingGroupId) return;
+            
+            fetch('/api/watchlist/groups/' + deletingGroupId, {
+                method: 'DELETE'
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    closeDeleteModal();
+                    currentGroupFilter = null;
+                    loadGroups();
+                } else {
+                    alert(data.message);
                 }
-            }
-            if (e.target.classList.contains('modal-overlay')) {
-                closeGroupModal();
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>

@@ -442,14 +442,28 @@
             <!-- 액션 바 -->
             <div class="action-bar">
                 <div class="action-buttons">
-                    <button class="action-btn bookmark ${isBookmarked ? 'active' : ''}" 
-                            onclick="toggleBookmark(${news.id}, this)" id="bookmark-btn">
-                        <svg viewBox="0 0 24 24" fill="${isBookmarked ? 'currentColor' : 'none'}" 
-                             stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
-                        </svg>
-                        <span>${isBookmarked ? 'Saved' : 'Save'}</span>
-                    </button>
+                    <c:choose>
+                        <c:when test="${isBookmarked}">
+                            <button class="action-btn bookmark active" data-news-id="<c:out value='${news.id}' />"
+            onclick="toggleBookmark(this)" id="bookmark-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor" 
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                                </svg>
+                                <span>Saved</span>
+                            </button>
+                        </c:when>
+                        <c:otherwise>
+                            <button class="action-btn bookmark" data-news-id="<c:out value='${news.id}' />"
+            onclick="toggleBookmark(this)" id="bookmark-btn">
+                                <svg viewBox="0 0 24 24" fill="none" 
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                                </svg>
+                                <span>Save</span>
+                            </button>
+                        </c:otherwise>
+                    </c:choose>
                     <button class="action-btn" onclick="shareArticle()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="18" cy="5" r="3"/>
@@ -477,12 +491,12 @@
 
     <script>
         // 시간 표시
-        const publishedAt = '${news.publishedAt}';
+        var publishedAt = '<c:out value="${news.publishedAt}" />';
         if (publishedAt) {
-            const date = new Date(publishedAt);
+            var date = new Date(publishedAt);
             
             // KST
-            const kstOptions = { 
+            var kstOptions = { 
                 timeZone: 'Asia/Seoul',
                 year: 'numeric',
                 month: 'long', 
@@ -495,7 +509,7 @@
                 date.toLocaleString('en-US', kstOptions) + ' KST';
             
             // EST
-            const estOptions = { 
+            var estOptions = { 
                 timeZone: 'America/New_York',
                 year: 'numeric',
                 month: 'long', 
@@ -509,26 +523,27 @@
         }
 
         // 북마크 토글
-        async function toggleBookmark(newsId, btn) {
-            try {
-                const response = await fetch('/news/api/bookmark/toggle', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ newsId: newsId })
-                });
-
-                const data = await response.json();
-
+        function toggleBookmark(newsId, btn) {
+            fetch('/news/api/bookmark/toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newsId: newsId })
+            })
+            .then(function(response) {
                 if (response.status === 401) {
                     location.href = '/login';
-                    return;
+                    return null;
                 }
-
+                return response.json();
+            })
+            .then(function(data) {
+                if (!data) return;
+                
                 if (data.success) {
-                    const svg = btn.querySelector('svg');
-                    const span = btn.querySelector('span');
+                    var svg = btn.querySelector('svg');
+                    var span = btn.querySelector('span');
                     
                     if (data.isBookmarked) {
                         btn.classList.add('active');
@@ -540,16 +555,17 @@
                         span.textContent = 'Save';
                     }
                 }
-            } catch (error) {
+            })
+            .catch(function(error) {
                 console.error('Bookmark toggle failed:', error);
-            }
+            });
         }
 
         // 공유
         function shareArticle() {
             if (navigator.share) {
                 navigator.share({
-                    title: '${news.title}',
+                    title: document.title,
                     url: window.location.href
                 });
             } else {

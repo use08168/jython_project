@@ -113,7 +113,7 @@
         .stock-list-item { display: flex; align-items: center; gap: 16px; background: #1a1f2e; border-radius: 12px; padding: 8px 24px; border: 1px solid #252b3d; cursor: pointer; transition: all 0.2s; }
         .stock-list-item:hover { border-color: #3b82f6; background-color: #1e2433; }
         .stock-list-logo { width: 150px; height: 50px; border-radius: 8px; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 8px;}
-        .stock-list-logo img { height: 40px; width: auto; max-width: 100%; object-fit: contain; }
+        .stock-list-logo img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
         .stock-list-info { flex: 1; min-width: 100px; }
         .stock-list-symbol { font-size: 16px; font-weight: 600; color: #ffffff; }
         .stock-list-name { font-size: 12px; color: #6b7280; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -143,8 +143,8 @@
         .stock-card { background: #1a1f2e; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; border: 1px solid #252b3d; }
         .stock-card:hover { border-color: #3b82f6; transform: translateY(-2px); }
         .stock-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .stock-card-logo { width: 80px; height: 28px; border-radius: 6px; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .stock-card-logo img { height: 18px; width: auto; max-width: 100%; object-fit: contain; }
+        .stock-card-logo { width: 80px; height: 28px; border-radius: 6px; background: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px;}
+        .stock-card-logo img { height: 20px; width: auto; max-width: 100%; object-fit: contain; }
         .stock-card-info { flex: 1; min-width: 0; }
         .stock-card-symbol { font-size: 15px; font-weight: 600; color: #3b82f6; }
         .stock-card-name { font-size: 11px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -613,9 +613,33 @@
                 }
             });
             applySorting();
+            
+            // 현재까지 보여준 개수 유지
+            var currentDisplayCount = displayedStocks.length;
             currentPage = 0;
             displayedStocks = [];
-            loadMore();
+            
+            // 기존 개수만큼 다시 로드
+            var pagesToLoad = Math.ceil(currentDisplayCount / itemsPerPage);
+            for (var i = 0; i < pagesToLoad; i++) {
+                var start = currentPage * itemsPerPage;
+                var end = Math.min(start + itemsPerPage, filteredStocks.length);
+                var newStocks = filteredStocks.slice(start, end);
+                displayedStocks = displayedStocks.concat(newStocks);
+                currentPage++;
+            }
+            
+            renderStocks();
+            updateLoadMoreButton();
+            
+            // Normal 뷰일 때 미니 차트 로드
+            if (currentView === 'normal') {
+                setTimeout(function() {
+                    displayedStocks.forEach(function(stock) {
+                        loadMiniChart(stock.symbol);
+                    });
+                }, 100);
+            }
         }
 
         function applySorting() {
@@ -663,10 +687,10 @@
             renderStocks();
             updateLoadMoreButton();
 
-            // 미니 차트 로드 (Normal 뷰일 때만)
+            // 미니 차트 로드 (Normal 뷰일 때만) - 모든 표시된 종목
             if (currentView === 'normal') {
                 setTimeout(function() {
-                    newStocks.forEach(function(stock) {
+                    displayedStocks.forEach(function(stock) {
                         loadMiniChart(stock.symbol);
                     });
                 }, 100);

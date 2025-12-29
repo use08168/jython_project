@@ -14,6 +14,12 @@ import java.util.Optional;
 
 /**
  * 워치리스트 서비스
+ * 
+ * 그룹 로직:
+ * - 좋아요만 누르면: Ungrouped (group_id = NULL)
+ * - 그룹에 추가하면: 해당 그룹에 row 추가, Ungrouped row 삭제
+ * - 모든 그룹에서 제거하면: Ungrouped row 추가
+ * - All: 모든 종목 (DISTINCT symbol)
  */
 @Slf4j
 @Service
@@ -28,71 +34,129 @@ public class WatchlistService {
     // ========================================
 
     /**
-     * 종목 좋아요 추가
-     */
-    @Transactional
-    public UserWatchlist addToWatchlist(Long userId, String symbol) {
-        // 이미 존재하는지 확인
-        if (watchlistRepository.existsByUserIdAndSymbol(userId, symbol)) {
-            throw new RuntimeException("이미 워치리스트에 추가된 종목입니다.");
-        }
-
-        UserWatchlist watchlist = UserWatchlist.builder()
-                .userId(userId)
-                .symbol(symbol.toUpperCase())
-                .build();
-
-        UserWatchlist saved = watchlistRepository.save(watchlist);
-        log.info("워치리스트 추가: userId={}, symbol={}", userId, symbol);
-        return saved;
-    }
-
-    /**
-     * 종목 좋아요 제거
-     */
-    @Transactional
-    public void removeFromWatchlist(Long userId, String symbol) {
-        UserWatchlist watchlist = watchlistRepository.findByUserIdAndSymbol(userId, symbol)
-                .orElseThrow(() -> new RuntimeException("워치리스트에 없는 종목입니다."));
-
-        watchlistRepository.delete(watchlist);
-        log.info("워치리스트 제거: userId={}, symbol={}", userId, symbol);
-    }
-
-    /**
-     * 종목 좋아요 토글
+     * 종목 좋아요 토글 (Ungrouped로 추가/완전 삭제)
      */
     @Transactional
     public boolean toggleWatchlist(Long userId, String symbol) {
-        Optional<UserWatchlist> existing = watchlistRepository.findByUserIdAndSymbol(userId, symbol);
+        symbol = symbol.toUpperCase();
+        
+        // 이미 워치리스트에 있는지 확인 (그룹 무관)
+        boolean exists = watchlistRepository.existsByUserIdAndSymbol(userId, symbol);
 
-        if (existing.isPresent()) {
-            watchlistRepository.delete(existing.get());
-            log.info("워치리스트 제거 (토글): userId={}, symbol={}", userId, symbol);
+        if (exists) {
+            // 모든 row 삭제 (All에서 완전히 제거)
+            watchlistRepository.deleteByUserIdAndSymbol(userId, symbol);
+            log.info("워치리스트 완전 제거: userId={}, symbol={}", userId, symbol);
             return false;
         } else {
+            // Ungrouped로 추가
             UserWatchlist watchlist = UserWatchlist.builder()
                     .userId(userId)
-                    .symbol(symbol.toUpperCase())
+                    .symbol(symbol)
+                    .group(null)
                     .build();
             watchlistRepository.save(watchlist);
-            log.info("워치리스트 추가 (토글): userId={}, symbol={}", userId, symbol);
+            log.info("워치리스트 추가 (Ungrouped): userId={}, symbol={}", userId, symbol);
             return true;
         }
+    }
+
+    /**
+     * 종목을 그룹에 추가
+     */
+    @Transactional
+    public void addToGroup(Long userId, String symbol, Long groupId) {
+        symbol = symbol.toUpperCase();
+        
+        // 그룹 존재 확인
+        WatchlistGroup group = groupRepository.findByIdAndUserId(groupId, userId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹입니다."));
+
+        // 이미 해당 그룹에 있는지 확인
+        if (watchlistRepository.existsByUserIdAndSymbolAndGroupId(userId, symbol, groupId)) {
+            log.info("이미 그룹에 존재: userId={}, symbol={}, groupId={}", userId, symbol, groupId);
+            return;
+        }
+
+        // 워치리스트에 없으면 먼저 추가
+        if (!watchlistRepository.existsByUserIdAndSymbol(userId, symbol)) {
+            throw new RuntimeException("먼저 종목을 좋아요 해주세요.");
+        }
+
+        // Ungrouped row 삭제 (있으면)
+        watchlistRepository.findByUserIdAndSymbolAndGroupIsNull(userId, symbol)
+                .ifPresent(watchlistRepository::delete);
+
+        // 그룹에 추가
+        UserWatchlist watchlist = UserWatchlist.builder()
+                .userId(userId)
+                .symbol(symbol)
+                .group(group)
+                .build();
+        watchlistRepository.save(watchlist);
+        
+        log.info("그룹에 추가: userId={}, symbol={}, groupId={}", userId, symbol, groupId);
+    }
+
+    /**
+     * 종목을 그룹에서 제거
+     */
+    @Transactional
+    public void removeFromGroup(Long userId, String symbol, Long groupId) {
+        symbol = symbol.toUpperCase();
+        
+        // 해당 그룹에서 삭제
+        UserWatchlist watchlist = watchlistRepository.findByUserIdAndSymbolAndGroupId(userId, symbol, groupId)
+                .orElseThrow(() -> new RuntimeException("그룹에 없는 종목입니다."));
+        watchlistRepository.delete(watchlist);
+
+        // 더 이상 어떤 그룹에도 속하지 않으면 Ungrouped로 추가
+        if (!watchlistRepository.existsInAnyGroup(userId, symbol)) {
+            UserWatchlist ungrouped = UserWatchlist.builder()
+                    .userId(userId)
+                    .symbol(symbol)
+                    .group(null)
+                    .build();
+            watchlistRepository.save(ungrouped);
+            log.info("그룹에서 제거 → Ungrouped로 이동: userId={}, symbol={}", userId, symbol);
+        } else {
+            log.info("그룹에서 제거: userId={}, symbol={}, groupId={}", userId, symbol, groupId);
+        }
+    }
+
+    /**
+     * 종목이 특정 그룹에 속해있는지 확인
+     */
+    public boolean isInGroup(Long userId, String symbol, Long groupId) {
+        return watchlistRepository.existsByUserIdAndSymbolAndGroupId(userId, symbol, groupId);
+    }
+
+    /**
+     * 종목의 그룹 ID 목록 조회
+     */
+    public List<Long> getGroupIds(Long userId, String symbol) {
+        return watchlistRepository.findGroupIdsByUserIdAndSymbol(userId, symbol.toUpperCase());
     }
 
     /**
      * 종목 좋아요 여부 확인
      */
     public boolean isInWatchlist(Long userId, String symbol) {
-        return watchlistRepository.existsByUserIdAndSymbol(userId, symbol);
+        return watchlistRepository.existsByUserIdAndSymbol(userId, symbol.toUpperCase());
     }
 
     /**
-     * 사용자의 전체 워치리스트 조회
+     * 사용자의 전체 워치리스트 조회 (All - 중복 제거)
      */
     public List<UserWatchlist> getWatchlist(Long userId) {
         return watchlistRepository.findByUserIdOrderByCreatedAtDesc(userId);
+    }
+
+    /**
+     * 사용자의 전체 워치리스트 조회 (All - 중복 제거된 심볼 목록)
+     */
+    public List<String> getDistinctSymbols(Long userId) {
+        return watchlistRepository.findDistinctSymbolsByUserId(userId);
     }
 
     /**
@@ -106,29 +170,43 @@ public class WatchlistService {
     }
 
     /**
-     * 사용자의 워치리스트 심볼 목록
+     * 사용자의 워치리스트 심볼 목록 (중복 제거)
      */
     public List<String> getWatchlistSymbols(Long userId) {
-        return watchlistRepository.findSymbolsByUserId(userId);
+        return watchlistRepository.findDistinctSymbolsByUserId(userId);
     }
 
     /**
-     * 종목의 그룹 변경
+     * 종목의 그룹 변경 (레거시 - 단일 그룹 이동용)
      */
     @Transactional
     public void updateWatchlistGroup(Long userId, String symbol, Long groupId) {
-        UserWatchlist watchlist = watchlistRepository.findByUserIdAndSymbol(userId, symbol)
-                .orElseThrow(() -> new RuntimeException("워치리스트에 없는 종목입니다."));
+        symbol = symbol.toUpperCase();
+        
+        // 기존 모든 그룹 연결 삭제
+        List<UserWatchlist> existing = watchlistRepository.findByUserIdAndSymbol(userId, symbol);
+        watchlistRepository.deleteAll(existing);
 
         if (groupId == null) {
-            watchlist.setGroup(null);
+            // Ungrouped로 이동
+            UserWatchlist ungrouped = UserWatchlist.builder()
+                    .userId(userId)
+                    .symbol(symbol)
+                    .group(null)
+                    .build();
+            watchlistRepository.save(ungrouped);
         } else {
+            // 특정 그룹으로 이동
             WatchlistGroup group = groupRepository.findByIdAndUserId(groupId, userId)
                     .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹입니다."));
-            watchlist.setGroup(group);
+            UserWatchlist watchlist = UserWatchlist.builder()
+                    .userId(userId)
+                    .symbol(symbol)
+                    .group(group)
+                    .build();
+            watchlistRepository.save(watchlist);
         }
 
-        watchlistRepository.save(watchlist);
         log.info("워치리스트 그룹 변경: userId={}, symbol={}, groupId={}", userId, symbol, groupId);
     }
 
@@ -190,12 +268,25 @@ public class WatchlistService {
         WatchlistGroup group = groupRepository.findByIdAndUserId(groupId, userId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 그룹입니다."));
 
-        // 그룹에 속한 종목들의 그룹을 null로 변경
+        // 그룹에 속한 종목들 처리
         List<UserWatchlist> items = watchlistRepository.findByUserIdAndGroupIdOrderByCreatedAtDesc(userId, groupId);
         for (UserWatchlist item : items) {
-            item.setGroup(null);
+            String symbol = item.getSymbol();
+            watchlistRepository.delete(item);
+            
+            // 다른 그룹에도 속하지 않으면 Ungrouped로
+            if (!watchlistRepository.existsInAnyGroup(userId, symbol)) {
+                // 이미 Ungrouped가 없다면 추가
+                if (!watchlistRepository.findByUserIdAndSymbolAndGroupIsNull(userId, symbol).isPresent()) {
+                    UserWatchlist ungrouped = UserWatchlist.builder()
+                            .userId(userId)
+                            .symbol(symbol)
+                            .group(null)
+                            .build();
+                    watchlistRepository.save(ungrouped);
+                }
+            }
         }
-        watchlistRepository.saveAll(items);
 
         groupRepository.delete(group);
         log.info("그룹 삭제: userId={}, groupId={}", userId, groupId);
@@ -213,5 +304,26 @@ public class WatchlistService {
      */
     public Optional<WatchlistGroup> getGroup(Long userId, Long groupId) {
         return groupRepository.findByIdAndUserId(groupId, userId);
+    }
+
+    /**
+     * All 카운트 (중복 제거된 종목 수)
+     */
+    public long countAll(Long userId) {
+        return watchlistRepository.countDistinctSymbolByUserId(userId);
+    }
+
+    /**
+     * Ungrouped 카운트
+     */
+    public long countUngrouped(Long userId) {
+        return watchlistRepository.countByUserIdAndGroupIsNull(userId);
+    }
+
+    /**
+     * 그룹별 카운트
+     */
+    public long countByGroup(Long userId, Long groupId) {
+        return watchlistRepository.countByUserIdAndGroupId(userId, groupId);
     }
 }

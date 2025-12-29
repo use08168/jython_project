@@ -25,7 +25,7 @@
         .stock-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
         .stock-info { display: flex; align-items: center; gap: 16px; }
         .stock-icon { width: 150px; height: 56px; border-radius: 14px; background-color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 28px; overflow: hidden; padding: 8px;}
-        .stock-icon img { height: 40px; width: auto; max-width: 100%; object-fit: contain; }
+        .stock-icon img { height: 100%; width: auto; max-width: 100%; object-fit: contain; }
         .stock-title h1 { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
         .stock-title p { font-size: 14px; color: #6b7280; margin-top: 4px; }
         .stock-price-section { display: flex; align-items: baseline; gap: 16px; margin-top: 12px; }
