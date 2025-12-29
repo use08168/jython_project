@@ -3,6 +3,8 @@ package com.weenie_hut_jr.the_salty_spitoon.controller;
 import com.weenie_hut_jr.the_salty_spitoon.entity.User;
 import com.weenie_hut_jr.the_salty_spitoon.entity.UserWatchlist;
 import com.weenie_hut_jr.the_salty_spitoon.entity.WatchlistGroup;
+import com.weenie_hut_jr.the_salty_spitoon.model.Stock;
+import com.weenie_hut_jr.the_salty_spitoon.repository.StockRepository;
 import com.weenie_hut_jr.the_salty_spitoon.repository.UserRepository;
 import com.weenie_hut_jr.the_salty_spitoon.service.WatchlistService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class WatchlistController {
 
     private final WatchlistService watchlistService;
     private final UserRepository userRepository;
+    private final StockRepository stockRepository;
 
     /**
      * 사용자 ID 조회 헬퍼
@@ -158,6 +161,13 @@ public class WatchlistController {
                     item.put("symbol", w.getSymbol());
                     item.put("groupIds", watchlistService.getGroupIds(userId, w.getSymbol()));
                     item.put("createdAt", w.getCreatedAt());
+                    
+                    // Stock 정보 추가 (로고, 이름)
+                    stockRepository.findById(w.getSymbol()).ifPresent(stock -> {
+                        item.put("logoUrl", stock.getLogoUrl());
+                        item.put("name", stock.getName());
+                    });
+                    
                     return item;
                 }).collect(Collectors.toList());
             } else {
@@ -170,6 +180,13 @@ public class WatchlistController {
                     item.put("groupName", w.getGroup() != null ? w.getGroup().getName() : null);
                     item.put("groupIds", watchlistService.getGroupIds(userId, w.getSymbol()));
                     item.put("createdAt", w.getCreatedAt());
+                    
+                    // Stock 정보 추가 (로고, 이름)
+                    stockRepository.findById(w.getSymbol()).ifPresent(stock -> {
+                        item.put("logoUrl", stock.getLogoUrl());
+                        item.put("name", stock.getName());
+                    });
+                    
                     return item;
                 }).collect(Collectors.toList());
             }

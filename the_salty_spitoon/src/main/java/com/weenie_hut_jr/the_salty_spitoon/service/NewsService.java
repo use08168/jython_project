@@ -176,6 +176,25 @@ public class NewsService {
     }
 
     /**
+     * 특정 날짜의 뉴스 조회
+     */
+    public List<StockNews> getNewsByDate(java.time.LocalDate date) {
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+        return stockNewsRepository.findByDateRange(startOfDay, endOfDay);
+    }
+
+    /**
+     * 특정 월에 뉴스가 있는 날짜 목록 조회
+     */
+    public List<String> getDatesWithNews(int year, int month) {
+        List<java.sql.Date> dates = stockNewsRepository.findDatesWithNews(year, month);
+        return dates.stream()
+                .map(d -> d.toLocalDate().toString())
+                .toList();
+    }
+
+    /**
      * ========================================
      * 주가 변동률 계산
      * ========================================

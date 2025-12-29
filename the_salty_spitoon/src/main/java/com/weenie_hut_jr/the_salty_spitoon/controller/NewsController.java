@@ -18,9 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 뉴스 페이지 Controller
@@ -280,6 +283,167 @@ public class NewsController {
             log.error("북마크 확인 실패", e);
             response.put("isBookmarked", false);
             return ResponseEntity.ok(response);
+        }
+    }
+
+    // ========================================
+    // 날짜별 뉴스 API (news.jsp 새 페이지용)
+    // ========================================
+
+    /**
+     * 특정 날짜의 뉴스 조회
+     */
+    @GetMapping("/api/byDate")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNewsByDate(
+            @RequestParam String date) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE);
+            List<StockNews> newsList = newsService.getNewsByDate(localDate);
+
+            // 간단한 데이터만 반환 (성능 최적화)
+            List<Map<String, Object>> newsData = newsList.stream().map(news -> {
+                Map<String, Object> item = new HashMap<>();
+                item.put("id", news.getId());
+                item.put("symbol", news.getSymbol());
+                item.put("title", news.getTitle());
+                item.put("publishedAt", news.getPublishedAt());
+                item.put("thumbnailUrl", news.getThumbnailUrl());
+                
+                // 간단한 디코딩 (본문 일부만)
+                try {
+                    Map<String, String> decoded = newsService.decodeNewsDetail(news.getEncodedData());
+                    item.put("summary", decoded.get("summary"));
+                    item.put("publisher", decoded.get("publisher"));
+                    String fullContent = decoded.get("full_content");
+                    item.put("fullContent", fullContent != null ? fullContent.substring(0, Math.min(500, fullContent.length())) : null);
+                } catch (Exception e) {
+                    item.put("summary", null);
+                    item.put("publisher", null);
+                    item.put("fullContent", null);
+                }
+                
+                return item;
+            }).collect(Collectors.toList());
+
+            response.put("success", true);
+            response.put("data", newsData);
+            response.put("count", newsData.size());
+            response.put("date", date);
+
+            log.info("날짜별 뉴스 조회: {} - {}개", date, newsData.size());
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("날짜별 뉴스 조회 실패: {}", date, e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * 특정 월에 뉴스가 있는 날짜 목록
+     */
+    @GetMapping("/api/datesWithNews")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getDatesWithNews(
+            @RequestParam int year,
+            @RequestParam int month) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            List<String> dates = newsService.getDatesWithNews(year, month);
+
+            response.put("success", true);
+            response.put("data", dates);
+            response.put("year", year);
+            response.put("month", month);
+
+            log.info("뉴스 있는 날짜 조회: {}/{} - {}일", year, month, dates.size());
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("뉴스 있는 날짜 조회 실패: {}/{}", year, month, e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * 사용자의 북마크 목록 (newsId만)
+     */
+    @GetMapping("/api/bookmarks")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getBookmarks(
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            Long userId = getUserId(userDetails);
+            if (userId == null) {
+                response.put("success", false);
+                response.put("message", "로그인이 필요합니다.");
+                return ResponseEntity.status(401).body(response);
+            }
+
+            List<Long> newsIds = bookmarkService.getBookmarkedNewsIds(userId);
+            List<Map<String, Object>> data = newsIds.stream().map(id -> {
+                Map<String, Object> item = new HashMap<>();
+                item.put("newsId", id);
+                return item;
+            }).collect(Collectors.toList());
+
+            response.put("success", true);
+            response.put("data", data);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("북마크 목록 조회 실패", e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * 뉴스 상세 API (JSON)
+     */
+    @GetMapping("/api/detail/{id}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNewsDetailApi(
+            @PathVariable Long id) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            Map<String, Object> newsDetail = newsService.getNewsDetailById(id);
+
+            if (newsDetail == null) {
+                response.put("success", false);
+                response.put("message", "뉴스를 찾을 수 없습니다.");
+                return ResponseEntity.status(404).body(response);
+            }
+
+            response.put("success", true);
+            response.put("data", newsDetail);
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("뉴스 상세 API 조회 실패 - ID: {}", id, e);
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 }

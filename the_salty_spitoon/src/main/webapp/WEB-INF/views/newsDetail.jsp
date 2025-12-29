@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${news.title} - The Salty Spitoon</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -177,6 +178,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .price-info {
@@ -186,18 +189,33 @@
         }
 
         .price-symbol {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
         }
 
-        .price-value {
-            font-size: 24px;
-            font-weight: 700;
+        .price-changes {
+            display: flex;
+            gap: 24px;
+        }
+
+        .price-change-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .change-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .price-change {
-            font-size: 14px;
-            padding: 6px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 6px 14px;
             border-radius: 6px;
         }
 
@@ -262,6 +280,71 @@
 
         .article-body p {
             margin-bottom: 16px;
+        }
+        
+        /* 마크다운 스타일 */
+        .article-body h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: 28px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #252b3d;
+        }
+        
+        .article-body h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+        
+        .article-body strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .article-body ul, .article-body ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+        
+        .article-body li {
+            margin-bottom: 8px;
+            padding-left: 8px;
+        }
+        
+        .article-body ul li::marker {
+            color: #3b82f6;
+        }
+        
+        .article-body blockquote {
+            margin: 20px 0;
+            padding: 16px 20px;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #9ca3af;
+        }
+        
+        .article-body code {
+            background-color: #252b3d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+        }
+        
+        .article-body a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        
+        .article-body a:hover {
+            text-decoration: underline;
         }
 
         /* 액션 바 */
@@ -350,9 +433,9 @@
 
         <div class="navbar-menu">
             <a href="/dashboard">Market</a>
+            <a href="/stock">Stocks</a>
             <a href="/watchlist">Watchlist</a>
             <a href="/news" class="active">News</a>
-            <a href="/news/saved">Saved</a>
             <a href="/admin">Admin</a>
         </div>
 
@@ -397,15 +480,28 @@
         </header>
 
         <!-- 주가 변동 카드 -->
-        <c:if test="${not empty priceChange}">
+        <c:if test="${priceChange.available}">
             <div class="price-change-card">
                 <div class="price-info">
-                    <span class="price-symbol">${news.symbol}</span>
-                    <span class="price-value">$${priceChange.currentPrice}</span>
-                    <span class="price-change ${priceChange.changePercent >= 0 ? 'positive' : 'negative'}">
-                        ${priceChange.changePercent >= 0 ? '+' : ''}${priceChange.changePercent}%
-                        <span style="font-size: 11px; margin-left: 4px;">since article</span>
-                    </span>
+                    <span class="price-symbol">📈 ${news.symbol} Price Impact</span>
+                </div>
+                <div class="price-changes">
+                    <c:if test="${not empty priceChange.change1h}">
+                        <div class="price-change-item">
+                            <span class="change-label">1H After</span>
+                            <span class="price-change ${priceChange.change1h >= 0 ? 'positive' : 'negative'}">
+                                ${priceChange.change1h >= 0 ? '+' : ''}${priceChange.change1h}%
+                            </span>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty priceChange.change1d}">
+                        <div class="price-change-item">
+                            <span class="change-label">1D After</span>
+                            <span class="price-change ${priceChange.change1d >= 0 ? 'positive' : 'negative'}">
+                                ${priceChange.change1d >= 0 ? '+' : ''}${priceChange.change1d}%
+                            </span>
+                        </div>
+                    </c:if>
                 </div>
                 <a href="/stock/detail/${news.symbol}" class="view-stock-btn">View Stock →</a>
             </div>
@@ -425,10 +521,11 @@
                 </div>
             </c:if>
             
-            <div class="article-body">
+            <div class="article-body" id="article-body">
                 <c:choose>
                     <c:when test="${not empty news.fullContent}">
-                        ${news.fullContent}
+                        <div id="markdown-content" style="display:none;"><c:out value="${news.fullContent}" escapeXml="false" /></div>
+                        <div id="rendered-content"></div>
                     </c:when>
                     <c:otherwise>
                         <p style="color: #6b7280; text-align: center;">
@@ -490,6 +587,29 @@
     </main>
 
     <script>
+        // 마크다운 렌더링
+        document.addEventListener('DOMContentLoaded', function() {
+            var markdownContent = document.getElementById('markdown-content');
+            var renderedContent = document.getElementById('rendered-content');
+            
+            if (markdownContent && renderedContent) {
+                var markdown = markdownContent.textContent || markdownContent.innerText;
+                
+                if (markdown && markdown.trim()) {
+                    // marked 설정
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true
+                    });
+                    
+                    // 마크다운 파싱 및 렌더링
+                    renderedContent.innerHTML = marked.parse(markdown);
+                } else {
+                    renderedContent.innerHTML = '<p style="color: #6b7280;">Content is loading...</p>';
+                }
+            }
+        });
+        
         // 시간 표시
         var publishedAt = '<c:out value="${news.publishedAt}" />';
         if (publishedAt) {
@@ -523,13 +643,15 @@
         }
 
         // 북마크 토글
-        function toggleBookmark(newsId, btn) {
+        function toggleBookmark(btn) {
+            var newsId = btn.getAttribute('data-news-id');
+            
             fetch('/news/api/bookmark/toggle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ newsId: newsId })
+                body: JSON.stringify({ newsId: parseInt(newsId) })
             })
             .then(function(response) {
                 if (response.status === 401) {

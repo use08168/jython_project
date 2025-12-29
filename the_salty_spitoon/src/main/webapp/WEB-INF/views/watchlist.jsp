@@ -135,6 +135,24 @@
         .sidebar-card h3 { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 16px; }
         .sidebar-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; color: #374151; font-size: 13px; }
 
+        /* 북마크 뉴스 섹션 */
+        .bookmark-news-list { max-height: 400px; overflow-y: auto; }
+        .bookmark-news-list::-webkit-scrollbar { width: 4px; }
+        .bookmark-news-list::-webkit-scrollbar-track { background: #1a1f2e; }
+        .bookmark-news-list::-webkit-scrollbar-thumb { background: #374151; border-radius: 2px; }
+        .bookmark-news-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #252b3d; cursor: pointer; transition: all 0.2s; }
+        .bookmark-news-item:last-child { border-bottom: none; }
+        .bookmark-news-item:hover { background: #252b3d; margin: 0 -20px; padding: 12px 20px; }
+        .bookmark-news-thumb { width: 60px; height: 40px; border-radius: 6px; object-fit: cover; background: #252b3d; flex-shrink: 0; }
+        .bookmark-news-info { flex: 1; min-width: 0; }
+        .bookmark-news-symbol { font-size: 11px; color: #3b82f6; font-weight: 600; margin-bottom: 4px; }
+        .bookmark-news-title { font-size: 12px; color: #d1d5db; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .bookmark-news-time { font-size: 10px; color: #6b7280; margin-top: 4px; }
+        .bookmark-news-empty { text-align: center; padding: 30px 10px; color: #6b7280; font-size: 13px; }
+        .bookmark-news-empty a { color: #3b82f6; }
+        .bookmark-unbookmark-btn { padding: 4px; border-radius: 4px; background: transparent; border: none; color: #f59e0b; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+        .bookmark-unbookmark-btn:hover { background: rgba(245, 158, 11, 0.15); }
+
         /* 모달 */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 1000; justify-content: center; align-items: center; }
         .modal-overlay.active { display: flex; }
@@ -286,9 +304,11 @@
         <!-- 사이드바 -->
         <aside class="sidebar">
             <div class="sidebar-card">
-                <h3>📊 Coming Soon</h3>
-                <div class="sidebar-placeholder">
-                    Additional features will be added here
+                <h3>📄 Saved News</h3>
+                <div id="bookmarked-news-container">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -371,6 +391,7 @@
         // ========================================
         document.addEventListener('DOMContentLoaded', function() {
             loadGroups();
+            loadBookmarkedNews();
             setupColorPicker();
             setupModalClose();
             setupGroupTabsScroll();
@@ -1097,6 +1118,103 @@
                     alert(data.message);
                 }
             });
+        }
+
+        // ========================================
+        // 북마크된 뉴스 (사이드바)
+        // ========================================
+        var bookmarkedNewsData = [];
+
+        function loadBookmarkedNews() {
+            fetch('/news/api/bookmarks')
+                .then(function(r) { 
+                    if (r.status === 401) return { success: false };
+                    return r.json(); 
+                })
+                .then(function(data) {
+                    if (data && data.success && data.data && data.data.length > 0) {
+                        // newsId 목록으로 상세 정보 가져오기
+                        var newsIds = data.data.map(function(b) { return b.newsId; });
+                        loadBookmarkedNewsDetails(newsIds);
+                    } else {
+                        renderBookmarkedNews([]);
+                    }
+                })
+                .catch(function() {
+                    renderBookmarkedNews([]);
+                });
+        }
+
+        function loadBookmarkedNewsDetails(newsIds) {
+            // 각 뉴스 ID에 대해 상세 정보 로드 (최대 10개)
+            var idsToLoad = newsIds.slice(0, 10);
+            var promises = idsToLoad.map(function(id) {
+                return fetch('/news/api/detail/' + id)
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        if (data && data.success) {
+                            return data.data;
+                        }
+                        return null;
+                    })
+                    .catch(function() { return null; });
+            });
+
+            Promise.all(promises).then(function(results) {
+                bookmarkedNewsData = results.filter(function(r) { return r !== null; });
+                renderBookmarkedNews(bookmarkedNewsData);
+            });
+        }
+
+        function renderBookmarkedNews(newsList) {
+            var container = document.getElementById('bookmarked-news-container');
+            
+            if (newsList.length === 0) {
+                container.innerHTML = '<div class="bookmark-news-empty">No saved news yet.<br><a href="/news">Browse news →</a></div>';
+                return;
+            }
+
+            var html = '<div class="bookmark-news-list">';
+            newsList.forEach(function(news) {
+                html += '<div class="bookmark-news-item" onclick="location.href=\'/news/detail/' + news.id + '\'">';
+                if (news.thumbnailUrl) {
+                    html += '<img src="' + news.thumbnailUrl + '" class="bookmark-news-thumb" onerror="this.style.display=\'none\'">';
+                }
+                html += '<div class="bookmark-news-info">';
+                html += '<div class="bookmark-news-symbol">' + (news.symbol || '') + '</div>';
+                html += '<div class="bookmark-news-title">' + escapeHtml(news.title) + '</div>';
+                html += '<div class="bookmark-news-time">' + formatNewsTime(news.publishedAt) + '</div>';
+                html += '</div>';
+                html += '<button class="bookmark-unbookmark-btn" onclick="event.stopPropagation(); unbookmarkNews(' + news.id + ')" title="Remove bookmark">';
+                html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>';
+                html += '</button>';
+                html += '</div>';
+            });
+            html += '</div>';
+
+            container.innerHTML = html;
+        }
+
+        function unbookmarkNews(newsId) {
+            fetch('/news/api/bookmark/toggle', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ newsId: newsId })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    // 리스트에서 제거 후 다시 렌더링
+                    bookmarkedNewsData = bookmarkedNewsData.filter(function(n) { return n.id !== newsId; });
+                    renderBookmarkedNews(bookmarkedNewsData);
+                }
+            });
+        }
+
+        function formatNewsTime(dateStr) {
+            if (!dateStr) return '';
+            var date = new Date(dateStr);
+            return date.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' });
         }
     </script>
 </body>

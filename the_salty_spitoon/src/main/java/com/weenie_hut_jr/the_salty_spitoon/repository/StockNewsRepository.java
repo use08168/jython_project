@@ -74,4 +74,12 @@ public interface StockNewsRepository extends JpaRepository<StockNews, Long> {
      * 특정 날짜 이후 뉴스 삭제 (관리용)
      */
     void deleteByPublishedAtBefore(LocalDateTime date);
+
+    /**
+     * 특정 월에 뉴스가 있는 날짜 목록 조회
+     */
+    @Query("SELECT DISTINCT FUNCTION('DATE', n.publishedAt) FROM StockNews n " +
+           "WHERE YEAR(n.publishedAt) = :year AND MONTH(n.publishedAt) = :month " +
+           "ORDER BY FUNCTION('DATE', n.publishedAt)")
+    List<java.sql.Date> findDatesWithNews(@Param("year") int year, @Param("month") int month);
 }

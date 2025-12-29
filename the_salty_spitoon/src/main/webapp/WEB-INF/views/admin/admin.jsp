@@ -132,6 +132,18 @@
         .ws-status.disconnected { background: rgba(239, 83, 80, 0.2); color: #ef5350; }
         .ws-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
         
+        /* Badge */
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .badge-success { background: rgba(38, 166, 154, 0.2); color: #26a69a; }
+        .badge-warning { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        
+        /* 뉴스 로그 섹션 */
+        .news-log-section { margin-top: 20px; padding: 15px; background: #2a2e39; border-radius: 8px; }
+        .news-log-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .news-log-title { font-size: 0.9rem; color: #787b86; }
+        .news-log-container { max-height: 200px; overflow-y: auto; font-family: 'Consolas', monospace; font-size: 0.8rem; }
+        .news-log-entry { padding: 6px 8px; border-bottom: 1px solid #363a45; color: #d1d4dc; }
+        
         /* 수집 대상 선택 */
         .target-selector { margin-bottom: 20px; }
         .target-selector label { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 8px; }
@@ -299,9 +311,28 @@
         <div class="card">
             <div class="card-title">📰 뉴스 데이터 수집</div>
             <p style="color: #868e96; margin-bottom: 20px; font-size: 0.9rem;">
-                Yahoo Finance API에서 뉴스를 수집하고, 기사 본문을 크롤링합니다.<br>
-                ✅ MySQL 중복 체크: 이미 DB에 있는 뉴스는 자동으로 스킵됩니다.
+                Yahoo Finance API에서 뉴스를 수집하고, OpenAI로 한글 번역 + 마크다운 본문을 생성합니다.<br>
+                ✅ 20분마다 자동 수집 | ✅ MySQL 중복 체크 | ✅ 외부 기사 스킵
             </p>
+            
+            <!-- 스케줄러 상태 -->
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding: 15px; background: #2a2e39; border-radius: 8px;">
+                <div style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                        <span style="font-weight: 500; color: #d1d4dc;">🕒 자동 수집 (20분)</span>
+                        <span id="schedulerBadge" class="badge ${newsSchedulerEnabled ? 'badge-success' : 'badge-warning'}">
+                            ${newsSchedulerEnabled ? 'ON' : 'OFF'}
+                        </span>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #787b86;">
+                        마지막 수집: <span id="lastCollectionTime">${lastNewsCollectionTime != null ? lastNewsCollectionTime : '-'}</span>
+                        | 저장: <span id="lastCollectionCount">${lastNewsCollectionCount}</span>개
+                    </div>
+                </div>
+                <button id="schedulerToggleBtn" class="btn-secondary ${newsSchedulerEnabled ? '' : 'btn-warning'}" onclick="toggleNewsScheduler()">
+                    ${newsSchedulerEnabled ? '⏸️ 일시정지' : '▶️ 활성화'}
+                </button>
+            </div>
             
             <!-- 수집 대상 선택 -->
             <div class="target-selector">
@@ -348,6 +379,22 @@
                     <div id="newsProgressBar" style="height: 100%; background: linear-gradient(90deg, #2962ff, #26a69a); width: 0%; transition: width 0.3s;"></div>
                 </div>
                 <div id="newsStatusText" style="padding: 12px 16px; background: rgba(41, 98, 255, 0.1); border-radius: 8px; color: #d1d4dc; font-size: 0.9rem;">대기 중...</div>
+            </div>
+            
+            <!-- 수집 로그 -->
+            <div class="news-log-section">
+                <div class="news-log-header">
+                    <span class="news-log-title">📝 수집 로그</span>
+                    <button class="log-toggle" onclick="refreshNewsLogs()">🔄 새로고침</button>
+                </div>
+                <div class="news-log-container" id="newsLogContainer">
+                    <c:forEach var="log" items="${newsCollectionLogs}">
+                        <div class="news-log-entry">${log}</div>
+                    </c:forEach>
+                    <c:if test="${empty newsCollectionLogs}">
+                        <div class="news-log-entry" style="color: #787b86;">로그가 없습니다.</div>
+                    </c:if>
+                </div>
             </div>
         </div>
         
@@ -913,6 +960,53 @@
                 .then(function(r) { return r.text(); })
                 .then(function(data) { resultDiv.textContent = data; })
                 .catch(function(e) { resultDiv.textContent = '❌ 오류: ' + e; });
+        }
+        
+        // 뉴스 스케줄러 토글
+        function toggleNewsScheduler() {
+            var badge = document.getElementById('schedulerBadge');
+            var btn = document.getElementById('schedulerToggleBtn');
+            var isCurrentlyEnabled = badge.textContent.trim() === 'ON';
+            var newEnabled = !isCurrentlyEnabled;
+            
+            fetch('/admin/news-scheduler-toggle?enabled=' + newEnabled, { method: 'POST' })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        badge.textContent = data.enabled ? 'ON' : 'OFF';
+                        badge.className = 'badge ' + (data.enabled ? 'badge-success' : 'badge-warning');
+                        btn.textContent = data.enabled ? '⏸️ 일시정지' : '▶️ 활성화';
+                        btn.className = 'btn-secondary' + (data.enabled ? '' : ' btn-warning');
+                        refreshNewsLogs();
+                    }
+                })
+                .catch(function(e) {
+                    alert('스케줄러 토글 실패: ' + e);
+                });
+        }
+        
+        // 뉴스 로그 새로고침
+        function refreshNewsLogs() {
+            fetch('/admin/news-collection-status')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var container = document.getElementById('newsLogContainer');
+                    if (data.logs && data.logs.length > 0) {
+                        var html = '';
+                        for (var i = 0; i < data.logs.length; i++) {
+                            html += '<div class="news-log-entry">' + data.logs[i] + '</div>';
+                        }
+                        container.innerHTML = html;
+                    } else {
+                        container.innerHTML = '<div class="news-log-entry" style="color: #787b86;">로그가 없습니다.</div>';
+                    }
+                    
+                    // 상태 업데이트
+                    document.getElementById('lastCollectionCount').textContent = data.lastCollectionCount || 0;
+                    if (data.lastCollectionTime) {
+                        document.getElementById('lastCollectionTime').textContent = data.lastCollectionTime;
+                    }
+                });
         }
     </script>
 </body>
