@@ -148,6 +148,41 @@
         .target-selector { margin-bottom: 20px; }
         .target-selector label { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 8px; }
         .target-selector input[type="radio"] { accent-color: #2962ff; }
+        
+        /* 달력 스타일 */
+        .calendar-container { margin-bottom: 20px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #2a2e39; border-radius: 6px; }
+        .calendar-header button { background: none; border: none; color: #2962ff; font-size: 1.2rem; cursor: pointer; padding: 5px 10px; }
+        .calendar-header button:hover { background: #363a45; border-radius: 4px; }
+        .calendar-title { font-size: 1.1rem; font-weight: 600; color: #d1d4dc; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .calendar-day-header { text-align: center; font-size: 0.75rem; color: #787b86; padding: 8px 4px; font-weight: 600; }
+        .calendar-day { text-align: center; padding: 10px 4px; border-radius: 6px; cursor: pointer; transition: all 0.2s; position: relative; min-height: 60px; background: #2a2e39; }
+        .calendar-day:hover:not(.disabled):not(.empty) { background: #363a45; }
+        .calendar-day.disabled { opacity: 0.3; cursor: not-allowed; }
+        .calendar-day.empty { background: transparent; cursor: default; }
+        .calendar-day.selected { background: #2962ff; color: white; }
+        .calendar-day.today { border: 2px solid #26a69a; }
+        .calendar-day .day-number { font-size: 0.9rem; font-weight: 500; }
+        .calendar-day .news-count { font-size: 0.7rem; margin-top: 4px; }
+        .calendar-day .news-count.has-news { color: #26a69a; }
+        .calendar-day .news-count.no-news { color: #787b86; }
+        .calendar-day .saved-badge { font-size: 0.65rem; color: #f59e0b; margin-top: 2px; }
+        .calendar-legend { display: flex; gap: 20px; margin-top: 15px; justify-content: center; font-size: 0.8rem; color: #787b86; }
+        .calendar-legend span { display: flex; align-items: center; gap: 6px; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .legend-dot.available { background: #26a69a; }
+        .legend-dot.saved { background: #f59e0b; }
+        .legend-dot.today { border: 2px solid #26a69a; background: transparent; }
+        
+        /* 선택된 날짜 정보 */
+        .selected-date-info { padding: 15px; background: rgba(41, 98, 255, 0.1); border-radius: 8px; margin-bottom: 20px; display: none; }
+        .selected-date-info.visible { display: block; }
+        .selected-date-title { font-size: 1rem; font-weight: 600; color: #2962ff; margin-bottom: 10px; }
+        .selected-date-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+        .selected-date-stats .stat { text-align: center; }
+        .selected-date-stats .stat-value { font-size: 1.3rem; font-weight: bold; }
+        .selected-date-stats .stat-label { font-size: 0.8rem; color: #787b86; }
     </style>
 </head>
 <body>
@@ -398,6 +433,87 @@
             </div>
         </div>
         
+        <!-- 날짜별 뉴스 수집 카드 -->
+        <div class="card">
+            <div class="card-title">📅 날짜별 뉴스 수집</div>
+            <p style="color: #868e96; margin-bottom: 20px; font-size: 0.9rem;">
+                Yahoo Finance API에서 수집 가능한 뉴스 URL을 스캔하고, 원하는 날짜의 뉴스를 선택적으로 수집합니다.<br>
+                ✅ URL 스캔 → 날짜 선택 → 크롤링 + 번역 + 저장
+            </p>
+            
+            <!-- 스캔 상태 -->
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding: 15px; background: #2a2e39; border-radius: 8px;">
+                <div style="flex: 1;">
+                    <div style="font-weight: 500; color: #d1d4dc; margin-bottom: 5px;">📊 스캔 상태</div>
+                    <div style="font-size: 0.85rem; color: #787b86;">
+                        마지막 스캔: <span id="scanTimestamp">-</span>
+                    </div>
+                </div>
+                <button id="scanUrlsBtn" class="btn-secondary btn-success" onclick="scanNewsUrls()">
+                    🔍 URL 스캔
+                </button>
+            </div>
+            
+            <!-- 달력 -->
+            <div class="calendar-container" id="calendarContainer" style="display: none;">
+                <div class="calendar-header">
+                    <button onclick="changeMonth(-1)">◀</button>
+                    <span class="calendar-title" id="calendarTitle">2025년 12월</span>
+                    <button onclick="changeMonth(1)">▶</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <div class="calendar-day-header">일</div>
+                    <div class="calendar-day-header">월</div>
+                    <div class="calendar-day-header">화</div>
+                    <div class="calendar-day-header">수</div>
+                    <div class="calendar-day-header">목</div>
+                    <div class="calendar-day-header">금</div>
+                    <div class="calendar-day-header">토</div>
+                </div>
+                <div class="calendar-legend">
+                    <span><div class="legend-dot available"></div> 수집 가능</span>
+                    <span><div class="legend-dot saved"></div> 저장됨</span>
+                    <span><div class="legend-dot today"></div> 오늘</span>
+                </div>
+            </div>
+            
+            <!-- 선택된 날짜 정보 -->
+            <div class="selected-date-info" id="selectedDateInfo">
+                <div class="selected-date-title" id="selectedDateTitle">2025년 12월 25일</div>
+                <div class="selected-date-stats">
+                    <div class="stat">
+                        <div class="stat-value" style="color: #26a69a;" id="selectedTotal">0</div>
+                        <div class="stat-label">전체 뉴스</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" style="color: #f59e0b;" id="selectedSaved">0</div>
+                        <div class="stat-label">저장됨</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" style="color: #2962ff;" id="selectedUnsaved">0</div>
+                        <div class="stat-label">미저장</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="collectByDateBtn" class="btn-primary" onclick="collectNewsByDate()" disabled>
+                <span>📅</span>
+                <span>선택한 날짜 뉴스 수집</span>
+            </button>
+            
+            <!-- 진행 상태 -->
+            <div id="dateCollectProgress" style="margin-top: 20px; display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="color: #787b86;" id="dateProgressText">준비 중...</span>
+                    <span style="font-weight: bold; color: #2962ff;" id="dateProgressPercent">0%</span>
+                </div>
+                <div style="height: 10px; background: #2a2e39; border-radius: 5px; overflow: hidden; margin-bottom: 15px;">
+                    <div id="dateProgressBar" style="height: 100%; background: linear-gradient(90deg, #2962ff, #26a69a); width: 0%; transition: width 0.3s;"></div>
+                </div>
+                <div id="dateStatusText" style="padding: 12px 16px; background: rgba(41, 98, 255, 0.1); border-radius: 8px; color: #d1d4dc; font-size: 0.9rem;">대기 중...</div>
+            </div>
+        </div>
+        
         <!-- 재무 데이터 카드 -->
         <div class="card">
             <div class="card-title">💰 재무 데이터 관리</div>
@@ -458,6 +574,7 @@
             setupNewsCountSelector();
             setupTagInputs();
             checkCollectionStatus();
+            checkScannedData(); // 날짜별 뉴스 스캔 데이터 확인
         });
         
         // CSV 종목 목록 로드
@@ -1008,6 +1125,282 @@
                     }
                 });
         }
+        
+        // ========================================
+        // 날짜별 뉴스 수집 (달력)
+        // ========================================
+        var scannedDates = {}; // { '2025-12-25': { total: 45, saved: 20, unsaved: 25 } }
+        var selectedDate = null;
+        var currentMonth = new Date();
+        var isDateCollecting = false;
+        var datePollingInterval = null;
+        
+        // URL 스캔 시작
+        function scanNewsUrls() {
+            var btn = document.getElementById('scanUrlsBtn');
+            btn.disabled = true;
+            btn.textContent = '⚙️ 스캔 중...';
+            
+            fetch('/admin/scan-news-urls', { method: 'POST' })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        // 폴링으로 상태 확인
+                        var pollInterval = setInterval(function() {
+                            fetch('/admin/scanned-news-summary')
+                                .then(function(r) { return r.json(); })
+                                .then(function(summary) {
+                                    if (!summary.isCollecting) {
+                                        clearInterval(pollInterval);
+                                        btn.disabled = false;
+                                        btn.textContent = '🔍 URL 스캔';
+                                        loadScannedData(summary);
+                                    } else {
+                                        btn.textContent = '⚙️ ' + summary.status;
+                                    }
+                                });
+                        }, 2000);
+                    } else {
+                        alert(data.message);
+                        btn.disabled = false;
+                        btn.textContent = '🔍 URL 스캔';
+                    }
+                })
+                .catch(function(e) {
+                    alert('URL 스캔 실패: ' + e);
+                    btn.disabled = false;
+                    btn.textContent = '🔍 URL 스캔';
+                });
+        }
+        
+        // 스캔 데이터 로드
+        function loadScannedData(summary) {
+            if (summary.scanTimestamp) {
+                document.getElementById('scanTimestamp').textContent = summary.scanTimestamp;
+            }
+            
+            scannedDates = summary.dates || {};
+            
+            if (Object.keys(scannedDates).length > 0) {
+                document.getElementById('calendarContainer').style.display = 'block';
+                renderCalendar();
+            }
+        }
+        
+        // 페이지 로드 시 스캔 데이터 확인
+        function checkScannedData() {
+            fetch('/admin/scanned-news-summary')
+                .then(function(r) { return r.json(); })
+                .then(function(summary) {
+                    if (summary.success && summary.dates && Object.keys(summary.dates).length > 0) {
+                        loadScannedData(summary);
+                    }
+                });
+        }
+        
+        // 달력 렌더링
+        function renderCalendar() {
+            var year = currentMonth.getFullYear();
+            var month = currentMonth.getMonth();
+            
+            // 헤더 업데이트
+            var monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+            document.getElementById('calendarTitle').textContent = year + '년 ' + monthNames[month];
+            
+            // 그리드 초기화
+            var grid = document.getElementById('calendarGrid');
+            var headers = grid.querySelectorAll('.calendar-day-header');
+            grid.innerHTML = '';
+            headers.forEach(function(h) { grid.appendChild(h); });
+            
+            // 첫날 요일과 마지막 날
+            var firstDay = new Date(year, month, 1).getDay();
+            var lastDate = new Date(year, month + 1, 0).getDate();
+            
+            // 오늘 날짜
+            var today = new Date();
+            var todayStr = today.toISOString().split('T')[0];
+            
+            // 빈 칸 추가
+            for (var i = 0; i < firstDay; i++) {
+                var emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day empty';
+                grid.appendChild(emptyCell);
+            }
+            
+            // 날짜 칸 추가
+            for (var day = 1; day <= lastDate; day++) {
+                var dateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+                var dateData = scannedDates[dateStr];
+                
+                var cell = document.createElement('div');
+                cell.className = 'calendar-day';
+                cell.dataset.date = dateStr;
+                
+                // 오늘인지 확인
+                if (dateStr === todayStr) {
+                    cell.classList.add('today');
+                }
+                
+                // 날짜 번호
+                var dayNum = document.createElement('div');
+                dayNum.className = 'day-number';
+                dayNum.textContent = day;
+                cell.appendChild(dayNum);
+                
+                if (dateData) {
+                    // 뉴스 개수
+                    var countDiv = document.createElement('div');
+                    countDiv.className = 'news-count has-news';
+                    countDiv.textContent = dateData.total + '개';
+                    cell.appendChild(countDiv);
+                    
+                    // 저장된 개수
+                    if (dateData.saved > 0) {
+                        var savedDiv = document.createElement('div');
+                        savedDiv.className = 'saved-badge';
+                        savedDiv.textContent = '저장: ' + dateData.saved;
+                        cell.appendChild(savedDiv);
+                    }
+                    
+                    // 클릭 이벤트
+                    cell.addEventListener('click', function() {
+                        selectDate(this.dataset.date);
+                    });
+                } else {
+                    cell.classList.add('disabled');
+                    var noNews = document.createElement('div');
+                    noNews.className = 'news-count no-news';
+                    noNews.textContent = '-';
+                    cell.appendChild(noNews);
+                }
+                
+                // 선택된 날짜인지 확인
+                if (selectedDate === dateStr) {
+                    cell.classList.add('selected');
+                }
+                
+                grid.appendChild(cell);
+            }
+        }
+        
+        // 월 변경
+        function changeMonth(delta) {
+            currentMonth.setMonth(currentMonth.getMonth() + delta);
+            renderCalendar();
+        }
+        
+        // 날짜 선택
+        function selectDate(dateStr) {
+            selectedDate = dateStr;
+            var dateData = scannedDates[dateStr];
+            
+            // 달력 업데이트
+            renderCalendar();
+            
+            // 선택 정보 표시
+            var infoDiv = document.getElementById('selectedDateInfo');
+            infoDiv.classList.add('visible');
+            
+            var parts = dateStr.split('-');
+            document.getElementById('selectedDateTitle').textContent = 
+                parts[0] + '년 ' + parseInt(parts[1]) + '월 ' + parseInt(parts[2]) + '일';
+            
+            document.getElementById('selectedTotal').textContent = dateData.total;
+            document.getElementById('selectedSaved').textContent = dateData.saved;
+            document.getElementById('selectedUnsaved').textContent = dateData.unsaved;
+            
+            // 버튼 활성화
+            var btn = document.getElementById('collectByDateBtn');
+            if (dateData.unsaved > 0) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>📅</span><span>' + dateStr + ' 뉴스 ' + dateData.unsaved + '개 수집</span>';
+            } else {
+                btn.disabled = true;
+                btn.innerHTML = '<span>✅</span><span>모든 뉴스가 이미 저장됨</span>';
+            }
+        }
+        
+        // 날짜별 뉴스 수집
+        function collectNewsByDate() {
+            if (!selectedDate || isDateCollecting) return;
+            
+            var dateData = scannedDates[selectedDate];
+            if (!confirm(selectedDate + ' 뉴스 ' + dateData.unsaved + '개를 수집하시겠습니까?')) return;
+            
+            isDateCollecting = true;
+            var btn = document.getElementById('collectByDateBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳</span><span>수집 중...</span>';
+            document.getElementById('dateCollectProgress').style.display = 'block';
+            
+            fetch('/admin/collect-news-by-date?date=' + selectedDate, { method: 'POST' })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        // 폴링으로 상태 확인
+                        datePollingInterval = setInterval(pollDateCollectionStatus, 2000);
+                    } else {
+                        alert(data.message);
+                        resetDateCollectUI();
+                    }
+                })
+                .catch(function(e) {
+                    alert('수집 시작 실패: ' + e);
+                    resetDateCollectUI();
+                });
+        }
+        
+        // 날짜별 수집 상태 폴링
+        function pollDateCollectionStatus() {
+            fetch('/admin/scanned-news-summary')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    document.getElementById('dateStatusText').textContent = data.status;
+                    
+                    if (!data.isCollecting) {
+                        clearInterval(datePollingInterval);
+                        isDateCollecting = false;
+                        
+                        // 스캔 데이터 재로드
+                        loadScannedData(data);
+                        
+                        if (data.status.indexOf('Complete') !== -1) {
+                            alert('뉴스 수집이 완료되었습니다!');
+                        }
+                        
+                        resetDateCollectUI();
+                        
+                        // 선택된 날짜 정보 업데이트
+                        if (selectedDate && scannedDates[selectedDate]) {
+                            selectDate(selectedDate);
+                        }
+                    }
+                });
+        }
+        
+        // UI 초기화
+        function resetDateCollectUI() {
+            isDateCollecting = false;
+            var btn = document.getElementById('collectByDateBtn');
+            
+            if (selectedDate && scannedDates[selectedDate]) {
+                var dateData = scannedDates[selectedDate];
+                if (dateData.unsaved > 0) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>📅</span><span>' + selectedDate + ' 뉴스 ' + dateData.unsaved + '개 수집</span>';
+                } else {
+                    btn.disabled = true;
+                    btn.innerHTML = '<span>✅</span><span>모든 뉴스가 이미 저장됨</span>';
+                }
+            } else {
+                btn.disabled = true;
+                btn.innerHTML = '<span>📅</span><span>선택한 날짜 뉴스 수집</span>';
+            }
+            
+            document.getElementById('dateCollectProgress').style.display = 'none';
+        }
+        
     </script>
 </body>
 </html>

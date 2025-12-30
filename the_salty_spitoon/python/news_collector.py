@@ -685,14 +685,85 @@ def parse_arguments():
         help='Headless mode (default: True)'
     )
     
+    # New: Date-based collection
+    parser.add_argument(
+        '--date',
+        type=str,
+        default='',
+        help='Specific date to collect (YYYY-MM-DD). Reads from scanned_news.json'
+    )
+    
     return parser.parse_args()
+
+
+def load_news_from_scan(target_date):
+    """
+    Load news for specific date from scanned_news.json
+    
+    Args:
+        target_date: Date string (YYYY-MM-DD)
+    
+    Returns:
+        List of news items for that date
+    """
+    scan_file = OUTPUT_DIR / 'scanned_news.json'
+    
+    if not scan_file.exists():
+        raise FileNotFoundError(f"Scan file not found: {scan_file}. Run news_date_scanner.py first.")
+    
+    with open(scan_file, 'r', encoding='utf-8') as f:
+        scan_data = json.load(f)
+    
+    news_by_date = scan_data.get('news_by_date', {})
+    
+    if target_date not in news_by_date:
+        available_dates = list(news_by_date.keys())
+        raise ValueError(f"Date {target_date} not found. Available: {available_dates}")
+    
+    return news_by_date[target_date]
 
 
 def main():
     """Main function"""
     args = parse_arguments()
     
-    # Determine symbols
+    # Mode: Date-based collection
+    if args.date:
+        print(f"[START] News Collector (Date Mode: {args.date})", flush=True)
+        logger.info("=" * 60)
+        logger.info(f"News Collector - Date Mode: {args.date}")
+        logger.info("=" * 60)
+        
+        try:
+            # Load news from scanned_news.json
+            news_list = load_news_from_scan(args.date)
+            logger.info(f"[LOADED] {len(news_list)} news for {args.date}")
+            
+            if not news_list:
+                print(f"[COMPLETE] No news for {args.date}", flush=True)
+                return
+            
+            # Crawl + Translate + Encode
+            processed_news = process_news(news_list, headless=args.headless)
+            
+            if not processed_news:
+                print("[COMPLETE] No news processed", flush=True)
+                return
+            
+            # Save JSON
+            save_to_json(processed_news)
+            
+            print(f"[COMPLETE] Processed {len(processed_news)} news for {args.date}", flush=True)
+            
+        except Exception as e:
+            print(f"[FATAL] {str(e)}", flush=True)
+            logger.error(f"[FATAL] {e}")
+            import traceback
+            traceback.print_exc()
+        
+        return
+    
+    # Mode: Standard collection (existing logic)
     if args.symbols:
         symbols = [s.strip().upper() for s in args.symbols.split(',') if s.strip()]
         logger.info(f"[MODE] Specific symbols: {symbols}")

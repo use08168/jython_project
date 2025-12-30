@@ -136,7 +136,7 @@
         .sidebar-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; color: #374151; font-size: 13px; }
 
         /* 북마크 뉴스 섹션 */
-        .bookmark-news-list { max-height: 400px; overflow-y: auto; }
+        .bookmark-news-list { max-height: 700px; overflow-y: auto; }
         .bookmark-news-list::-webkit-scrollbar { width: 4px; }
         .bookmark-news-list::-webkit-scrollbar-track { background: #1a1f2e; }
         .bookmark-news-list::-webkit-scrollbar-thumb { background: #374151; border-radius: 2px; }

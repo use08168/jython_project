@@ -559,4 +559,100 @@ public class AdminController {
         
         return result.toArray(new String[0]);
     }
+    
+    // ========================================
+    // Date-based News Collection (Calendar)
+    // ========================================
+    
+    /**
+     * Scan all news URLs and group by date
+     */
+    @PostMapping("/scan-news-urls")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> scanNewsUrls() {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // Run in background thread
+            new Thread(() -> {
+                try {
+                    newsScheduler.scanNewsUrls();
+                } catch (Exception e) {
+                    log.error("URL scan failed", e);
+                }
+            }).start();
+            
+            response.put("success", true);
+            response.put("message", "URL scan started");
+            return ResponseEntity.ok(response);
+            
+        } catch (IllegalStateException e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+    
+    /**
+     * Get scanned news summary for calendar display
+     */
+    @GetMapping("/scanned-news-summary")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getScannedNewsSummary() {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            Map<String, Map<String, Object>> dateSummary = newsScheduler.getScannedNewsSummary();
+            String scanTimestamp = newsScheduler.getScanTimestamp();
+            
+            response.put("success", true);
+            response.put("scanTimestamp", scanTimestamp);
+            response.put("dates", dateSummary);
+            response.put("isCollecting", newsScheduler.isCollecting());
+            response.put("status", newsScheduler.getLastCollectionStatus());
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+    
+    /**
+     * Collect news for specific date
+     */
+    @PostMapping("/collect-news-by-date")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> collectNewsByDate(@RequestParam String date) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // Validate date format
+        if (!date.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            response.put("success", false);
+            response.put("message", "Invalid date format. Use YYYY-MM-DD");
+            return ResponseEntity.badRequest().body(response);
+        }
+        
+        try {
+            // Run in background thread
+            new Thread(() -> {
+                try {
+                    newsScheduler.collectNewsByDate(date);
+                } catch (Exception e) {
+                    log.error("Date collection failed", e);
+                }
+            }).start();
+            
+            response.put("success", true);
+            response.put("message", "Collection started for " + date);
+            return ResponseEntity.ok(response);
+            
+        } catch (IllegalStateException e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 }

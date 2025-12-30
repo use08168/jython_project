@@ -46,7 +46,8 @@
         .time-display .time-value { color: #9ca3af; font-family: 'SF Mono', monospace; }
 
         /* 환율 카드 */
-        .exchange-rate-card { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%); border: 1px solid #374151; border-radius: 12px; padding: 14px 20px; }
+        .exchange-rate-card { display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%); border: 1px solid #374151; border-radius: 12px; padding: 14px 20px; cursor: pointer; transition: all 0.2s; }
+        .exchange-rate-card:hover { border-color: #3b82f6; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); }
         .exchange-icon { font-size: 24px; }
         .exchange-info { display: flex; flex-direction: column; }
         .exchange-label { font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -211,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <div class="exchange-rate-card">
+            <div class="exchange-rate-card" onclick="location.href='/stock/detail/KRW%3DX'" title="원달러 환율 상세">
                 <div class="exchange-icon">💲</div>
                 <div class="exchange-info">
                     <div class="exchange-label">USD/KRW</div>

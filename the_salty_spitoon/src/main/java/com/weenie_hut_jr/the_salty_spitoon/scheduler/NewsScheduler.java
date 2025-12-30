@@ -317,6 +317,232 @@ public class NewsScheduler {
     
     public void setSchedulerEnabled(boolean enabled) {
         this.schedulerEnabled = enabled;
-        addLog(enabled ? "✅ 스케줄러 활성화" : "⏸️ 스케줄러 비활성화");
+        addLog(enabled ? "Scheduler enabled" : "Scheduler disabled");
+    }
+    
+    // ========================================
+    // Date-based Collection (Calendar Feature)
+    // ========================================
+    
+    /**
+     * Scan all news URLs and group by date
+     * Runs news_date_scanner.py
+     */
+    public void scanNewsUrls() {
+        if (isCollecting) {
+            throw new IllegalStateException("Collection in progress");
+        }
+        
+        isCollecting = true;
+        lastCollectionStatus = "Scanning URLs...";
+        addLog("[SCAN] Starting URL scan");
+        
+        try {
+            List<String> command = new ArrayList<>();
+            command.add("python");
+            command.add("-u");
+            command.add("python/news_date_scanner.py");
+            
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.redirectErrorStream(true);
+            pb.environment().put("PYTHONUNBUFFERED", "1");
+            
+            Process process = pb.start();
+            
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    log.info("[Python] {}", line);
+                    
+                    if (line.startsWith("PROGRESS:")) {
+                        String[] parts = line.split(":");
+                        if (parts.length >= 2) {
+                            lastCollectionStatus = "Scanning: " + parts[1];
+                        }
+                    }
+                }
+            }
+            
+            int exitCode = process.waitFor();
+            
+            if (exitCode != 0) {
+                throw new RuntimeException("news_date_scanner.py failed (exit: " + exitCode + ")");
+            }
+            
+            lastCollectionStatus = "Scan complete!";
+            addLog("[SCAN] URL scan completed");
+            
+        } catch (Exception e) {
+            log.error("URL scan failed", e);
+            lastCollectionStatus = "Scan failed: " + e.getMessage();
+            addLog("[ERROR] " + e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            isCollecting = false;
+        }
+    }
+    
+    /**
+     * Get scanned news summary from JSON
+     * Returns date -> {total, saved} mapping
+     */
+    public java.util.Map<String, java.util.Map<String, Object>> getScannedNewsSummary() {
+        java.util.Map<String, java.util.Map<String, Object>> result = new java.util.LinkedHashMap<>();
+        
+        try {
+            Path scanPath = Paths.get("python", "output", "scanned_news.json");
+            
+            if (!scanPath.toFile().exists()) {
+                return result;
+            }
+            
+            String jsonContent = Files.readString(scanPath);
+            JsonNode rootNode = objectMapper.readTree(jsonContent);
+            JsonNode newsByDate = rootNode.get("news_by_date");
+            
+            if (newsByDate == null) {
+                return result;
+            }
+            
+            // Iterate each date
+            java.util.Iterator<String> dates = newsByDate.fieldNames();
+            while (dates.hasNext()) {
+                String date = dates.next();
+                JsonNode newsArray = newsByDate.get(date);
+                int totalCount = newsArray.size();
+                
+                // Count saved news in DB for this date
+                int savedCount = 0;
+                for (JsonNode news : newsArray) {
+                    String title = news.get("title").asText();
+                    String publishedAtStr = news.get("published_at").asText();
+                    
+                    try {
+                        LocalDateTime publishedAt = LocalDateTime.parse(publishedAtStr, DATE_FORMATTER);
+                        if (stockNewsRepository.existsByTitleAndPublishedAt(title, publishedAt)) {
+                            savedCount++;
+                        }
+                    } catch (Exception e) {
+                        // Skip
+                    }
+                }
+                
+                java.util.Map<String, Object> dateInfo = new java.util.HashMap<>();
+                dateInfo.put("total", totalCount);
+                dateInfo.put("saved", savedCount);
+                dateInfo.put("unsaved", totalCount - savedCount);
+                
+                result.put(date, dateInfo);
+            }
+            
+        } catch (Exception e) {
+            log.error("Failed to read scanned news summary", e);
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Get scan timestamp from JSON
+     */
+    public String getScanTimestamp() {
+        try {
+            Path scanPath = Paths.get("python", "output", "scanned_news.json");
+            
+            if (!scanPath.toFile().exists()) {
+                return null;
+            }
+            
+            String jsonContent = Files.readString(scanPath);
+            JsonNode rootNode = objectMapper.readTree(jsonContent);
+            return rootNode.get("scan_timestamp").asText();
+            
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Collect news for specific date
+     * Runs news_collector.py --date YYYY-MM-DD
+     */
+    public void collectNewsByDate(String date) {
+        if (isCollecting) {
+            throw new IllegalStateException("Collection in progress");
+        }
+        
+        isCollecting = true;
+        lastCollectionStatus = "Collecting for " + date + "...";
+        lastCollectionTime = LocalDateTime.now();
+        lastCollectionCount = 0;
+        
+        addLog("[DATE] Collecting news for " + date);
+        
+        try {
+            // Run news_collector.py with --date
+            List<String> command = new ArrayList<>();
+            command.add("python");
+            command.add("-u");
+            command.add("python/news_collector.py");
+            command.add("--date");
+            command.add(date);
+            
+            ProcessBuilder pb = new ProcessBuilder(command);
+            pb.redirectErrorStream(true);
+            pb.environment().put("PYTHONUNBUFFERED", "1");
+            
+            Process process = pb.start();
+            
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    log.info("[Python] {}", line);
+                    
+                    if (line.startsWith("PROGRESS:")) {
+                        try {
+                            String[] parts = line.split(":");
+                            if (parts.length >= 2) {
+                                String[] progressParts = parts[1].split("/");
+                                int current = Integer.parseInt(progressParts[0]);
+                                int total = Integer.parseInt(progressParts[1]);
+                                String symbol = parts.length > 2 ? parts[2] : "";
+                                lastCollectionStatus = String.format(
+                                    "Processing %d/%d (%s)", current, total, symbol
+                                );
+                            }
+                        } catch (Exception e) {
+                            // Ignore
+                        }
+                    }
+                }
+            }
+            
+            int exitCode = process.waitFor();
+            
+            if (exitCode != 0) {
+                throw new RuntimeException("news_collector.py failed (exit: " + exitCode + ")");
+            }
+            
+            // Save to MySQL
+            Path jsonPath = Paths.get("python", "output", "news_details.json");
+            
+            if (jsonPath.toFile().exists()) {
+                int savedCount = filterAndSaveNews(jsonPath);
+                lastCollectionCount = savedCount;
+                addLog("[DATE] Saved " + savedCount + " news for " + date);
+            }
+            
+            lastCollectionStatus = "Complete! (" + date + ")";
+            
+        } catch (Exception e) {
+            log.error("Date-based collection failed", e);
+            lastCollectionStatus = "Failed: " + e.getMessage();
+            addLog("[ERROR] " + e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            isCollecting = false;
+        }
     }
 }
